@@ -16,5 +16,31 @@ module.exports = {
             { text: 'JS', link: '/pages/js/' },
             { text: 'ES6', link: '/pages/es6/' },
         ],
+        sidebar: {
+            '/pages/css/': [{
+                title: 'CSS',
+                path: '/pages/css/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/js/': [{
+                title: 'JS',
+                path: '/pages/js/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/es6/': [{
+                title: 'ES6',
+                path: '/pages/es6/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+        },
     },
 }
