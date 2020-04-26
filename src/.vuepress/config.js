@@ -42,5 +42,7 @@ module.exports = {
                 ]
             }],
         },
+        sidebarDepth: 2,
+        lastUpdated: '更新时间'
     },
 }
