@@ -65,12 +65,12 @@ box-sizing: 'border-box'; // IE盒模型
 7. 相邻选择器：`div + p`选择所有紧接着div之后的p元素
 8. 属性选择器：
 ```css
-<span title="111">111</span> [title]选择所有带有title属性的元素
-<input type="text" name=""> [type='text']选择所有使用type='text'的元素
-<div class="box box1">111</div> [class~=box1]选择所有class中包含box1类名的元素
-<div class="box1">111</div> [class^=box]选择所有类名以box开头的元素
-<div class="box box1">111</div> [class$=x1]选择所有类名以x1为结尾的元素，注意：[class$=1]这样匹配数字是无效的
-<div class="box1">111</div> [class*=ox] 选择所有类名中带有ox字符的元素
+[title]选择所有带有title属性的元素
+[type='text']选择所有使用type='text'的元素
+[class~=box1]选择所有class中包含box1类名的元素
+[class^=box]选择所有类名以box开头的元素
+[class$=x1]选择所有类名以x1为结尾的元素，注意：[class$=1]这样匹配数字是无效的
+[class*=ox] 选择所有类名中带有ox字符的元素
 ```
 9. 伪类选择器：
 ```css

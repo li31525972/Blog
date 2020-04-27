@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f0d944b-bf8d-44e8-b435-1c3c976bdacc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/.vuepress/public/box-ie.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.vuepress/public/box-normal.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/css3/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/vue/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/.vuepress/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/css/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/css/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -27,8 +19,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/css/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="791">
-                <caret line="112" lean-forward="true" selection-start-line="112" selection-end-line="112" />
+              <first_editor relative-caret-position="349">
+                <caret line="72" selection-start-line="72" selection-end-line="72" />
               </first_editor>
               <second_editor />
             </state>
@@ -183,12 +175,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587867840839</updated>
-      <workItem from="1587867842366" duration="12641000" />
+      <workItem from="1587867842366" duration="13305000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12641000" />
+    <option name="totallyTimeSpent" value="13305000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -287,8 +279,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/css/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="791">
-            <caret line="112" lean-forward="true" selection-start-line="112" selection-end-line="112" />
+          <first_editor relative-caret-position="349">
+            <caret line="72" selection-start-line="72" selection-end-line="72" />
           </first_editor>
           <second_editor />
         </state>
