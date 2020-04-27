@@ -13,13 +13,23 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: 'CSS', link: '/pages/css/' },
+            { text: 'CSS3', link: '/pages/css3/' },
             { text: 'JS', link: '/pages/js/' },
             { text: 'ES6', link: '/pages/es6/' },
+            { text: 'VUE', link: '/pages/vue/' },
         ],
         sidebar: {
             '/pages/css/': [{
                 title: 'CSS',
                 path: '/pages/css/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/css3/': [{
+                title: 'CSS3',
+                path: '/pages/css3/',
                 collapsable: false,
                 children: [
                     ''
@@ -36,6 +46,14 @@ module.exports = {
             '/pages/es6/': [{
                 title: 'ES6',
                 path: '/pages/es6/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/vue/': [{
+                title: 'VUE',
+                path: '/pages/vue/',
                 collapsable: false,
                 children: [
                     ''

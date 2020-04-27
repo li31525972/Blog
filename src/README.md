@@ -4,7 +4,7 @@ heroImage: /logo.jpeg
 heroText: Yahui的博客
 tagline: 一只菜鸟前端的学习之路
 actionText: Get Started →
-actionLink: /pages/js
+actionLink: /pages/js/
 features:
 - title: 关于博客
   details: 前端基础知识整理
