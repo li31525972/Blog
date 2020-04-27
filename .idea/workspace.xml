@@ -40,8 +40,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/vue/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="567">
-                <caret line="53" column="18" selection-start-line="53" selection-start-column="18" selection-end-line="53" selection-end-column="18" />
+              <first_editor relative-caret-position="584">
+                <caret line="54" column="54" selection-start-line="54" selection-start-column="54" selection-end-line="54" selection-end-column="54" />
               </first_editor>
               <second_editor />
             </state>
@@ -166,7 +166,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16043000" />
+    <option name="totallyTimeSpent" value="16137000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -258,8 +258,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/vue/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="567">
-            <caret line="53" column="18" selection-start-line="53" selection-start-column="18" selection-end-line="53" selection-end-column="18" />
+          <first_editor relative-caret-position="584">
+            <caret line="54" column="54" selection-start-line="54" selection-start-column="54" selection-end-line="54" selection-end-column="54" />
           </first_editor>
           <second_editor />
         </state>
