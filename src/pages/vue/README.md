@@ -32,6 +32,8 @@ v-show根据表达式的值的真假显示/隐藏元素
 key的作用，如果不加key那么数据发生变化的时候不会移动DOM元素来进行匹配数据项的顺序
 
 ```
+<font color='red'><b>注意：当v-if和v-else中的元素是一样的时候请加key, 默认情况下，Vue在元素一样的时候不会进行元素的替换，而是修补元素，替换不一样的部分。[详情请看官网介绍](https://cn.vuejs.org/v2/guide/conditional.html#%E7%94%A8-key-%E7%AE%A1%E7%90%86%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E5%85%83%E7%B4%A0)</b></font>
+
 ## 修饰符
 ### 事件修饰符
 - .stop 阻止单击事件继续传播 相当于 event.stopPropagation()
@@ -117,9 +119,62 @@ watch: {
 ## class与style绑定
 ### class
 ```vue
-<!--active为一个变量，变量的值是一个类名， 用来动态的-->
+<!--active为一个变量，变量的值是一个类名， 用来动态的切换类名-->
 <div v-bind:class="active"></div>
-<div v-bind:class="{ active: isActive }"></div> // active是一个类名，isActive是一个变量，真值使用这个类名否则不用
+<!--active是一个类名，isActive是一个变量或表达式，根据这个变量的值来确定是否使用这个类名-->
+<div v-bind:class="{ active: isActive }"></div>
+<!--数组语法-->
+<div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+<!--在数组中使用对象形式-->
+<div v-bind:class="[{ active: isActive }, errorClass]"></div>
+```
 
+### style
+```vue
+<!--基本使用：使用驼峰式或kebab-case方式-->
+<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+<!--多重值方式-->
+<div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+这样写只会渲染数组中最后一个被浏览器支持的值。在本例中，如果浏览器支持不带浏览器前缀的 flexbox，那么就只会渲染 display: flex。
 
+```
+
+<font color='red'><p>注意：应尽量避免使用style，可以用class实现的就不用style</p></font>
+
+## 过渡、动画
+
+## 组件
+### 全局组件
+```vue
+Vue.component('组件名', 组件)
+```
+<font color='red'><b>注意：应尽量避免使用全局组件, 原因如下：</b><p>1. 当webpack进行打包的时候如果没有使用这个组件，但是也会打包进去，增加文件的体积，造成用户下载的js文件无谓的加大</p><p>2. 从开发角度来看，使用全局组件不利于查找，于开发、维护人员来说，你这样真的好吗？</p></font>
+
+### 局部组件
+```vue
+var ComponentA = { /* ... */ } 或者 import ComponentA from './ComponentA.vue'
+<!--然后在 components 选项中定义你想要使用的组件：-->
+new Vue({
+  el: '#app',
+  components: {
+    ComponentA,
+  }
+})
+
+```
+如果局部注册每次需要引入一大堆组件，怎么解决方便使用呢？请看下章介绍
+
+### 局部组件一次引入多个方式
+```vue
+在components文件夹下创建一个index.js文件，然后将所有公共组件在这里导入导出，如：
+export { default as CommonTable } from './CommonTable'
+export { default as CommonForm } from './CommonForm'
+
+在Vue文件中使用时
+import { CommonTable, CommonForm } from '@/components'
+
+components: {
+    CommonTable,
+    CommonForm
+}
 ```
