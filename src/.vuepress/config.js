@@ -17,6 +17,7 @@ module.exports = {
             { text: 'JS', link: '/pages/js/' },
             { text: 'ES6', link: '/pages/es6/' },
             { text: 'VUE', link: '/pages/vue/' },
+            { text: '开发问题', link: '/pages/question/' },
         ],
         sidebar: {
             '/pages/css/': [{
@@ -54,6 +55,14 @@ module.exports = {
             '/pages/vue/': [{
                 title: 'VUE',
                 path: '/pages/vue/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/question/': [{
+                title: '开发问题',
+                path: '/pages/question/',
                 collapsable: false,
                 children: [
                     ''
