@@ -7,11 +7,11 @@ actionText: Get Started →
 actionLink: /pages/js/
 features:
 - title: 关于博客
-  details: 前端基础知识整理
+  details: 前端基础知识整理、记录、以及实战当中的应用场景和注意事项
 - title: 关于我
   details: 一只菜鸟前端
-- title: 计划
-  details: 将工作中的所作所得进行整理
+- title: 关于未来计划
+  details: 下个博客将着重讲解源码实现，敬请期待--
 footer: MIT Licensed | Copyright © 2018-present Yahui
 ---
 
