@@ -121,3 +121,113 @@ h1::after {
 ```
 <font color="red"><b>伪类和伪元素的区别：伪类用于选择DOM树之外的信息，`:visited, :active`包含满足一定逻辑条件的DOM树中的元素, `:first-child, :target`</b></font>
 
+## 长度单位
+### 绝对长度单位
+- in 英寸
+- cm 厘米
+- mm 毫米
+- q 四分之一毫米
+- pc 派卡(印刷术语)
+- px 像素(常用)
+
+### 分辨率单位
+- dpi 点每英寸(在长为一英寸的范围能显示的点数)
+- dpcm 点每厘米，和dpi类似，不过范围是1厘米
+- dppx 点每像素， 每个px单位显示的点数，从css3开始，1dppx相当于96dpi
+<font color="red"><b>这些单位只能在媒体查询中使用</b></font>
+
+### 相对长度单位
+- em 1em等于父元素的font-size属性值，如果font-size等于14，那么1em就为14px
+- rem 和em类似，不过是相对于根元素(html)的font-size
+- ex 有兴趣可以自行百度
+- ch css3新加的，IE显示不对，有兴趣可自行百度
+
+### 视区单位
+- vw 视区宽度单位
+- vh 视区高度单位
+<font color="red"><b>计算方式：除以100，如果视区的宽度或高度为900px, 那么1vw或1vh就等于9px</b></font>
+- vmin 视区尺寸最小值单位(取vm和vh中最小的那个)
+- vmax 视区尺寸最大值单位(取vm和vh中最大的那个)
+
+### 计算值 calc()
+- 支持加减乘除，和数学运算方式一样
+
+## 颜色
+### 具名颜色
+- color: red; 
+
+### 十六进制
+- color: #fff;
+
+### RGB
+- color: rgb(255,255,255)
+- 值可以是整数(0 - 255)，也可以是百分比(0 - 100%)
+
+### RGBa
+- color: rgba(255,255,255, .3)
+- 和rgb类似，最后一个值为透明度
+
+### HSL
+- css3新加
+- color: hsl(色相，饱和度，明度)
+- 色相(0 - 360), 饱和度和明度(0 - 100%)
+
+### HSLa
+- 和hsl类似，最后一个值为透明度
+
+## 字体 font
+- font: font-style, font-weight, font-size, font-family
+```css
+{
+    font: normal 400 16px '微软雅黑';
+}
+```
+### font-family
+```css
+{
+    font-family: xxx;
+}
+```
+
+### font-style
+- 字体风格 常规(normal)、斜体(italic)、倾斜体(oblique)，默认值normal
+```css
+{
+    font-style: normal;
+}
+```
+### font-weight
+- 字号字重, 取值范围100 - 900
+- 400相当于normal
+- 500相当于medium
+- 600-700对应bold
+- 800-900对应bolder
+```css
+{
+    font-weight: 400;
+}
+```
+<font color="red"><b>请使用数值类型，英文类型请自行查看浏览器机制</b></font>
+### font-size
+```css
+{
+    font-size: 16px;
+}
+```
+### font-stretch
+- 字体拉伸
+```css
+{
+    font-stretch: normal;
+}
+```
+<font color="red"><b>macOS和iOS不支持</b></font>
+
+### @font-face
+```css
+@font-face {
+    font-family: 'iconfont';
+    src: url('xxx.otf')
+}
+```
+- 支持的字体 eot、otf、svg、ttf、woff
