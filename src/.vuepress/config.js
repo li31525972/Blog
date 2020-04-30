@@ -41,7 +41,10 @@ module.exports = {
                 path: '/pages/js/',
                 collapsable: false,
                 children: [
-                    ''
+                    '',
+                    'object',
+                    'BOM',
+                    'DOM',
                 ]
             }],
             '/pages/es6/': [{
