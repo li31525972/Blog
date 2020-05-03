@@ -61,11 +61,133 @@ var b = a > 1 ? 100 : 1000
 - `with` 严格模式下不能使用，视为语法错误
 - `switch`
 
-### 函数
+## 函数
+### 基本用法
 ```js
 function fun() {} // 没有重载(多次声明，后面覆盖前面的)
+let fun = function() {}
 // 可以通过 arguments 来访问匿名参数， 是一个数组
+// 两种函数创建的区别，在js文件预解析阶段用表达式创建的函数只会提升变量，那么在这个表达式上面调用这个函数就会报错
 ```
+### 属性
+- `length` 表示函数的命名参数的个数
+- `prototype` 访问原型，<font color='red'><b>不可通过for-in枚举</b></font>
+
+### 方法
+- `apply()` 在特定的作用域中调用函数，参数：
+1. 在其中运行函数的作用域(this指向)
+2. 参数数组，可以是Array的实例，也可以是arguments对象
+
+- `call()` 在特定的作用域中调用函数，参数：
+1. 在其中运行函数的作用域(this指向)
+2. 参数，多个参数使用,号分隔
+
+- `bind()` 创建一个函数的实例，其this值绑定到传给`bind()`函数的值
+
+### 递归
+- 递归函数是一个在函数通过名字调用自身的情况下构成的，先看案例
+```js
+    function count(num) {
+        if (num <= 1) {
+            return 1
+        } else {
+            return num * count(num - 1)
+        }
+    }
+    // 这是一个典型的递归阶乘函数，虽然这个函数没什么问题，但是下面的代码却可能导致出错
+    console.log(count(5)) // 120
+    var cur = count
+    count = null
+    console.log(cur(4)) // Uncaught TypeError: count is not a function
+```
+- 那么怎么解决呢？`arguments.callee` 可以解决这个问题，`arguments.callee` 是一个指向正在执行的函数的指针, 可以用它来实现对函数的递归调用
+```js
+    function count(num) {
+        if (num <= 1) {
+            return 1
+        } else {
+            return num * arguments.callee(num - 1)
+        }
+    }
+    console.log(count(5)) // 120
+    var cur = count
+    count = null
+    console.log(cur(4)) // 24
+```
+
+- 但是在严格模式下不能通过脚本访问 `arguments.callee` ， 访问这个属性会导致错误，不过可以通过函数表达式来达成同样的结果
+```js
+    let count = function f(num) {
+        if (num <= 1) {
+            return 1
+        } else {
+            return num * f(num - 1)
+        }
+    }
+    console.log(count(5)) // 120
+    var cur = count
+    count = null
+    console.log(cur(4)) // 24
+``` 
+
+### 闭包
+- 闭包是指什么？闭包是指有权访问另一个函数作用域中的变量的函数, 那么闭包的作用是什么呢？ 显而易见，就是延长变量的生命周期了。。简单的闭包案例：
+```js
+    function a(num) {
+        var count = 10
+
+        // 在这个函数的内部调用了另一个作用域中的count，这样就形成了闭包
+        return function() {
+            return count + num
+        }
+    }
+
+    let b = a(5)
+    console.log(b())
+```
+<font color='red'><b>闭包的实战使用案例还是挺多的，个人对他的使用场景大概就是在 调用了某个原生或者插件函数时，向这个函数内添加自己的参数，具体实现可以参考 `Array 的 sort 方法`</b></font>
+
+### 闭包的弊端
+- 一般的函数执行完毕后，局部活动对象都会被销毁，内存中只保存全局作用域的变量对象 但是向上面的例子，当函数执行完毕后，因为匿名函数内部调用了外部函数的变量不会销毁，需要执行完毕后手动销毁
+```js
+    function a(num) {
+        var count = 10
+
+        return function() {
+            return count + num
+        }
+    }
+
+    let b = a(5)
+    console.log(b())
+    a = null // 销毁闭包
+```
+
+- 除此之外还会引发什么问题呢？ <font color='red'><b>内存泄漏！</b></font>， 具体来说，如果闭包的作用域中保存着一个 `HTML` 元素， 那么该元素将无法被销毁，举例：
+```js
+    function handleClick() {
+        var element = document.querySelector('div')
+
+        element.onclick = function() {
+            console.log(element.id)
+        }
+    }
+```
+
+- 怎么解决呢？ 往下看：
+```js
+    function handleClick() {
+        var element = document.querySelector('div')
+        var id = element.id
+        element.onclick = function() {
+            console.log(id)
+        }
+
+        element = null
+    }
+```
+- 通过把`element.id`的一个副本保存在一个变量中，并且在闭包中引用了该变量消除了循环引用，但是仅仅做到这一点还不能解决内存泄漏的问题，必须要记住：闭包会引用包含函数的整个活动对象，而其中也包含着`element`，因此，有必要将`element`置为`null`
+
 ## 变量、作用域和内存
 
 ### 变量类型

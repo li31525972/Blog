@@ -42,7 +42,14 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '',
-                    'object',
+                    'Object',
+                    'Array',
+                    'Date',
+                    'Math',
+                    'Number',
+                    'RegExp',
+                    'Error',
+                    'Global',
                     'BOM',
                     'DOM',
                 ]

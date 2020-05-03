@@ -1,353 +1,351 @@
-# javascript 对象
+# 面向对象
+## 概念
+- 面向对象的语言都有一个标志，那就是他们都有类的概念，而通过类可以创建任意个具有相同属性和方法的对象，`javascript`中没有类的概念，所以他的对象也和基于类的语言中的对象有所不同，`JavaScript`的对象为无序属性的集合，其属性可以包含基本值、对象、或者函数
+- 每个对象都是基于一个引用类型创建的，这个引用类型可以是原生类型，也可以是开发者定义的类型
 
-## Array 对象
-
-### push()
-- 向数组的末尾添加数据,可以接收多个参数
+## 属性类型
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.push(8)
-    console.log(count) // 6 返回数组的长度
-    console.log(list) // [1, 2, 3, 4, 5, 8]
+let Per = {
+    name: '小明’
+}
+```
+- [[Configurable]] 表示能否通过delete删除属性重新定义属性，例子中为true
+- [[Enumerable]] 表示能否通过for-in循环返回属性，例子中为true，<font color='red'><b>注意：不是所有浏览器都照此实现</b></font>
+- [[Writable]] 表示能否修改属性的值， 例子中为true
+- [[Value]] 包含这个属性的数据值，读取属性的时候从这里读，写入的时候将新值保存在这个位置，默认值为undefined
+
+
+- 要修改属性的特性，只能用<font color='red'><b>Object.defineProperty()</b></font>方法，这个方法接收三个参数：
+    1. 属性的对象
+    2. 属性的名字
+    3. 描述符对象(描述符对象的属性必须是：Configurable、Enumerable、Writable和Value)
+```js
+    // 定义一个对象
+    let Per = {
+        name: '小明',
+        sayhi() {
+            alert(this.name)
+        }
+    }
+    Object.defineProperty(Per, 'name', {
+        writable: false, // 设置为不可修改对象的值
+        configurable: false, // 设置属性不能删除
+        enumerable: false, // 设置为不能for-in循环出属性
+        value: '小红'
+    })
+    Per.name = '小兰'
+    console.log(Per.name); // 小红
+    Per = {
+        name: '小白'
+    }
+    console.log(Per.name) // 小白 对象的指针修改了
 ```
 
-### unshift()
-- 向数组的开头添加数据,可以接收多个参数
+## 创建对象
+### 工厂模式
+- 有兴趣自行百度，基本不用
+
+### 构造函数模式
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.unshift(8)
-    console.log(count) // 6 返回数组的长度
-    console.log(list) // [8, 1, 2, 3, 4, 5]
+    function Person(name, age) {
+        this.name = name
+        this.age = age
+
+        this.sayName = function() {
+            return this.name
+        }
+    }
+
+    let person1 = new Person('小明', 18)
+    let person2 = new Person('小红', 20)
+    console.log(person1.name, person1.age, person1.sayName()) // 小明 18 小明
+    console.log(person2.name, person2.age, person2.sayName()) // 小红 20 小红
+```
+<font color='red'><b>构造函数和普通函数的区别就是只能通过 `new` 操作符创建实例</b></font>, 以这种方式调用构造函数实际上会经历以下4个步骤：
+1. 创建一个空对象
+2. 将构造函数的作用域赋给新对象(因此this就指向了这个新对象)
+3. 执行构造函数内的代码(为新对象添加属性和方法)
+4. 返回新对象
+
+<font color='red'><b>创建自定义的构造函数意味着将来可以将它的实例标识为一种特定的类型，这正是构造函数胜过工厂模式的地方</b></font>
+
+### 原型模式
+- 构造函数也能满足需求，为什么要用原型模式？ 向上面的代码中构造函数内有个sayName函数，但是person1和person2中的两个`sayName`方法<font color='red'><b>不是同一个 `Function` 实例，`ECMAScript`中函数也是对象</b></font>，因此每实例化一个对象，可以这么理解：
+```js
+    function Person(name, age) {
+        this.name = name
+        this.age = age
+
+        this.sayName = new Function() // 每次都新建一个函数
+    }
+```
+创建两个完成同样任务的`Function`实例没有必要，况且有this对象在，根本不用在执行代码前将函数绑定到特定对象上面，那么怎么解决呢？
+```js
+    function Person(name, age) {
+        this.name = name
+        this.age = age
+
+        this.sayName = sayName
+    }
+
+    function sayName() {
+        return this.name
+    }
 ```
 
-### pop()
-- 删除数组的最后一项
-```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.pop()
-    console.log(count) // 5 返回删除后的项
-    console.log(list) // [1, 2, 3, 4]
-```
+上面例子中将`sayName`方法转移到了构造函数的外部，等于设置成了全局的`sayName`函数，这样一来person1和person2就共享了同一个`Function`实例，可是新问题又来了，在全局中定义的函数实际上只是被某个对象调用，让这个全局函数有点名不符实，更让人无法接受的是：如果对象需要定义很多方法，那么就需要定义很多个全局函数，
+那么这个构造函数就没有丝毫封装性可言了，好在原型模式提供了解决的方法，请看下面 `prototype` 章节
 
-### shift()
-- 删除数组的第一项
+### 原型模式的问题
+- 原型模式省略了构造函数传递初始化参数这一环节，结果所有的实例在默认情况下会取得相同的属性和方法，虽然有些不方便，但不是最大的问题，最大的问题是由其共享的本性导致的共享引用类型的数据
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.shift()
-    console.log(count) // 1 返回删除后的项
-    console.log(list) // [2, 3, 4, 5]
-```
-
-### reverse()
-- 翻转数组项的顺序
-```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.reverse()
-    console.log(count) //  [5, 4, 3, 2, 1] 返回翻转后的数组
-    console.log(list) //  [5, 4, 3, 2, 1]
-```
-
-### sort()
-- 对数组进行排序
-```js
-    // 默认情况下，会调用每个数组项的 toString() 方法，然后比较得到字符串
-    let list = [1, 10, 3, 15, 5]
-    let count = list.sort()
-    console.log(count) // [1, 10, 15, 3, 5] 返回排序后的数组
-    console.log(list) // [1, 10, 15, 3, 5]
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.list = [1, 2]
+    let person1 = new Person()
+    person1.list.push(3)
+    let person2 = new Person()
+    console.log(person1.list) // [1, 2, 3]
+    console.log(person2.list) // [1, 2, 3]
     
-    // sort() 支持传入一个函数，该函数接收2个参数，1.下一项 2.当前项
-    let list = [1, 10, 3, 15, 5]
-    let count = list.sort( function(a, b) {
-        // a - b 升序  b - a 倒序
-        return a - b 
-    })
-    console.log(count) // [1, 3, 5, 10, 15] 返回排序后的数组
-    console.log(list) // [1, 3, 5, 10, 15]
 ```
+- 如果初衷就是要所有的实例，那么这个结果没问题，一般实例都要有属于自己的属性，那么这个就是个问题了，解决方案 -> 请看组合使用构造函数和原型模式
 
-### concat()
-- 合并两个或多个数组， <font color='red'><b>不改变原数组</b></font>
+### 组合使用构造函数和原型模式
+- <font color='red'><b>最常用的创建自定义类型的方式</b></font>
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.concat(7, 8)
-    console.log(count) // [1, 2, 3, 4, 5, 7, 8] 合并后的结果
-    console.log(list) // [1, 2, 3, 4, 5] 不改变原数组
+    function Person(name, age, list) {
+        this.name = name
+        this.age = age
+        this.list = list
+    }
+    Person.prototype.sayName = function() {
+        return this.name
+    }
+    let person1 = new Person('小明', 18, [1, 2])
+    let person2 = new Person('小红', 20, [3, 4, 5])
+    console.log(person1) // {name: "小明", age: 18, list: Array(2)}
+    console.log(person2) // {name: "小红", age: 20, list: Array(3)}
 ```
+- 每个实例都会有自己的一份实例属性的副本，同时又共享着对方法的引用
+- <font color='red'><b>这种构造函数和原型混合的模式，是目前使用最广泛的一种创建自定义类型的方法，可以说就是定义引用类型的默认模式</b></font>
 
-### slice()
-- 返回开始和结束之间的项，不包括结束位置，参数：
-1. `start` 开始位置
-2. `end` 结束位置，可以为负数，负数从后面查找
+
+## 原型属性和方法
+
+### prototype
+- 每个函数都有一个<b>`prototype`</b>原型属性，这个属性时一个指针，指向一个对象，使用原型对象的好处是可以让所有的对象实例共享它所包含的属性和方法，这样就不必再构造函数内部定义对象实例的信息，而是可以将这些信息直接添加到原型对象中，举例：
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.slice(1, 2)
-    console.log(count) // [2] 返回的值为一个新数组
-    console.log(list) // [1, 2, 3, 4, 5]
-```
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.sayName = function() {
+        return this.name
+    }
 
-### splice()
-- 从数组中添加或删除元素，<font color='red'><b>改变原数组</b></font>，参数：
-1. `start` 开始位置
-2. `number` 删除的个数
-3. 替换元素，可以是多个
+    let person1 = new Person()
+    console.log(person1.name, person1.age, person1.sayName()) // 小明 18 小明
+```
+- 向上面所示，我们将 `sayName` 方法直接添加到了 `Person` 的 `prototype` 属性中， 构造函数变成了一个空函数，即使这样，我们也可以通过调用构造函数创建实例，而且新实例当中也会包含同样的属性和方法，但是与构造函数不同的是，所有的实例访问的都是同一个属性和 `sayName` 方法, <font color='red'>虽然所有的对象实例都可以访问原型上的属性和方法，但是不能通过对象实例重写原型中的值，只会屏蔽覆盖</font>,看下面例子：
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.splice(1, 2, '1', '2', '3')
-    console.log(count) // [2, 3] 返回删除的元素
-    console.log(list) // [1, "1", "2", "3", 4, 5] 操作后的数组
-```
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.sayName = function() {
+        return this.name
+    }
 
-### indexOf()
-- 正序查找元素的索引
+    let person1 = new Person()
+    let person2 = new Person()
+
+    person1.name = '小红'
+    person1.age = 20
+    console.log(person1.name, person1.age) // 小红 20 实例属性
+    console.log(person2.name, person2.age) // 小明 18 原型属性
+```
+- 当代码搜索对象的某个属性的时候会先搜索对象的实例，如果有就返回，如果没有就搜索原型，每当为对象实例添加一个属性时，这个属性就会屏蔽原型对象中的同名属性，换句话说就是只会阻止我们访问那个属性，不会修改原型上的属性， 但是使用 <font color='red'><b>delete</b></font> 操作符可以删除实例属性，让我们重新访问原型属性：
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.indexOf(1)
-    let nocount = list.indexOf(6)
-    console.log(count) // 0 查到
-    console.log(nocount) // -1 没查到
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.sayName = function() {
+        return this.name
+    }
+
+    let person1 = new Person()
+    let person2 = new Person()
+
+    person1.name = '小红'
+    person1.age = 20
+    delete person1.name
+    console.log(person1.name, person1.age) // 小明 20
+    console.log(person2.name, person2.age) // 小明 18
 ```
 
-### lastIndexOf()
-- 倒序查找元素的索引
+- 简洁语法
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.lastIndexOf(1)
-    let nocount = list.lastIndexOf(6)
-    console.log(count) // 0 查到
-    console.log(nocount) // -1 没查到
+    function Person() {}
+    Person.prototype = {
+        name: '小明',
+        age: 18
+    }
+    // 注意：constructor 的值改变了，不在指向 Person 而是指向新的对象，怎么解决呢？
+    Person.prototype = {
+        constructor: Person,
+        name: '小明',
+        age: 18
+    }
+    // 但是这样会导致它的 Enumerable 属性设为false，默认情况下，原生的 constructor 属性是不可枚举的，如果兼容 ECMAScript5的jsvascript引擎，可以试一试 Object.defineProperty()
 ```
 
-### every()
-- 检测数组的每个元素是否都符合条件
+### hasOwnProperty()
+- 使用 `hasOwnProperty()` 方法可以检测一个属性或方法是存在于实例中还是原型中
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.every(function(item) {
-        return item > 0
-    })
-    console.log(count) // true
-    
-    let count = list.every(function(item) {
-        return item > 1
-    })
-    console.log(count) // false
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.sayName = function() {
+        return this.name
+    }
+
+    let person1 = new Person()
+    let person2 = new Person()
+
+    person1.name = '小红'
+    person1.age = 20
+    console.log(person1.hasOwnProperty('name')) // true
+    console.log(person2.hasOwnProperty('name')) // false
 ```
 
-### filter()
-- 检测数组元素，返回符合条件的元素组成的数组
+### in
+- 判断一个属性是否存在于实例或原型中
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.filter(function(item) {
-        return item > 1
-    })
-    console.log(count) // [2, 3, 4, 5]
-    
-    let count = list.filter(function(item) {
-        return item > 6
-    })
-    console.log(count) // []
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.sayName = function() {
+        return this.name
+    }
+
+    let person1 = new Person()
+    let person2 = new Person()
+
+    person1.name = '小红'
+    person1.age = 20
+    console.log('name' in person1) // true
+    console.log('name' in person2) // true
+    console.log('name1' in person1) // false
 ```
 
-### forEach()
-- 数组每个元素都执行一次回调函数, 参数：
-1. `item` 当前项
-2. `index` 当前项的索引
-3. `arr` 当前项所属数组
+### constructor
+- 所有的原型对象会自动获得一个 `constructor` 属性，这个属性包含一个指向 `prototype` 属性所在函数的指针
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.forEach(function(item) {
-        item = item + 10
-    })
-    console.log(count) // undefined 没有返回值
-    console.log(list) // [1, 2, 3, 4, 5] 不改变原数组
-    
-    // 要改变原数组要这么做
-    let count = list.forEach(function(item, index, arr) {
-        arr[index] = item + 10
-    })
-    console.log(count) // undefined 没有返回值
-    console.log(list) // [11, 12, 13, 14, 15]
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.sayName = function() {
+        return this.name
+    }
+
+    console.log(Person.prototype.constructor) // Person() {}
 ```
 
-### some()
-- 检测数组中是否有元素满足指定条件，有一个就返回true
+### isPrototypeOf()
+- 虽然在所有的实例中都无法访问到 `prototype`，但是可以通过 `isPrototypeOf` 来判断对象之间是否存在引用：
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.some(function(item) {
-        return item > 1
-    })
-    console.log(count) // true
-    
-    let count = list.some(function(item) {
-        return item > 5
-    })
-    console.log(count) // false
-```
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.sayName = function() {
+        return this.name
+    }
 
-### map()
-- 对数组的每一项运行指定的函数，返回每次函数调用的结果组成的数组，<font color='red'><b>不改变原数组</b></font>
+    let person1 = new Person()
+    console.log(person1.name, person1.age, person1.sayName())
+    console.log(Person.prototype.isPrototypeOf(person1)) // true
+```
+- `person1` 内部有一个指针指向了 `Person.prototype` 那么就返回 true
+
+### getPrototypeOf()
+- 该方法返回 `prototype` 的值
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.map(function(item) {
-        return item += 10
-    })
-    console.log(count) // [11, 12, 13, 14, 15] 返回的结果
-    console.log(list) // [1, 2, 3, 4, 5] 原数组
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.sayName = function() {
+        return this.name
+    }
+
+    let person1 = new Person()
+    console.log(Object.getPrototypeOf(person1))
+    // 相当于 Person.prototype
 ```
 
-### reduce()
-- 正序将数组元素计算为一个值，参数：
-1. `prev` 前一个值
-2. `cur` 当前值
-3. `index` 当前索取
-4. `arr` 数组对象
+### keys()
+- 返回对象上所有可枚举的实例属性
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.reduce(function(prev, cur, index, arr) {
-        return prev + cur
-    })
-    console.log(count) // 15 
+    function Person() {}
+    Person.prototype.name = '小明'
+    Person.prototype.age = 18
+    Person.prototype.sayName = function() {
+        return this.name
+    }
+
+    let person1 = new Person()
+    let person2 = new Person()
+
+    person1.name = '小红'
+    console.log(Object.keys(person1)) // ["name"]
 ```
 
-### reduceRight()
-- 倒序将数组元素计算为一个值，参数：
-1. `prev` 前一个值
-2. `cur` 当前值
-3. `index` 当前索取
-4. `arr` 数组对象
+
+## 继承和原型链
+### 继承概念
+- 大多数语言的都支持两种继承方式：接口继承和实现继承，在 `ECMAScript` 因为没有函数签名，无法实现接口继承，只支持实现继承，而实现继承主要靠原型链来实现
+
+### 组合继承
+- 最常用的继承方式
 ```js
-    let list = [1, 2, 3, 4, 5]
-    let count = list.reduceRight(function(prev, cur, index, arr) {
-        return prev + cur
-    })
-    console.log(count) // 15 
+    function A(name) {
+        this.name = name
+    }
+
+    function B(name, age) {
+        A.call(this, name)
+        this.age = age
+    }
+    B.prototype = new A()
+    B.prototype.constructor = B
+
+    let person1 = new B('小明', 20)
+    let person2 = new B('小红', 18)
+    console.log(person1) // {name: "小明", age: 20}
+    console.log(person2) // {name: "小红", age: 18}
 ```
 
-## Boolean 对象
+### 原型式继承
+- 请自行百度搜索
 
+### 寄生式继承
+- 请自行百度搜索
 
-## Date 对象
-### parse()
-- 根据指定日期字符串返回该日期相应的毫秒数
+### 寄生组合式继承
+- 请自行百度搜索
+
+### 原型链概念
+- 利用原型让一个引用类型继承另一个引用类型的属性和方法，举例：让一个原型对象等于另一个类型的实例，那么此时的原型对象包含一个指向和另一个原型的指针，相应的，另一个原型中也包含一个指向和另一个构造函数的指针，层层递进，构成了实例于原型的链条， 这就是原型链的基本概念
 ```js
-    let now = new Date('2010-05-02')
-    let cur = Date.parse('2010-05-02')
-    console.log(now) // Sun May 02 2010 08:00:00 GMT+0800 (中国标准时间)
-    console.log(cur) // 1272758400000
+    function A(name) {
+        this.name = name
+    }
+
+    function B(age) {
+        this.age = age
+    }
+    B.prototype = new A('小明')
+
+    let person = new B(20)
+    console.log(person) // person 继承了 B， B继承了A
 ```
 
-### UTC()
-- 根据参数返回相应日期的毫秒数，<font color='red'><b>*号为必传项</b></font>,参数：
-1. <font color='red'><b>*</b></font>年份
-2. <font color='red'><b>*</b></font>月份(0-11)
-3. 月中那一天(0-31)
-4. 小时数(0-23)
-5. 分钟
-6. 秒
-7. 毫秒
-```js
-    let now = Date.UTC(2010, 5, 2)
-    console.log(now) // 1275436800000
-```
-### now()
-- 获取当前时间的毫秒数
-```js
-    let now = Date.now()
-    console.log(now) // 1588405202958
-
-```
-
-### getFullYear()
-- 返回给定日期当前的年份
-```js
-    let cur = new Date().getFullYear()
-    console.log(cur) // 2019
-```
-
-### getMonth()
-- 返回给定日期当前的月份(月份为0-11)
-```js
-    let cur = new Date().getMonth()
-    console.log(cur) // 7
-```
-
-### getDate()
-- 返回指定日期当前几号
-```js
-    let cur = new Date().getDate()
-    console.log(cur) // 2
-```
-
-### getDay()
-- 返回给定日期当前是星期几
-```js
-    let cur = new Date().getDay()
-    console.log(cur) // 6
-```
-
-### getHours()
-- 返回给定日期当前的小时数(0-23)
-```js
-    let cur = new Date().getHours()
-    console.log(cur) // 15
-```
-
-### getMinutes()
-- 返回给定日期当前的分钟数
-```js
-    let cur = new Date().getMinutes()
-    console.log(cur) // 58
-```
-
-### getSeconds()
-- 返回给定时间当前的秒数
-```js
-    let cur = new Date().getSeconds()
-    console.log(cur) // 20
-```
-
-### getTime()
-- 返回指定日期相应的毫秒数
-```js
-    let cur = new Date().getTime()
-    console.log(cur) // 1588405595285
-    
-    let cur = new Date('2010-05-01').getTime()
-    console.log(cur) // 1272672000000
-```
-
-## Math 对象
-
-
-## Number 对象
-
-
-## String 对象
-
-
-## RegExp 对象
-### 基本语法
-```js
-    let reg = new RegExp('\\w+')
-    let reg = /\w+/
-```
-### 修饰符
-- `g` 表示全局匹配
-- `i` 表示不区分大小写匹配
-- `m` 表示多行匹配
-
-### 方括号
-- `[abc]` 查找方括号之间的任何字符
-```js
-    let str = 'abcd'
-    let reg = /[abc]/
-    console.log(reg.test(str)) // true
-    
-    let reg = /[abcdefg]/
-    console.log(reg.test(str)) // true
-```
-
-## Error 对象
-
-
-## 全局属性/函数
