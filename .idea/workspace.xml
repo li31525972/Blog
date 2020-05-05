@@ -45,8 +45,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/js/DOM.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="569">
-                <caret line="388" column="4" selection-start-line="388" selection-start-column="4" selection-end-line="388" selection-end-column="4" />
+              <first_editor relative-caret-position="471">
+                <caret line="389" column="25" selection-start-line="389" selection-start-column="25" selection-end-line="389" selection-end-column="25" />
               </first_editor>
               <second_editor />
             </state>
@@ -187,7 +187,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95672000" />
+    <option name="totallyTimeSpent" value="96442000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -394,8 +394,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/js/DOM.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="569">
-            <caret line="388" column="4" selection-start-line="388" selection-start-column="4" selection-end-line="388" selection-end-column="4" />
+          <first_editor relative-caret-position="471">
+            <caret line="389" column="25" selection-start-line="389" selection-start-column="25" selection-end-line="389" selection-end-column="25" />
           </first_editor>
           <second_editor />
         </state>

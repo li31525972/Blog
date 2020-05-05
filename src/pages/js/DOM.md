@@ -386,6 +386,9 @@ let div = document.getElementById('mydiv')
 2. `oncut` 该事件在用户剪切元素内容时触发
 3. `onpaste` 该事件在用户粘贴元素内容时触发
 
+### 地址栏事件
+1. `hashchange` url发生改变事件
+
 ### 多媒体事件
 
 ### 注册事件
