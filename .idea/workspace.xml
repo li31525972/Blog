@@ -29,12 +29,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/js/BOM.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="612">
-                <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+              <first_editor relative-caret-position="471">
+                <caret line="136" column="19" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/js/DOM.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="569">
+                <caret line="388" column="4" selection-start-line="388" selection-start-column="4" selection-end-line="388" selection-end-column="4" />
               </first_editor>
               <second_editor />
             </state>
@@ -60,7 +72,6 @@
         <option value="$PROJECT_DIR$/src/pages/vue/README.md" />
         <option value="$PROJECT_DIR$/src/pages/css/README.md" />
         <option value="$PROJECT_DIR$/src/pages/js/javascript 对象.md" />
-        <option value="$PROJECT_DIR$/src/pages/js/DOM.md" />
         <option value="$PROJECT_DIR$/src/pages/js/RegExp.md" />
         <option value="$PROJECT_DIR$/src/pages/js/Date.md" />
         <option value="$PROJECT_DIR$/src/pages/js/object.md" />
@@ -74,6 +85,7 @@
         <option value="$PROJECT_DIR$/src/README.md" />
         <option value="$PROJECT_DIR$/src/pages/js/README.md" />
         <option value="$PROJECT_DIR$/src/pages/js/BOM.md" />
+        <option value="$PROJECT_DIR$/src/pages/js/DOM.md" />
       </list>
     </option>
   </component>
@@ -175,7 +187,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83926000" />
+    <option name="totallyTimeSpent" value="95672000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -244,16 +256,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="-13165">
             <caret line="194" column="52" selection-start-line="194" selection-start-column="52" selection-end-line="194" selection-end-column="52" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/js/DOM.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor>
-            <caret column="8" selection-start-column="8" selection-end-column="8" />
           </first_editor>
           <second_editor />
         </state>
@@ -382,8 +384,18 @@
     <entry file="file://$PROJECT_DIR$/src/pages/js/BOM.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="612">
-            <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+          <first_editor relative-caret-position="471">
+            <caret line="136" column="19" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/js/DOM.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="569">
+            <caret line="388" column="4" selection-start-line="388" selection-start-column="4" selection-end-line="388" selection-end-column="4" />
           </first_editor>
           <second_editor />
         </state>
