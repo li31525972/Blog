@@ -44,7 +44,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '',
-                    'object',
+                    'Object',
                     'Array',
                     'Date',
                     'Math',
@@ -54,6 +54,7 @@ module.exports = {
                     'Global',
                     'BOM',
                     'DOM',
+                    'Form',
                 ]
             }],
             '/pages/es6/': [{
