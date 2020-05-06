@@ -16,7 +16,7 @@ module.exports = {
             { text: 'CSS3', link: '/pages/css3/' },
             { text: 'JS', link: '/pages/js/' },
             { text: 'ES6', link: '/pages/es6/' },
-            { text: 'VUE', link: '/pages/vue/' },
+            { text: '框架', link: '/pages/frame/' },
             { text: '开发问题', link: '/pages/question/' },
         ],
         sidebar: {
@@ -42,7 +42,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '',
-                    'Object',
+                    'object',
                     'Array',
                     'Date',
                     'Math',
@@ -62,12 +62,14 @@ module.exports = {
                     ''
                 ]
             }],
-            '/pages/vue/': [{
-                title: 'VUE',
-                path: '/pages/vue/',
+            '/pages/frame/': [{
+                title: '框架',
+                path: '/pages/frame/',
                 collapsable: false,
                 children: [
-                    ''
+                    '',
+                    'vue',
+                    'vueSource'
                 ]
             }],
             '/pages/question/': [{
