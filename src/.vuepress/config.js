@@ -17,6 +17,8 @@ module.exports = {
             { text: 'JS', link: '/pages/js/' },
             { text: 'ES6', link: '/pages/es6/' },
             { text: '框架', link: '/pages/frame/' },
+            { text: '网络', link: '/pages/network/' },
+            { text: '优化', link: '/pages/optimize/' },
             { text: '开发问题', link: '/pages/question/' },
         ],
         sidebar: {
@@ -70,6 +72,22 @@ module.exports = {
                     '',
                     'vue',
                     'vueSource'
+                ]
+            }],
+            '/pages/network/': [{
+                title: '网络',
+                path: '/pages/network/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/optimize/': [{
+                title: '优化',
+                path: '/pages/optimize/',
+                collapsable: false,
+                children: [
+                    ''
                 ]
             }],
             '/pages/question/': [{
