@@ -50,11 +50,11 @@ module.exports = {
                     'Math',
                     'Number',
                     'RegExp',
-                    'Error',
                     'Global',
                     'BOM',
                     'DOM',
                     'Form',
+                    'Error',
                 ]
             }],
             '/pages/es6/': [{
