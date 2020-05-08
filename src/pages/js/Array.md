@@ -87,6 +87,7 @@
     console.log(count) // [1, 2, 3, 4, 5, 7, 8] 合并后的结果
     console.log(list) // [1, 2, 3, 4, 5] 不改变原数组
 ```
+<font color='red'><b>`ES5`常用来复制克隆数组的方法</b></font>
 
 ### slice()
 - 返回开始和结束之间的项，不包括结束位置，参数：
@@ -234,4 +235,124 @@
         return prev + cur
     })
     console.log(count) // 15 
+```
+
+## ES6
+
+### Array.from()
+- 将两类对象转为真正的数组：类似数组的对象（array-like object）和可遍历（iterable）的对象（包括 ES6 新增的数据结构 Set 和 Map）。
+- 怎么区别什么是不是伪数组？就看能否使用数组的方法
+```js
+    function func(name, age, sex) {
+        let arg = arguments
+        // console.log(arg.join('')) // 报错
+
+        arg = Array.from(arg)
+        console.log(arg.join('')) // 张三201
+        console.log(arg)
+    }
+
+    func('张三', 20, '1')
+```
+
+<font color='red'><b>实际应用中，常见的类似数组的对象是 DOM 操作返回的 `NodeList` 集合，以及函数内部的`arguments`对象。Array.from都可以将它们转为真正的数组。</b></font>
+
+### Array.of()
+- `Array.of`方法用于将一组值，转换为数组。弥补了`Array()`或`new Array()`的不足, 总是返回一个数组
+```js
+    console.log(new Array()) // []
+    console.log(new Array(2)) // [empty × 2]
+    console.log(new Array(2, 3)) // [2, 3]
+    console.log(Array.of()) // []
+    console.log(Array.of(undefined)) // [undefined]
+    console.log(Array.of(1)) // [1]
+    console.log(Array.of(1, 3)) // [1, 3]
+```
+
+### copyWithin()
+- 将制定位置的项复制到其它位置，会覆盖原有成员，返回当前数组，<font color='red'>会改变原数组</font>，参数：
+1. `target`（必需）：从该位置开始替换数据。如果为负值，表示倒数。
+2. `start`（可选）：从该位置开始读取数据，默认为 0。如果为负值，表示从末尾开始计算。
+3. `end`（可选）：到该位置前停止读取数据，默认等于数组长度。如果为负值，表示从末尾开始计算。
+```js
+    console.log([1, 2, 3, 4, 5].copyWithin(0, 3)) // [4, 5, 3, 4, 5]
+```
+
+### find()
+- 找出第一个符合条件的数组成员，参数为回调函数，所有数组成员依次执行该函数，直到找到第一个返回为`true`的成员，返回返回该成员，没有找到返回`undefined`
+```js
+    let list = [1, 2, 3, 4, 5]
+    let row = list.find(item => {
+        return item > 3
+    })
+    console.log(row) // 4
+```
+
+### findIndex()
+- 和 `find()` 类似， 返回第一个符合条件成员的位置，都不符合，返回 `-1`
+```js
+    let list = [1, 2, 3, 4, 5]
+    let row = list.findIndex(item => {
+        return item > 3
+    })
+    console.log(row) // 3
+```
+
+### fill()
+- 使用给定值，填充一个数组，<font color='red'>会改变原数组</font>, 参数：
+1. 给定的值
+2. 可选，开始位置
+3. 可选，结束位置(不包含该位置)
+```js
+    let list = [1, 2, 3, 4, 5]
+    
+    console.log(list.fill('s', 2, 4)) // [1, 2, "s", "s", 5]
+    console.log(list) // [1, 2, "s", "s", 5]
+```
+
+### entries()
+- 返回键值对的遍历器对象 `Array Iterator {}`
+
+### keys()
+- 返回键的遍历器对象 `Array Iterator {}`
+
+### values()
+- 返回值的遍历器对象 `Array Iterator {}`
+
+### includes()
+- 表示某个数组是否包含给定的值，与字符串的`includes`方法类似。
+```js
+    let list = [1, 2, 3, 4, 5]
+    
+    console.log(list.includes(2)) // true
+    console.log(list.includes(7)) // false
+```
+
+### flat()
+- 用于将嵌套的数组“拉平”，变成一维的数组。该方法返回一个新数组，对原数据没有影响。参数：
+1. 可选，想要拉平的层数，默认为 1， 如果想不管多少层都拉平，用 `Infinity` 关键字作为参数
+```js
+    let newArr = [1, 2, 3, [4, [5, [6, [7, [8, [9, [10, 11]]]]]]]]
+    
+    console.log(newArr.flat()) // [1, 2, 3, 4, Array(2)]
+    console.log(newArr.flat(2)) // [1, 2, 3, 4, 5, Array(2)]
+    console.log(newArr.flat(Infinity)) // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+```
+
+
+### flatMap()
+- `flatMap()`方法对原数组的每个成员执行一个函数（相当于执行Array.prototype.map()），然后对返回值组成的数组执行`flat()`方法。该方法返回一个新数组，不改变原数组。
+- `flatMap()`只能展开一层数组。参数：
+1. 当前项
+2. 当前项位置
+3. 原数组
+```js
+    let newArr = [1, 2, 3, [4, [5, [6, [7, [8, [9, [10, 11]]]]]]]]
+
+    let list = newArr.flatMap(item => {
+        return item += 10 
+    })
+    
+    console.log(list) // [11, 12, 13, "4,5,6,7,8,9,10,1110"] 没有拉平的变成了字符串？
+    console.log(newArr) // [1, 2, 3, Array(2)]
 ```

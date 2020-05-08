@@ -46,3 +46,10 @@ console.log(a)
         // 在错误发生时怎么处理
     }
 ```
+
+## 错误监听
+```js
+window.onerror = function(message, url, line) {
+    
+}
+```

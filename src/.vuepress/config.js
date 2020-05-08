@@ -49,6 +49,7 @@ module.exports = {
                     'Date',
                     'Math',
                     'Number',
+                    'String',
                     'RegExp',
                     'Global',
                     'BOM',
