@@ -960,5 +960,13 @@ max - 数字。最多可以缓存多少组件实例。
 ```vue
 <!--props-->
 name - string，用于命名插槽。
+<slot></slot> // 默认插槽
+<slot name="header"></slot> // 具名插槽 
+<!--使用方式：-->
+<div slot="header"></div>
+
+<!--这种写法只能在 template 标签上使用-->
+<template v-slot:header></template> // 简写：<template #header></template>
+
 
 ```
