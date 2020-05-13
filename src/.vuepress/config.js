@@ -46,6 +46,7 @@ module.exports = {
                     '',
                     'Object',
                     'Array',
+                    'ObjectMethods',
                     'Date',
                     'Math',
                     'Number',
