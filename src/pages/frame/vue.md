@@ -672,7 +672,7 @@ mounted: function () {
 - 数据更新后调用
 <font color='red'><b>注意：避免在此期间更改状态。如果要相应状态改变，通常最好使用计算属性或 watcher 取而代之。</b></font>
 
-### beforeDestory
+### beforeDestroy
 - 实例销毁之前调用，这时实例仍然可用
 
 ### destroyed
