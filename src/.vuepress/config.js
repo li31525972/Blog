@@ -19,6 +19,7 @@ module.exports = {
             { text: '框架', link: '/pages/frame/' },
             { text: '网络', link: '/pages/network/' },
             { text: '优化', link: '/pages/optimize/' },
+            { text: '架构', link: '/pages/framework/' },
             { text: '开发问题', link: '/pages/question/' },
         ],
         sidebar: {
@@ -38,27 +39,29 @@ module.exports = {
                     ''
                 ]
             }],
-            '/pages/js/': [{
-                title: 'JS',
-                path: '/pages/js/',
-                collapsable: false,
-                children: [
-                    '',
-                    'Object',
-                    'Array',
-                    'ObjectMethods',
-                    'Date',
-                    'Math',
-                    'Number',
-                    'String',
-                    'RegExp',
-                    'Global',
-                    'BOM',
-                    'DOM',
-                    'Form',
-                    'Error',
-                ]
-            }],
+            '/pages/js/': [
+                {
+                    title: 'JS',
+                    path: '/pages/js/',
+                    collapsable: false,
+                    children: [
+                        '',
+                        'Object',
+                        'Array',
+                        'ObjectMethods',
+                        'Date',
+                        'Math',
+                        'Number',
+                        'String',
+                        'RegExp',
+                        'Global',
+                        'BOM',
+                        'DOM',
+                        'Form',
+                        'Error',
+                    ]
+                }
+            ],
             '/pages/es6/': [{
                 title: 'ES6',
                 path: '/pages/es6/',
@@ -101,8 +104,21 @@ module.exports = {
                     ''
                 ]
             }],
+            '/pages/framework/': [
+                '',
+                'Implementation',
+                'Workflow',
+                'BuildFlow',
+                'MultiPageApplication',
+                'SinglePageApplication',
+                'Componentization',
+                'Separate',
+                'Microfront',
+                'ActualCombat',
+                'Evolution',
+            ],
         },
-        sidebarDepth: 2,
+        sidebarDepth: 3,
         lastUpdated: '更新时间'
     },
 }
