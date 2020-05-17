@@ -196,7 +196,7 @@ h1::after {
     font-style: normal;
 }
 ```
-### font-weight
+### 字重 font-weight
 - 字号字重, 取值范围100 - 900
 - 400相当于normal
 - 500相当于medium
@@ -208,14 +208,13 @@ h1::after {
 }
 ```
 <font color="red"><b>请使用数值类型，英文类型请自行查看浏览器机制</b></font>
-### font-size
+### 字号 font-size
 ```css
 {
     font-size: 16px;
 }
 ```
-### font-stretch
-- 字体拉伸
+### 字体拉伸 font-stretch
 ```css
 {
     font-stretch: normal;
@@ -231,3 +230,71 @@ h1::after {
 }
 ```
 - 支持的字体 eot、otf、svg、ttf、woff
+
+### 字距 font-kerning
+```css
+/*取值 auto | normal | none */
+{
+    /* none 忽略字距信息*/
+    font-kerning: none; 
+    /*normal 浏览器正常处理*/
+    font-kerning: normal;
+    /* auto 默认值 由用户代理选则最合适的处理方式，由所用字体决定*/
+    font-kerning: auto;
+}
+
+```
+### 字体变形 font-variant
+```css
+/*取值 css2: normal | small-caps */
+{
+    /* normal 普通形式 */
+    font-normal: normal;
+    /* small-caps 使用小号大写字母 */
+    font-normal: small-caps;
+}
+
+/*css3取值(相当多)*/
+
+```
+
+## 文本属性
+### 文本缩进 text-indent
+```css
+{
+    /* 继承：是 */
+    /* 动画性：是 */
+    /*将元素的文本缩进指定的长度，可以是负值，注意：不能用于行内元素和置换元素(如图片等)*/
+    text-indent: 3em; /* 取值可以是任何长度单位 */
+}
+```
+### 文本对齐 text-align
+```css
+/* 取值：start | end | left | right | center | justify | match-parent | start end */
+/* 适用于：块级元素 */
+/* 继承：是 */
+/* 动画性：否 */
+{
+    /* left 左对齐 纵向书写语言起始对齐 css2 默认值 */
+    text-align: left;
+    /* right 右对齐 纵向书写语言终边对齐 */
+    text-align: right;
+    /* center 居中对齐 */
+    text-align: center;
+    /* 起始对齐 css3 默认值 */
+    text-align: start;
+    /* end 终边对齐 */
+    text-align: end;
+    /* justify 两端对齐 */
+    text-align: justify;
+    text-align: justify-all;
+    /* match-parent 与父元素保持一致 作用基本被 inherit 涵盖了 */
+    text-align: match-parent;
+    text-align: unset;
+}
+
+```
+### 对齐最后一行 text-align-last
+```css
+
+```
