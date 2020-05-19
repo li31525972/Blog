@@ -295,6 +295,364 @@ h1::after {
 
 ```
 ### 对齐最后一行 text-align-last
+- 如果只有一行，那么比`text-align`的优先级高
 ```css
+/* 取值： auto | start | end | left | right | center | justify */
+/* 适用于：块级元素 */
+/* 继承：是 */
+/* 动画性：否 */
+{
+    /* auto */
+    text-align-last: auto;
+    /* start 起始位置对齐 */
+    text-align-last: start;
+    /* end 终边位置对齐 */
+    text-align-last: end;
+    /* left 左对齐 */
+    text-align-last: left;
+    /* right 右对齐 */
+    text-align-last: right;
+    /* center 居中对齐 */
+    text-align-last: center;
+    /* justify 两端对齐 */
+    text-align-last: justify;
+}
+```
+
+### 行高 line-height
+```css
+/* 取值：长度和百分数 | normal | inherit  */
+/* 适用于：所有元素 */
+/* 继承：是 */
+/* 动画性：是 */
+{
+    /* normal 用户代理自动计算 */
+    line-height: normal;
+    /* inherit 继承父元素，默认会自动继承 */
+    line-height: inherit;
+}
 
 ```
+
+### 对齐方式 vertical-align
+```css
+/* 取值：baseline | middle | bottom | text-bottom | sub | super | top | text-top  */
+/* 适用于：行内元素和单元格 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* baseline 基线对齐 默认值 */
+    vertical-align: baseline;
+    /* middle 中线对齐 */
+    vertical-align: middle;
+    /* bottom 底部对齐 */
+    vertical-align: bottom;
+    /* text-bottom 相对于文本的底部对齐 */
+    vertical-align: text-bottom;
+    /* sub 下标对齐 */
+    vertical-align: sub;
+    /* super 上标对齐 */
+    vertical-align: super;
+    /* top 顶部对齐 */
+    vertical-align: top;
+    /* text-top 相对于文本的顶部对齐 */
+    vertical-align: text-top;
+}
+
+```
+### 单词间距 word-spacing
+```css
+/* 取值：长度单位 | normal  */
+/* 适用于：所有元素 */
+/* 继承：是 */
+/* 动画性：是 */
+{
+    /* normal 绝对长度0 */
+    word-spacing: normal;
+    word-spacing: 0.5em;
+}
+
+```
+
+### 字符间距 letter-spacing
+```css
+/* 取值：长度单位 | normal  */
+/* 适用于：所有元素 */
+/* 继承：是 */
+/* 动画性：是 */
+{
+    /* normal 绝对长度0 */
+    letter-spacing: normal;
+}
+
+```
+
+### 文本转换 text-transform
+```css
+/* 取值：uppercase | lowercase | capitalize | none  */
+/* 适用于：所有元素 */
+/* 继承：是 */
+/* 动画性：否 */
+{
+    /* none 默认值，不对文本做任何修改 */
+    text-transform: none;
+    /* uppercase 把文本转换成大写字母  */
+    text-transform: uppercase;
+    /* lowercase 把文本转换成小写字母 */
+    text-transform: lowercase;
+    /* capitalize 把每个单词的首字母变成大写字母 */
+    text-transform: capitalize;
+}
+
+```
+
+### 文本装饰 text-decoration
+```css
+/* 取值：underline | overline | line-through | blink | none  */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* none 去掉文本的装饰效果 */
+    text-decoration: none;
+    /* underline 为元素添加下划线 */
+    text-decoration: underline;
+    /* overline 为元素上方添加线 */
+    text-decoration: overline;
+    /* line-through 删除线 */
+    text-decoration: line-through;
+    /* blink 让文本一闪一闪 */
+    text-decoration: blink;
+}
+
+```
+
+### 文本阴影 text-shadow
+```css
+/* 取值： none | 一个可选的颜色和三个长度值，最后一个长度值可选  */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：是 */
+{
+    /* none 取消阴影 */
+    text-shadow: none;
+    /* 阴影颜色 横向偏移 纵向偏移 模糊半径(可选) */
+    text-shadow: red 5px 5px 2px;
+}
+
+```
+<font color='red'>注意：大量阴影或模糊半径较大会损耗性能，由其是低功耗和CPU能力有限的情况下(如移动设备)</font>
+
+### 空白 white-space
+```css
+/* 取值： normal | nowrap | pre | pre-wrap | pre-line  */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* normal 将空白压缩成一个空格，默认值 */
+    white-space: normal;
+    /* nowrap 禁止元素中的文本换行 */
+    white-space: nowrap;
+    /* pre 空白不会被忽略 */
+    white-space: pre;
+    /* pre-wrap 空白保留，正常换行 */
+    white-space: pre-wrap;
+    /* pre-line 空白压缩，正常换行 */
+    white-space: pre-line;
+}
+
+```
+## 元素
+1. 非置换元素，如：p
+2. 置换元素， 如：img、input
+3. 根元素，html
+4. 块级元素，如：div
+5. 行内元素，如： span、strong
+6. 行内块元素，如：img
+
+### 显示方式 display
+```css
+/* 取值：   */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* block 转为块级元素 */
+    display: block;
+    /* block 转为行内元素 */
+    display: inline;
+    /* block 转为行内块元素 */
+    display: inline-block;
+}
+
+```
+## 边框 border
+```css
+/* 简写：border-width border-style border-color */
+{
+    border: 1px solid #ccc;
+}
+
+```
+
+### 边框样式 border-style
+```css
+/* 取值： none | hidden | solid | dotted | dashed | double | groove | ridge | inset | outset | inherit */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* none 取消边框样式 */
+    border-style: none;
+    /* hidden 等价于none，在表格上有区别 */
+    border-style: hidden;
+    /* solid 实线 */
+    border-style: solid;
+    /* dotted 点线 */
+    border-style: dotted;
+    /* dashed 虚线 */
+    border-style: dashed;
+    /* double 双实线 */
+    border-style: double;
+    /* groove 内凹边框 */
+    border-style: groove;
+    /* ridge 内凹边框 */
+    border-style: ridge;
+    /* inset 内凹边框 */
+    border-style: inset;
+    /* outset 内凹边框 */
+    border-style: outset;
+}
+
+```
+### 边框宽度 border-width
+```css
+/* 取值： thin | medium | thick | 长度 */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：是 */
+```
+
+### 边框颜色 border-color
+```css
+/* 取值： <color> | transparent */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：是 */
+{
+    /* transparent 透明边框 */
+    border-color: transparent;
+    /* 任意颜色值 */
+    border-color: red;
+}
+
+```
+### 边框圆角 border-radius
+```css
+/* 取值： 绝对长度或百分数 */
+/* 适用于：除表格元素的所有元素 */
+/* 继承：否 */
+/* 动画性：是 */
+{
+    border-radius: 5px;
+    border-radius: 50%;
+}
+
+```
+## 颜色、背景和渐变
+### 前景色 color
+```css
+/* 取值： <color> */
+/* 适用于：所有元素 */
+/* 继承：是 */
+/* 动画性：是 */
+{
+    color: red;
+    color: #fff;
+    color: rgb(255,255,0);
+    color: rgba(255,255,0, .3);
+}
+
+```
+<font color='red'>注意：边框没有设置颜色，默认用文本颜色</font>
+
+### 背景色 background-color
+```css
+/* 取值： <color> | transparent */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：是 */
+{
+    /* transparent 透明 */
+    background-color: transparent;
+}
+
+```
+
+### 背景裁剪 background-clip
+```css
+/* 取值： border-box(默认值) | padding-box | content-box */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* border-box 默认 */
+    background-clip: border-box;
+    /* padding-box 边框内 */
+    background-clip: padding-box;
+    /* content-box 内容区内 */
+    background-clip: content-box;
+}
+
+```
+### 背景图 background-image
+```css
+/* 取值： <image> | none */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* none 默认值，不放任何背景图 */
+    background-image: none;
+    /* url() 图片路径 */
+    background-image: url('./..');
+}
+
+```
+
+### 背景定位 background-position
+```css
+/* 取值： <position> | left | right | top | bottom | 长度 | 百分比 */
+/* 初始值：0%(横向位置) 0%(纵向位置)  */
+/*适用于：块级元素和置换元素 */
+/* 继承：否 */
+/* 动画性：是 */
+{
+    /* center 背景图居中显示， 只声明一个纵向位置默认为 50%(center) */
+    background-position: center;
+}
+
+```
+
+### 背景重复 background-repeat
+```css
+/* 取值： repeat | no-repeat | space | round */
+/* 初始值：repeat 如果有两个值 第一个横向 第二个纵向  */
+/*适用于：块级元素和置换元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* repeat 无限平铺 */
+    background-repeat: repeat;
+    /* no-repeat 不平铺 */
+    background-repeat: no-repeat;
+    /* space 横向纵向均匀分布 */
+    background-repeat: space;
+    /* round 重复平铺 自动缩放图形 */
+    background-repeat: round;
+}
+
+```
+
+
