@@ -427,22 +427,6 @@ h1::after {
 
 ```
 
-### 文本阴影 text-shadow
-```css
-/* 取值： none | 一个可选的颜色和三个长度值，最后一个长度值可选  */
-/* 适用于：所有元素 */
-/* 继承：否 */
-/* 动画性：是 */
-{
-    /* none 取消阴影 */
-    text-shadow: none;
-    /* 阴影颜色 横向偏移 纵向偏移 模糊半径(可选) */
-    text-shadow: red 5px 5px 2px;
-}
-
-```
-<font color='red'>注意：大量阴影或模糊半径较大会损耗性能，由其是低功耗和CPU能力有限的情况下(如移动设备)</font>
-
 ### 空白 white-space
 ```css
 /* 取值： normal | nowrap | pre | pre-wrap | pre-line  */
@@ -625,7 +609,7 @@ h1::after {
 ```css
 /* 取值： <position> | left | right | top | bottom | 长度 | 百分比 */
 /* 初始值：0%(横向位置) 0%(纵向位置)  */
-/*适用于：块级元素和置换元素 */
+/* 适用于：块级元素和置换元素 */
 /* 继承：否 */
 /* 动画性：是 */
 {
@@ -639,7 +623,7 @@ h1::after {
 ```css
 /* 取值： repeat | no-repeat | space | round */
 /* 初始值：repeat 如果有两个值 第一个横向 第二个纵向  */
-/*适用于：块级元素和置换元素 */
+/* 适用于：块级元素和置换元素 */
 /* 继承：否 */
 /* 动画性：否 */
 {
@@ -655,4 +639,151 @@ h1::after {
 
 ```
 
+### 背景定位 background-attachment
+```css
+/* 取值： scroll | fixed | local */
+/* 初始值：scroll */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* scroll 随滚动条滚动 */
+    background-attachment: scroll;
+    /* fixed 固定，不受滚动影响 */
+    background-attachment: fixed;
+    /* local 随内容一起滚动 */
+    background-attachment: local;
+}
 
+```
+
+### 背景图大小 background-size
+```css
+/* 取值： auto | <length> */
+/* 初始值：auto */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：是 */
+{
+    /* auto 自动计算 */
+    background-size: auto;
+    /* 第一个横向尺寸 第二个纵向尺寸 */
+    background-size: 400px 400px;
+}
+
+```
+<font color='red'>背景的各个属性都支持多个值，以，分隔</font>
+
+### 背景简写 background
+```css
+{
+    /**
+    * 简写规则：
+    * 1. size 必须紧随 position后面 / 隔开
+    * 2. 横向在前 纵行在后
+     */
+    background: url('./xx') top left/50% 50% padding-box white no-repeat fixed border-box;
+}
+```
+### 线性渐变 linear-gradient()
+```css
+{
+    /* 开始颜色 - 中间可以有任意个颜色 - 结尾颜色 默认方向从上到下 */
+    background-image: linear-gradient(blue, red);
+    /* 指明某一条边时需要关键字 to 从左到右 */
+    background-image: linear-gradient(to right, blue, red);
+    /* 从左上到右下 */
+    background-image: linear-gradient(to right bottom, blue, red);
+    /* 旋转90° */
+    background-image: linear-gradient(90deg, blue, red);
+    /* 每个多远放一个色标 violet 渐变到末尾 */
+    background-image: linear-gradient(90deg, blue, green 20%, yellow 40%, white 60%, red 80%, violet);
+}
+```
+### 径向渐变 radial-gradient()
+```css
+{
+    /* 圆形的径向渐变 从内而外 */
+    background-image: radial-gradient(blue, red);
+    /* 一个值为圆形 */
+    background-image: radial-gradient(100px, blue, red);
+    /* 两个值为椭圆形 */
+    background-image: radial-gradient(100px 200px, blue, red);
+    /* 百分比值 */
+    background-image: radial-gradient(50% 20%, blue, red);
+}
+```
+## 阴影
+
+### 文本阴影 text-shadow
+```css
+/* 取值： none | 一个可选的颜色和三个长度值，最后一个长度值可选  */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：是 */
+{
+    /* none 取消阴影 */
+    text-shadow: none;
+    /* 阴影颜色 横向偏移 纵向偏移 模糊半径(可选) */
+    text-shadow: red 5px 5px 2px;
+}
+
+```
+<font color='red'>注意：大量阴影或模糊半径较大会损耗性能，由其是低功耗和CPU能力有限的情况下(如移动设备)</font>
+
+### 盒子阴影 box-shadow
+```css
+/* 取值： none |   */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：是 */
+{
+    /* 下偏移 右偏移 颜色 */
+    box-shadow: 4px 4px rgba(0, 0, 0, .5);
+    /* 下偏移 右偏移 模糊距离 颜色 */
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, .5);
+    /* 下偏移 右偏移 模糊距离 阴影距离 颜色 */
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, .5);
+    /* inset(内凹阴影) 下偏移 右偏移 模糊距离 阴影距离 颜色 */
+    box-shadow: inset 4px 4px 4px 4px rgba(0, 0, 0, .5);
+}
+
+```
+## 浮动和定位
+### 浮动 float
+```css
+/* 取值： left | right | none */
+/* 初始值：none */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    float: left;
+}
+
+```
+### 清除浮动 clear
+```css
+/* 取值： left | right | both | none */
+/* 初始值：none */
+/* 适用于：块级元素 */
+/* 继承：否 */
+/* 动画性：否 */
+```
+### 浮动形状
+```css
+
+```
+### 透明图像定义形状
+```css
+
+```
+### 形状添加外边距
+```css
+
+```
+
+### 定位 position
+```css
+
+```

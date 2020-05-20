@@ -119,6 +119,7 @@ module.exports = {
             ],
         },
         sidebarDepth: 3,
-        lastUpdated: '更新时间'
+        lastUpdated: '更新时间',
+        searchMaxSuggestions: 10,
     },
 }
