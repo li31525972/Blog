@@ -749,6 +749,44 @@ h1::after {
 }
 
 ```
+## 溢出、裁剪和可见
+### 溢出裁剪 overflow
+```css
+/* 取值： visible | hidden | scroll | auto  */
+/* 初始值：visible */
+/* 适用于：块级元素和置换元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* visible 默认值，超出内容可见 */
+    overflow:visible;
+    /* hidden 超出部分裁剪 */
+    overflow:hidden;
+    /* scroll 超出部分生成滚动条 */
+    overflow:scroll;
+    /* auto 在超出时生成滚动条 */
+    overflow:auto;
+}
+
+```
+### 可见性 visibility
+```css
+/* 取值： visible | hidden | collapse  */
+/* 初始值：visible */
+/* 适用于：所有元素 */
+/* 继承：是 */
+/* 动画性：否 */
+{
+    /* visible 默认值，元素可见 */
+    visibility: visible;
+    /* hidden 元素不可见 */
+    visibility: hidden;
+    /* collapse 表格使用，非表格和hidden一样 */
+    visibility: collapse;
+}
+
+```
+
 ## 浮动和定位
 ### 浮动 float
 ```css
@@ -770,20 +808,73 @@ h1::after {
 /* 继承：否 */
 /* 动画性：否 */
 ```
-### 浮动形状
+### 浮动形状 shape-outside
+```css
+/* 取值： basic-shape | shape-box | image | none */
+/* 初始值：none */
+/* 适用于：浮动元素 */
+/* 继承：否 */
+/* 动画性：<basic-shape> */
+{
+    /* 让内容挨着图像可见的部分流动，如果图像有透明部分，那么内容将流入透明的部分 */
+    shape-outside: url("./xx");
+    /* basic-shape 取值：inset() | circle() | ellipse() | polygon() */
+    /* shape-box 取值：margin-box | border-box | padding-box | content-box */
+    
+    /* 把形状框内缩10px */
+    shape-outside: inset(10px); /* inset(10px 10px 10px 10px) 上右下左顺序 */
+    /* 把形状框以什么样的盒子内缩10px */
+    shape-outside: inset(10px) padding-box;
+}
+
+```
+### 透明图像定义形状 shape-image-threshold
 ```css
 
 ```
-### 透明图像定义形状
-```css
-
-```
-### 形状添加外边距
+### 形状添加外边距 shape-margin
 ```css
 
 ```
 
 ### 定位 position
 ```css
+/* 取值： static | relative | absolute | fixed | sticky */
+/* 初始值：static */
+/* 适用于：所有元素 */
+/* 继承：否 */
+/* 动画性：否 */
+{
+    /* static 默认正常值 */
+    position: static;
+    /* relative 相对定位 相对于自身 */
+    position:relative;
+    /* absolute 绝对定位 相对于有定位的父元素 */
+    position: absolute;
+    /* fixed 固定定位 相对于浏览器窗口 */
+    position: fixed;
+    /* sticky 粘带定位，参考QQ音乐里歌手列表上拉字母定位 */
+    position: sticky;
+}
+
+```
+### 偏移属性 
+```css
+/* 属性： top | left | right | bottom */
+/* 取值： length | auto */
+/* 初始值：auto */
+/* 适用于：定位元素 */
+/* 继承：否 */
+/* 动画性：<length>是 */
+```
+
+### z轴位置 z-index
+```css
+/* 取值： <integer> | auto */
+/* 初始值：auto */
+/* 适用于：定位元素 */
+/* 继承：否 */
+/* 动画性：是 */
+/* 值大的元素会覆盖其他元素 */
 
 ```
