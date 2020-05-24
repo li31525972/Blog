@@ -272,10 +272,11 @@
 }
 ```
 ### 旋转 rotate
-- `rotateX()`
-- `rotateY()`
-- `rotateZ()`
-- `rotate()`
+- `rotateX()` X轴旋转
+- `rotateY()` Y轴旋转
+- `rotateZ()` Z轴旋转
+- `rotate()` 2d旋转
+- `rotate3d()` 3d旋转
 - 参数只有一个，角度，如： `100deg`
 ```css
 {
@@ -292,12 +293,367 @@
     transform: rotate3d(0, 0, 1, 45deg);
 }
 ```
+### 倾斜 skew
+- `skewX()` x轴倾斜
+- `skewY()` y轴倾斜
+- `skew()` 2d倾斜
+```css
+{
+    /* x轴倾斜 */
+    transform: skewX(45deg);
+    /* y轴倾斜 */
+    transform: skewY(45deg);
+    /* 2d倾斜 */
+    transform: skew(45deg, 50deg);
+}
+```
+### 深度 perspective
+- `perspective()`
+- 值越大越接近眼前, 必须是正数，不能是0
+- 对目标元素
+```css
+{
+    transform: perspective(200px);
+}
+```
+### 移动原点 transform-origin
+- 以什么位置为中心展开变形移动
+```css
+/* 取值：left | center | right | top | bottom | length */
+/* 初始值：50% 50% */
+/* 适用于：任何可变形的元素 */
+/* 继承性：否 */
+/* 动画性：<length>, <percentage> */
+{
+    transform-origin: 50px 100px;
+}
 
-## 过渡
+```
+### 变形方式 transform-style
+```css
+/* 取值：flat | preserve-3d */
+/* 初始值：flat */
+/* 适用于：任何可变形的元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    transform-style: preserve-3d;
+}
 
-## 动画
+```
+### 视域 perspective
+- 值越大越接近眼前, 必须是正数，不能是0
+- 对目标元素的所有子元素有效
+```css
+/* 取值：none | <length> */
+/* 初始值：none */
+/* 适用于：任何可变形的元素 */
+/* 继承性：否 */
+/* 动画性：是 */
+{
+    perspective: 1000px;
+}
+
+```
+### 视域原点 perspective-origin
+- `perspective` 属性为 `none` 的时候该属性无效
+```css
+/* 取值：left | center | right | top | bottom | length */
+/* 初始值：50% 50% */
+/* 适用于：任何可变形的元素 */
+/* 继承性：否 */
+/* 动画性：<length>, <percentage> */
+{
+    perspective-origin: 50% 0;
+}
+
+```
+### 背面 backface-visibility
+- 元素的背面朝向我们时，是否渲染背面
+```css
+/* 取值：visible | hidden */
+/* 初始值：visible */
+/* 适用于：任何可变形的元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* visible 默认值 显示 */
+    backface-visibility: visible;
+    /* 隐藏 */
+    backface-visibility: hidden;
+}
+
+```
+
+## 过渡 transition
+```css
+/* 取值：transition-property transition-duration transition-timing-function transition-delay */
+{
+    /* 过渡属性 过渡时间 过渡速度 过渡延时 */
+    transition: all 200ms ease-in 50ms;
+}
+
+```
+### 受过渡影响的属性 transition-property
+```css
+/* 取值：none(禁用过渡效果) | all | <property-name> */
+/* 初始值：all */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* 属性值为以逗号分隔的属性列表或者是all，分隔的属性列表中也可以包含all */
+    transition-property: all;
+}
+
+```
+### 过渡持续时间 transition-duration
+```css
+/* 取值：<time> */
+/* 初始值：0s */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* 不能为负值 时间单位为 秒s 毫秒ms */
+    transition-duration: 1s;
+}
+
+```
+### 过渡速度 transition-timing-function
+```css
+/* 取值：<timing-function> */
+/* 初始值：ease */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* 下面为常用取值： */
+    /* ease 慢速开始 然后加速， 再慢下来， 结束时特别慢 */
+    transition-timing-function: ease;
+    /* linear 保持相同的速度 */
+    transition-timing-function: linear;
+    /* 慢速开始，然后加速 */
+    transition-timing-function: ease-in;
+    /* 快速开始，然后减速 */
+    transition-timing-function: ease-out;
+    /* ease-in-out 和 ease 类似，中间较快，两端很慢，但不同速 */
+    transition-timing-function: ease-in-out;
+    /* 整个过渡都处在最终关键帧上 */
+    transition-timing-function: step-start;
+    /* 整个过渡都处在初始关键帧上 */
+    transition-timing-function: step-end;
+    /* 显示n个固定镜头，其中第一个固定镜头占整个过渡的百分之n */
+    transition-timing-function: steps(5, start);
+    /* 显示n个固定镜头，前百分之n的事件处于初始值状态 */
+    transition-timing-function: steps(5, end);
+    /* cubic-bezier() 三次方贝塞尔曲线 */
+    transition-timing-function: cubic-bezier(0.47, 0, 0.75, 0.715);
+}
+
+```
+### 延迟过渡 transition-delay
+```css
+/* 取值：<time> */
+/* 初始值：0s */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* 1s后开始过渡，可以是负值，也可以是一组以逗号分隔的值，对应每个要过渡的属性 */
+    transition-delay: 1s;
+}
+
+```
+
+
+## 动画 animation
+- 用 `@keyframes` 为动画起名，名字不能以数字或两个连字符以及关键字(关键字自己查)开头
+- 动画持续时间内的时间点可以是百分数也可以是 `from` 或 `to` 关键字
+```css
+div {
+    animation-name: animation_ident;
+}
+
+@keyframes animation_ident {
+    from {
+    
+    }
+    to {
+    
+    }
+}
+@keyframes animation_ident {
+    0% {
+    
+    }
+    50% {
+    
+    }
+    100% {
+    
+    }
+}
+
+```
+### 指定动画名称 animation-name
+```css
+/* 取值：none | 动画名 */
+/* 初始值：none */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* 如果规定多个动画，以逗号分隔 */
+    animation-name: animation_ident;
+}
+
+```
+### 动画时长 animation-duration
+```css
+/* 取值：<time> */
+/* 初始值：0s */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* 动画循环一次所用时间 */
+    animation-duration: 1s;
+}
+
+```
+### 动画循环次数 animation-iteration-count
+```css
+/* 取值：<number> | infinite */
+/* 初始值：1 */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* infinite 一直循环， 如果值是负值或者0等无效数值，将重置为1 */
+    animation-iteration-count: infinite;
+}
+
+```
+### 动画方向 animation-direction
+```css
+/* 取值：normal | reverse | alternate | alternate-reverse */
+/* 初始值：normal */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* normal 默认值 从0%-100% */
+    animation-direction: normal;
+    /* 逆转动画方向 从100%-0% */
+    animation-direction: reverse;
+    /* 第一次及后续奇数次 从0%-100% 第二次及后续偶数 从100%-0% */
+    animation-direction: alternate;
+    /* 第一次及后续奇数次 从100%-0% 第二次及后续偶数 从0%-100% */
+    animation-direction: alternate-reverse;
+}
+
+```
+### 动画延迟 animation-delay
+- 延迟播放动画
+```css
+/* 取值：<time> */
+/* 初始值：0s */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* 延时2s开始播放 */
+    animation-delay: 2s;
+    /* 如果为负值时，如果播放总时间为10s 那么-2s大概是从20%处开始播放 */
+    animation-delay: -2s;
+}
+
+```
+### 动画速度 animation-timing-function
+- 参考：过渡速度 `transition-timing-function`
+
+### 动画播放状态 animation-play-state
+```css
+/* 取值：running | paused */
+/* 初始值：running */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* running 正常播放 */
+    animation-play-state: running;
+    /* paused 动画暂停 */
+    animation-play-state: paused;
+}
+
+```
+### 动画模式 animation-fill-mode
+- 定义动画播放结束后是否应用原来的属性值，默认情况下动画所做的改变只在播放过程中有效
+```css
+/* 取值：none | forwards | backwards | both */
+/* 初始值：none */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+{
+    /* none 动画不播放没有效果 */
+    animation-fill-mode: none;
+    /* 在动画所有循环播放结束后将属性应用到元素上 */
+    animation-fill-mode: forwards;
+    /* 在动画应用到元素上的那一刻就起作用，不等延时结束 */
+    animation-fill-mode: backwards;
+    /* 包含 forwards 和 backwards 两个的效果 */
+    animation-fill-mode: both;
+}
+
+```
+### 动画简写 animation
+```css
+/* 取值 持续时间 动画速度 动画延时 播放次数 动画方向 播放状态 动画模式 动画名称 */
+/* 初始值：0s ease 0s 1 normal none running none */
+/* 适用于：所有元素 以及 :before 和 :after 伪元素 */
+/* 继承性：否 */
+/* 动画性：否 */
+```
+
 
 ## 滤镜、混合、裁剪和遮罩
+
+### 滤镜 filter
+```css
+/* 取值：none | blur() | brightness() | contrast() | drop-shadow() | grayscale() | hue-rotate() | invert() | opacity() | sepia() | saturate() | url() */
+/* 初始值：none */
+/* 适用于：所有元素 */
+/* 继承性：否 */
+/* 动画性：是 */
+
+```
+### 高斯模糊 blur()
+- 使用高斯模糊对元素的内容做模糊处理，标准偏差由`<length>`值定义，0不做处理，不能为负值
+
+### 透明度 opacity()
+- 透明度滤镜，和`opacity`属性相似，0表示完全透明，1或100%不做改动
+- 可以和`opacity`属性同时使用，得到双重透明效果
+
+### alpha投影 drop-shadow()
+- `dorp-shadow(<length>{2,3} <color>?)`
+- 创建与元素的`alpha`通道形状一致的投影，带模糊效果，可以指定颜色，长度和颜色的处理和`box-shadow`一样
+
+### 灰色滤镜 grayscale()
+- 把元素的颜色变成指定的灰色，值为0时，没变化， 1或100%时完全变成灰色
+
+### 褐色滤镜 sepia()
+- 把元素的原色变成指定的墨色调，等价于`#704214`或`rgba(122,66,20)` 0没有变化，1或100%时完全变成褐色
+
+### 反相滤镜 invert()
+- 把元素的所有颜色做反相处理，值为0时，没变化， 1或100%时完全反相，0.5或50%得到均匀的灰色
+
+### 旋转色相 hue-rotate()
+- 在色轮上旋转色相 值为`xxdeg`
+
+
+
 
 ## 媒体查询
 

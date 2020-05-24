@@ -29,8 +29,20 @@
         <entry file="file://$PROJECT_DIR$/src/pages/css3/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="580">
-                <caret line="290" column="47" selection-start-line="290" selection-start-column="47" selection-end-line="290" selection-end-column="47" />
+              <first_editor relative-caret-position="590">
+                <caret line="654" lean-forward="true" selection-start-line="654" selection-end-line="654" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/js/DOM.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="577">
+                <caret line="404" column="33" selection-start-line="404" selection-start-column="33" selection-end-line="404" selection-end-column="33" />
               </first_editor>
               <second_editor />
             </state>
@@ -74,7 +86,6 @@
         <option value="$PROJECT_DIR$/src/README.md" />
         <option value="$PROJECT_DIR$/src/pages/js/README.md" />
         <option value="$PROJECT_DIR$/src/pages/js/BOM.md" />
-        <option value="$PROJECT_DIR$/src/pages/js/DOM.md" />
         <option value="$PROJECT_DIR$/src/pages/frame/vueSource.md" />
         <option value="$PROJECT_DIR$/src/pages/frame/README.md" />
         <option value="$PROJECT_DIR$/src/pages/network/README.md" />
@@ -100,6 +111,7 @@
         <option value="$PROJECT_DIR$/src/pages/framework/BuildFlow.md" />
         <option value="$PROJECT_DIR$/src/pages/css/README.md" />
         <option value="$PROJECT_DIR$/src/.vuepress/config.js" />
+        <option value="$PROJECT_DIR$/src/pages/js/DOM.md" />
         <option value="$PROJECT_DIR$/src/pages/css3/README.md" />
       </list>
     </option>
@@ -229,7 +241,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149775000" />
+    <option name="totallyTimeSpent" value="159147000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -453,16 +465,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/js/DOM.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="97">
-            <caret line="389" column="25" selection-start-line="389" selection-start-column="25" selection-end-line="389" selection-end-column="25" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -603,11 +605,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/js/DOM.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="577">
+            <caret line="404" column="33" selection-start-line="404" selection-start-column="33" selection-end-line="404" selection-end-column="33" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/css3/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="580">
-            <caret line="290" column="47" selection-start-line="290" selection-start-column="47" selection-end-line="290" selection-end-column="47" />
+          <first_editor relative-caret-position="590">
+            <caret line="654" lean-forward="true" selection-start-line="654" selection-end-line="654" />
           </first_editor>
           <second_editor />
         </state>

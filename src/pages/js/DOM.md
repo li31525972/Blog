@@ -389,6 +389,24 @@ let div = document.getElementById('mydiv')
 ### 地址栏事件
 1. `hashchange` url发生改变事件
 
+### 过渡事件 transitionend
+1. `event` 有3个与该事件有关的属性
+- `propertyName` 结束过渡的css属性的名称
+- `pseudoElement` 应用过渡效果的伪元素，前面有两个冒号，如果过渡效果应用到常规dom节点上，返回空字符串
+- `elapsedTime` 过渡持续的时间，单位是秒
+```js
+document.querySelector('div').addEventListener('transitionend', event => {
+    console.log(event)
+})
+```
+
+### 动画事件
+1. `animationstart` 动画开始事件
+2. `animationiteration` 在两次迭代之间触发
+3. `animationend` 动画结束时触发
+- `event` 有3个只读属性和过渡事件 `transitionend` 一样
+
+
 ### 多媒体事件
 
 ### 注册事件
