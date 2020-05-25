@@ -18,9 +18,11 @@ module.exports = {
             { text: 'ES6', link: '/pages/es6/' },
             { text: 'TS', link: '/pages/TS/' },
             { text: '框架', link: '/pages/frame/' },
+            { text: 'Node', link: '/pages/node/' },
             { text: '浏览器', link: '/pages/browser/' },
             { text: '网络', link: '/pages/network/' },
             { text: '优化', link: '/pages/optimize/' },
+            { text: 'webpack', link: '/pages/webpack/' },
             { text: '架构', link: '/pages/framework/' },
             { text: '开发问题', link: '/pages/question/' },
         ],
@@ -90,6 +92,14 @@ module.exports = {
                     'vueSource'
                 ]
             }],
+            '/pages/node/': [{
+                title: 'Node',
+                path: '/pages/node/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
             '/pages/browser/': [{
                 title: '浏览器',
                 path: '/pages/browser/',
@@ -109,6 +119,14 @@ module.exports = {
             '/pages/optimize/': [{
                 title: '优化',
                 path: '/pages/optimize/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/webpack/': [{
+                title: 'webpack',
+                path: '/pages/webpack/',
                 collapsable: false,
                 children: [
                     ''
