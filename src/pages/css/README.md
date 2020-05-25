@@ -1,4 +1,4 @@
-# css 部分
+# CSS
 
 ## 加载方式
 link标签、style元素、@import指令

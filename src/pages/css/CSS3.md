@@ -652,10 +652,83 @@ div {
 ### 旋转色相 hue-rotate()
 - 在色轮上旋转色相 值为`xxdeg`
 
+### 亮度 brightness()
+- 调整元素上颜色的亮度，0为纯黑色，1或100%没有变化
+
+### 对比度 contrast()
+- 调整元素上颜色的对比度，对比度越高，越容易区分颜色，0为纯灰色，1或100%没有变化
+
+### 饱和度 saturate()
+- 调整元素上颜色的饱和度，饱和度越高，颜色越鲜艳， 0为没有饱和度，灰色效果，1或100%没有任何变化，允许使用大于1或100%的值，得到的结果是过度饱和
+
+### SVG滤镜 url()
+- 
+```css
+{
+    /* 基本语法： 具体值请自行查询 */
+    filter: url(filters.svg#rough);
+}
+```
 
 
+## 媒体查询 @media
+### 媒体使用方式
+```html
+<link rel="stylesheet" type="text/css" media="screen, speech">
+```
+```css
+@import url(xxx.css) screen;
+@import url(xxx.css) speech;
+```
+<font color='red'>如果不设置媒体信息，那么将用于所有媒体</font>
 
-## 媒体查询
+### 媒体类型
+1. `all` 所有能呈现内容的媒体
+2. `print` 打印机打印的文档或者是打印预览
+3. `screen` 呈现文档的屏幕媒体，如电脑显示器或手持设备
+4. `speech` 语音合成器，屏幕阅读器或其它音频渲染设备
+
+### 逻辑关键字
+1. `and` 把两个或更多的媒体特性连在一起，每个特性都是true结果才是true
+2. `not` 对查询的结果取反，所有条件都满足，不应用样式 注意：`not`只能用在媒体查询开头
+```css
+@media not print and (min-device-width: 500px) {}
+```
+3. `,` 不支持`or` 用逗号分隔多个查询
+4. `only` 唯一目的保证向后兼容性，在不支持媒体查询的旧浏览器中隐藏样式表
+```css
+/* 例如：只在支持媒体查询的浏览器中应用样式表 */
+@import url(xxx.css) only all; /* 在支持媒体查询的浏览器中only将被忽略 */
+
+```
+### 特性描述符
+1. `width` `min-width` `max-width` 
+- 用户代理显示区域的宽度
+2. `height` `min-height` `max-height`
+- 用户代理显示区域的高度
+3. `device-width` `min-device-width` `max-device-width`
+- 屏幕的宽度
+4. `device-height` `min-device-height` `max-device-height`
+- 屏幕的高度
+5. `aspect-ratio` `min-aspect-ratio` `max-aspect-ratio`
+- 媒体特性的宽度和高度的比值(视区的宽高比)，如 `16/9`
+6. `device-aspect-ratio` `min-device-aspect-ratio` `max-device-aspect-ratio`
+- 屏幕宽度和屏幕高度的比值，如 `16/9`
+7. `color` `min-color` `max-color`
+- 判断输出设备是否支持彩色显示，只要设备有色彩深度，`color` 就起作用，(min-color: 4)表示每个色彩分量至少有4位，不支持返回0
+8. `color-index` `min-color-index` `max-color-index`
+- 指输出设备色彩搜寻列表共有多少颜色，不支持色彩搜寻列表的设备返回0
+9. `monochrome` `min-monochrome` `max-monochrome`
+- 判断显示屏是不是单色的，数值表示在输出设备的帧缓冲器中每像素有多少位，非单色设备返回0
+10. `resolution` `min-resolution` `max-resolution`
+- 输出设备的分辨率，值不能为负或0, 如：`100dpi` 或 `100dpcm`
+11. `orientation`
+- 取值：`portrait | landscape` 用户代理的显示区域放置的方向
+12. `scan`
+- 取值：`progressive | interlace` 输出设备使用的扫描方式
+13. `grid`
+- 取值：`0 | 1` 判断是否为基于栅格的输出设备
+
 
 ## 栅格布局
 

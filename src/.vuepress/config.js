@@ -13,7 +13,6 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: 'CSS', link: '/pages/css/' },
-            { text: 'CSS3', link: '/pages/css3/' },
             { text: 'JS', link: '/pages/js/' },
             { text: 'ES6', link: '/pages/es6/' },
             { text: 'TS', link: '/pages/TS/' },
@@ -32,15 +31,10 @@ module.exports = {
                 path: '/pages/css/',
                 collapsable: false,
                 children: [
-                    ''
-                ]
-            }],
-            '/pages/css3/': [{
-                title: 'CSS3',
-                path: '/pages/css3/',
-                collapsable: false,
-                children: [
-                    ''
+                    '',
+                    'CSS3',
+                        'LESS',
+                        'SCSS',
                 ]
             }],
             '/pages/js/': [
