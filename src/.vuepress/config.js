@@ -16,7 +16,9 @@ module.exports = {
             { text: 'CSS3', link: '/pages/css3/' },
             { text: 'JS', link: '/pages/js/' },
             { text: 'ES6', link: '/pages/es6/' },
+            { text: 'TS', link: '/pages/TS/' },
             { text: '框架', link: '/pages/frame/' },
+            { text: '浏览器', link: '/pages/browser/' },
             { text: '网络', link: '/pages/network/' },
             { text: '优化', link: '/pages/optimize/' },
             { text: '架构', link: '/pages/framework/' },
@@ -70,6 +72,14 @@ module.exports = {
                     ''
                 ]
             }],
+            '/pages/TS/': [{
+                title: 'TypeScript',
+                path: '/pages/TS/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
             '/pages/frame/': [{
                 title: '框架',
                 path: '/pages/frame/',
@@ -78,6 +88,14 @@ module.exports = {
                     '',
                     'vue',
                     'vueSource'
+                ]
+            }],
+            '/pages/browser/': [{
+                title: '浏览器',
+                path: '/pages/browser/',
+                collapsable: false,
+                children: [
+                    ''
                 ]
             }],
             '/pages/network/': [{
