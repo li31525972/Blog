@@ -55,11 +55,17 @@ var b = a > 1 ? 100 : 1000
 - `while`
 - `for`
 - `for-in`
+- `for-of`
 - `label` 自行百度一下
 - `break`
 - `continue`
 - `with` 严格模式下不能使用，视为语法错误
 - `switch`
+
+### for-in 和 for-of
+```js
+// for-in 迭代的是对象的键  for-of 迭代的是对象的值
+```
 
 ## 函数
 ### 基本用法
