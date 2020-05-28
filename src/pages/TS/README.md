@@ -353,42 +353,186 @@ function f(x: number, y = 0) {
 
 ### 重载
 
-## 接口
+## 接口 interface
 ### 接口定义
+```typescript
+interface Person {
+    name: string; // 必传
+    age?: number; // 可选
+    readonly sex: string; // 只读
+    [propName: string]: any; // 任意数量的其它属性
+}
+```
 
 ### 函数类型
+```typescript
+// 定义函数接口
+interface searchFunc {
+    (source: string, str: string): boolean
+}
+// 使用
+let mySearch: searchFunc = function(src: string, str: string): boolean {
+    return src.includes(str)
+}
+```
 
-### 可索引类型
+### 可索引类型 Array
+```typescript
+interface stringArray {
+    [index: number]: string
+}
+
+let newArray: stringArray = ['1', '2']
+let str: string = newArray[0]
+```
 
 ### 继承接口
+```typescript
+// 定义接口
+interface Person {
+    name: string;
+}
+interface Teacher {
+    age: number;
+}
+
+// 继承接口
+interface Man extends Person {
+  sex: string
+}
+
+// 继承多个接口
+interface Man extends Person, Teacher {
+    stature: number
+}
+```
 
 ## 类
 ### 类定义
+```typescript
+class Message {
+    msg: string;
+    constructor(message: string) {
+        this.msg = message
+    }
+    getMsg() {
+        return `hello ${this.msg}`
+    }
+}
+
+let message = new Message('word')
+```
 
 ### 实现接口
+- 接口描述了类的公共部分，不会检查类是否具有某些私有成员
+- 用接口来明确的强制一个类去符合某种规则，示例：
+```typescript
+interface Person {
+    name: string; // 类属性
+    getName(name: string): string // 类方法
+}
 
-### 继承
+class Man implements Person {
+    name: string;
+    constructor(name: string, y: number) {
+        this.name = name
+    }
+    getName(name:string): string {
+        return this.name
+    }
+}
+```
 
-### 存储器
+### 类继承
+```typescript
+class Message {
+    msg: string;
+    constructor(message: string) {
+        this.msg = message
+    }
+    getMsg() {
+        return `hello ${this.msg}`
+    }
+}
 
-### 只读属性
+class MessageError extends Message {
+    color: string;
+    constructor(name: string) {
+        super(name)
+    }
+}
+// 使用 extends 关键字创建了一个 Message 的子类 MessageError
+// 派生类包含了一个构造函数，它必须调用super， 并会执行基类的构造函数
+// 在构造函数里访问this属性之前一定要执行 super
+```
 
-### 类函数和静态函数
+### 只读属性 readonly
+```typescript
+class Person {
+    readonly name: string;
+}
+```
+
+### 静态属性 static
+```typescript
+class Person {
+    static name: string;
+}
+```
 
 ### 抽象类
 
-## 命名空间
+## 命名空间 namespace
 ### 单文件命名空间
+```typescript
+namespace PersonAll {
+    export interface Teacher {
+      
+    }
+    export interface Student {
+      
+    }
+    export class L implements Teacher, Student {
+        
+    }
+}
+```
 
 ### 多文件命名空间
+```typescript
+// a.ts
+namespace Teacher {
+    
+}
+
+// b.ts
+namespace Student {
+    
+}
+
+// 涉及多文件时，必须确保所有编译后的代码都被加载了
+// 加载方式有2两种：
+// 1. 把所有的编译文件输出为一个文件
+// 2. 通过 script 标签把所有生成的js文件按照顺序引入进来
+```
 
 ### 别名
+- 简化命名空间操作的方法
+```typescript
+namespace Teacher {
+    
+}
+
+import person = Teacher
+```
+
 
 ### 外部命名空间
+```typescript
+declare namespace Person {
+    
+}
 
-## 模块
-### 导出与导入
+declare var teacher: Person;
+```
 
-### 生成模块
-
-### 外部模块

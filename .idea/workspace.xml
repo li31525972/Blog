@@ -17,23 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="612">
               <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/TS/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="124">
-                <caret line="351" column="3" selection-start-line="351" selection-start-column="3" selection-end-line="351" selection-end-column="3" />
-              </first_editor>
-              <second_editor />
             </state>
           </provider>
         </entry>
@@ -70,6 +58,7 @@
       <find>slot</find>
       <find>pertotype</find>
       <find>before</find>
+      <find>Teacher</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -253,7 +242,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168872000" />
+    <option name="totallyTimeSpent" value="172733000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -667,13 +656,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/js/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -690,10 +672,17 @@
     <entry file="file://$PROJECT_DIR$/src/pages/TS/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="124">
-            <caret line="351" column="3" selection-start-line="351" selection-start-column="3" selection-end-line="351" selection-end-column="3" />
+          <first_editor relative-caret-position="629">
+            <caret line="537" lean-forward="true" selection-start-line="537" selection-end-line="537" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
         </state>
       </provider>
     </entry>
