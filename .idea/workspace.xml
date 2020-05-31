@@ -27,30 +27,11 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/webpack/README.md">
+        <entry file="file://$PROJECT_DIR$/src/pages/network/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="692">
-                <caret line="605" column="52" selection-start-line="605" selection-start-column="52" selection-end-line="605" selection-end-column="52" />
-                <folding>
-                  <element signature="n#!!doc" expanded="true" />
-                  <element signature="n#!!doc" expanded="true" />
-                </folding>
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/js/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="656">
-                <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
-                <folding>
-                  <element signature="n#!!doc" expanded="true" />
-                </folding>
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="428">
+                <caret line="43" column="41" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
               </first_editor>
               <second_editor />
             </state>
@@ -97,7 +78,6 @@
         <option value="$PROJECT_DIR$/src/pages/js/BOM.md" />
         <option value="$PROJECT_DIR$/src/pages/frame/vueSource.md" />
         <option value="$PROJECT_DIR$/src/pages/frame/README.md" />
-        <option value="$PROJECT_DIR$/src/pages/network/README.md" />
         <option value="$PROJECT_DIR$/src/pages/optimize/README.md" />
         <option value="$PROJECT_DIR$/src/pages/js/Form.md" />
         <option value="$PROJECT_DIR$/src/pages/js/Error.md" />
@@ -130,13 +110,14 @@
         <option value="$PROJECT_DIR$/src/pages/js/README.md" />
         <option value="$PROJECT_DIR$/src/pages/TS/README.md" />
         <option value="$PROJECT_DIR$/src/pages/webpack/README.md" />
+        <option value="$PROJECT_DIR$/src/pages/network/README.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1680" />
-    <option name="height" value="958" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="x" value="730" />
+    <option name="width" value="710" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -174,13 +155,6 @@
               <item name="Blog" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Blog" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="network" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -211,11 +185,11 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/static/imgs" />
       <recent name="$PROJECT_DIR$/src/pages/vue" />
       <recent name="$PROJECT_DIR$/src/pages/css3" />
       <recent name="$PROJECT_DIR$/src/.vuepress/public" />
       <recent name="$PROJECT_DIR$/src/pages/js" />
-      <recent name="$PROJECT_DIR$/src/pages/es6" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -252,13 +226,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190567000" />
+    <option name="totallyTimeSpent" value="195556000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="730" y="0" width="710" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1529246" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3149492" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -358,16 +332,6 @@
         <state split_layout="SPLIT">
           <first_editor>
             <caret column="10" selection-start-column="10" selection-end-column="10" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/network/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor>
-            <caret column="4" selection-start-column="4" selection-end-column="4" />
           </first_editor>
           <second_editor />
         </state>
@@ -679,6 +643,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/webpack/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="726">
+            <caret line="607" column="54" lean-forward="true" selection-start-line="607" selection-start-column="54" selection-end-line="607" selection-end-column="54" />
+            <folding>
+              <element signature="n#!!doc" expanded="true" />
+              <element signature="n#!!doc" expanded="true" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
@@ -686,15 +664,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/webpack/README.md">
+    <entry file="file://$PROJECT_DIR$/src/pages/network/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="692">
-            <caret line="605" column="52" selection-start-line="605" selection-start-column="52" selection-end-line="605" selection-end-column="52" />
-            <folding>
-              <element signature="n#!!doc" expanded="true" />
-              <element signature="n#!!doc" expanded="true" />
-            </folding>
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="428">
+            <caret line="43" column="41" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
           </first_editor>
           <second_editor />
         </state>
