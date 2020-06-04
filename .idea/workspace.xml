@@ -30,8 +30,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/network/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="824">
-                <caret line="78" column="61" selection-start-line="78" selection-start-column="61" selection-end-line="78" selection-end-column="61" />
+              <first_editor relative-caret-position="865">
+                <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
               </first_editor>
               <second_editor />
             </state>
@@ -175,6 +175,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -222,11 +223,12 @@
       <workItem from="1588904439212" duration="10850000" />
       <workItem from="1589016994031" duration="538000" />
       <workItem from="1589361962428" duration="1242000" />
+      <workItem from="1591276492271" duration="9003000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198195000" />
+    <option name="totallyTimeSpent" value="207376000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3170" y="0" width="1710" height="1440" extended-state="0" />
@@ -667,8 +669,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/network/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="824">
-            <caret line="78" column="61" selection-start-line="78" selection-start-column="61" selection-end-line="78" selection-end-column="61" />
+          <first_editor relative-caret-position="865">
+            <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
           </first_editor>
           <second_editor />
         </state>
