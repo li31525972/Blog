@@ -1,3 +1,4 @@
+
 # 网络
 ## 从输入URL到页面加载完成的过程
 <img align='center' src="../../static/imgs/url-analyse.png" />
@@ -118,6 +119,29 @@
 <p><font color='red'><b>如果客户端遇到了不认识的响应码，那么就会按照该系列的x00状态码处理</b></font></p>
 
 ## 请求头
+
+### Accept
+- 接受哪种媒体格式
+```js
+// 例如：
+Accept: application/json, text/javascript, */*; q=0.01 
+```
+### Accept-Language
+- 表示浏览器希望展示哪种语言描述的文本
+```js
+// 例如：
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7
+```
+<p><font color='red'><b>q表示优先级</b></font></p>
+
+### Accept-Encoding
+- 内容编码(主要指压缩算法)，表示浏览器接受哪种压缩的方式
+```js
+// 例如：
+Accept-Encoding: gzip, deflate, br
+```
+
+
 ### User-Agent
 - 指明客户端的类型信息，服务器可以据此对资源的表述做抉择，例如：
 ```js
@@ -154,8 +178,156 @@ From：xxx@xxx.com
 ```
 
 ## 响应头
+### Content-Type
+- 指明包体类型和编码，媒体类型、编码
+```js
+// 例如： 
+Content-Type: text/html; charset=utf-8 
+// text/html表示媒体类型
+// charset=utf-8 表示字符编码
+```
+### Content-Encoding
+- 内容编码,表示是否使用了压缩
+```js
+Content-Encoding: gzip // 表示使用了 gzip 压缩
+```
+### Content-Language
+- 语言
+```js
+Content-Language: // 没有找到对应的。。
+```
+### Content-Length
+- 明确指明头部包体长度
+```js
+// 例如：
+Content-Length: 47 // 47表示包体中字节的个数, 必须和实际包体长度一致，如果长度不一致会怎么样呢？
+// 长度值小于实际长度：包体丢失，只返回了指定长度的包
+// 长度值大于实际长度：不符合HTTP规范，浏览器无法解析
+```
+<p><font color='red'><b>这么使用的优点：接收端处理更简单</b></font></p>
+<p><font color='red'><b>这么使用的缺点：有些服务器端防火墙只基于`Content-Length`处理，如果不通过`Content-Length`去传输包体的时候，很可能就会有一些漏网之鱼，直接去攻击数据库等等</b
+></font
+></p>
+
+### Transfer-Encoding
+- 头部指明使用`Chunk`传输方式
+- 不明确包体的长度时, 含有`Transfer-Encoding`头部后`Content-Length`头部应被忽略
+```js
+Transfer-Encoding: "chunked" / "compress" / "deflate" / "gzip" / transfer-extension
+
+// 当使用 Transfer-Encoding: chunked 时，包体的类型
+chunked-body: *chunk
+// last-chunk(chunk已经结束)
+// trailer-part
+// CRLF(换行符)
+```
+<p><font color='red'><b>优点：基于长连接持续推送动态内容</b></font></p>
+<p><font color='red'><b>优点：压缩体积较大的包体时，不必完全压缩(计算出头部)再发送，可以边发送边压缩</b></font></p>
+<p><font color='red'><b>优点：传递必须在包体传输完才能计算出Trailer头部</b></font></p>
+
+### Content-Disposition
+- 指定包体的展示方式
+1. `inline` 指定包体是以`inline`内联的方式，作为页面的一部分展示
+2. `attchment` 指定浏览器将包体以附件的形式下载
+```js
+// 例如：
+Content-Disposition: attachment
+Content-Disposition: attachment; filename="filename.jpg"
+```
+3. 在`multipart/form-data`类型应答中，可以拥有子消息体部分
+```js
+// 例如：
+Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"
+```
+
 ### Server
 - 指明服务器上所使用软件的信息，用于帮助客户端定位问题或者统计数据
+```js
+// 例如：
+Server: Apache // 使用的是 Apache 代理服务器
+```
+### Allow
+- 告诉客户端，服务器上该URI对应的资源允许哪些方法的执行
+```js
+// 例如：
+Allow： GET, HEAD, PUT 
+```
+
+### Accept-Ranges
+- 告诉客户端服务器上该资源是否允许`range`请求
+```js
+// 例如：
+Accept-Ranges: bytes // 接受 range 请求，请求的单位是字节
+Accept-Ranges: none // 不接受 range 请求
+```
+
+### Range
+- 如果客户端已经获得了`Range`响应的一部分，并想在这部分响应未过期的情况下，获取其它部分的响应
+> 常与 If-Unmodified-Since 或者 If-Match 头部共同使用
+
+- `If-Range= entity-tag / HTTP-date`
+> 可以使用 Etag 或者 Last-Modified
+
+<p><font color='red'><b>如果服务器不支持`Range`那么就会返回全部</b></font></p>
+
+## Cookie和Session
+- 保存在客户端，由浏览器维护、表示应用状态的HTTP头部
+- 存放在内存或者磁盘中
+- 服务端生成的`Cookie`在响应中通过`Set-Cookie`头部告知客户端(运行多个Set-Cookie头部传递多个值)
+- 客户端得到`Cookie`后，后续请求都会自动将`Cookie`头部携带至请求中
+
+### Cookie
+- `Cookie`头部中可以存放多个`name/value`键值对
+```js
+// Cookie: cookie-pair *(";" sp cookie-pair)
+// cookie-pair = cookie-name "=" cookie-value
+// 例如： 多个之间以 ; 分隔
+Cookie: BAIDUID=513C67457FF5F9D0F2F898EAD31933CC:FG=1; BIDUPSID=513C67457FF5F9D0F2F898EAD31933CC; PSTM=1554902507; 
+```
+
+### Set-Cookie
+- `Set-Cookie`头部一次只能传递一个`name/value`键值对，响应中可以包含多个头部
+```js
+// Set-Cookie: cookie-pair *(";" sp cookie-av)
+/**
+* cookie-av = Expires / Max-Age / Domain / Path / Secure / HttpOnly / Extension
+* Expires=sane-cookie-data(cookie到sane-cookie-date后失效)
+* Max-Age=non-zero-digit(cookie经过多少秒后失效(不能是0)，优先级高于Expires) 
+* Domain=""(指定cookie可用于哪些域名，默认可以访问当前域名)
+* Path=""(哪些路径下才能使用cookie)
+* Secure(只有使用TLS/SSL协议(https)时才能使用cookie)
+* HttpOnly(不能使用JavaScript(Document.cookie XMLHttpRequest、Request APIs)访问到cookie)
+*/
+// 例如：
+Set-Cookie: ab_jid=285e62d190506240060ebc3b20afa329fe17; Path=/; Domain=miao.baidu.com; Max-Age=2147483647; HttpOnly
+Set-Cookie: ab_jid_BFESS=285e62d190506240060ebc3b20afa329fe17; Path=/; Domain=miao.baidu.com; Max-Age=2147483647; HttpOnly; Secure; SameSite=None
+```
+
+### Cookie使用的限制
+1. `RFC`规范对<font color='red'><b>浏览器使用`Cookie`的要求</b></font>
+- 每条`Cookie`的长度(包括name、value以及描述的属性总长度)至少要达到4KB
+- 每个域名下至少支持50个`Cookie`
+- 至少要支持3000个`Cookie`
+
+2. 代理服务器传递`Cookie`时会有限制
+- 代理服务器可能会限制HTTP的头部为4K、8K、32K
+
+### Cookie使用的问题
+1. `Cookie`会被附加在每个HTTP请求中，所以无形中增加了流量
+2. 由于在HTTP请求中的`Cookie`是明文传递的，所以有安全性问题(除非用HTTPS，HTTPS会自己加密)
+3. `Cookie`的大小不应超过4KB，这对应复杂的存储需求来说是不够用的
+
+### Cookie和Session的常见用法案例
+- 登录场景的使用
+1. 客户端发起一个登录请求
+2. 服务器拿到客户端里发送过来的账户和密码到持久化数据库(如：MySQL)比对
+3. 如果比对通过，就会根据当前的账户生成一个`Session`(有时效的，一般记录了哪个账户，多长时间有效)，把这个`Session`记录一个`SessionID`存储在内存数据库中(如：Redis)
+4. 返回给浏览器，以`Set-Cookie`返回
+5. 浏览器进行保存，一般在`storage`
+6. 客户端以后在进行请求的时候会自动带上`Cookie`
+7. 服务器根据`Cookie`解析`Session`并对比资源状态
+8. 执行请求需要处理的业务
+9. 返回给客户端
 
 ## HTTP
 ### 什么是HTTP协议？
@@ -233,3 +405,16 @@ From：xxx@xxx.com
 2. ASCII码中不可显示的字符
 3. URI中规定的保留字符`: / ? # [ ] @ ! $ & ' ( ) * + , ; =`等等
 4. 不安全字符(传输环节中可能被不正确的处理)，如：空格、引号、尖括号等
+
+### 多线程、断点续传、随机点播
+<p><font color='red'><b>使用HTTP Range头部</b></font></p>
+
+1. 客户端明确任务：从哪开始下载
+- 本地是否有部分文件
+> 文件已下载部分在服务器发生改变？
+- 使用多线程并发下载
+
+2. 下载文件的指定部分内容
+3. 下载完毕后拼装成统一的文件
+
+

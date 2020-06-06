@@ -21,6 +21,7 @@ module.exports = {
             { text: '浏览器', link: '/pages/browser/' },
             { text: '网络', link: '/pages/network/' },
             { text: '优化', link: '/pages/optimize/' },
+            { text: '安全', link: '/pages/security/' },
             { text: 'webpack', link: '/pages/webpack/' },
             { text: '架构', link: '/pages/framework/' },
             { text: '开发问题', link: '/pages/question/' },
@@ -113,6 +114,14 @@ module.exports = {
             '/pages/optimize/': [{
                 title: '优化',
                 path: '/pages/optimize/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/security/': [{
+                title: '安全',
+                path: '/pages/security/',
                 collapsable: false,
                 children: [
                     ''
