@@ -27,19 +27,19 @@
 - DOM无法获取(防止跨域脚步篡改DOM结构)
 - AJAX请求不能发送
 
-### CORS 跨域访问解决方案
-#### `Cross-Origin Resource Sharing`(CORS)
+## CORS 跨域访问解决方案
+### `Cross-Origin Resource Sharing`(CORS)
 - 浏览器同源策略下的跨域访问解决方案：
 1. 如果站点A允许站点B的脚本访问其资源，必须在HTTP响应中显示的告知浏览器：站点B是被允许访问的
 - 访问站点A的请求，浏览器应告知请求来自站点B
 - 站点A的响应中，应明确哪些跨域请求是被允许的
 
-#### 策略1：何为简单请求？
+### 策略1：何为简单请求？
 - `GET/HEAD/POST`方法之一
 - 仅能使用`CORS`安全的头部：`Accept Accept-Language Content-Language Content-Type`
 - `Content-Type`值只能是：`text/plain multipart/form-data application/x-www-form-urlencoded`三者其中之一
 
-##### 简单跨域请求的基本实现原理
+#### 简单跨域请求的基本实现原理
 1. 客户端请求中携带 Origin 头部告知来自哪个域
 2. 服务器响应中携带 Access-Control-Allow-Origin
 3. 浏览器放行
@@ -54,10 +54,10 @@
 
 ```
 
-#### 策略2：简单请求以外的其他请求
+### 策略2：简单请求以外的其他请求
 - 访问资源前，需要先发起`prefilght`预检请求(方法为OPTIONS，例如：axios) 询问何种请求是被允许的
 
-##### 复杂请求的跨域实现原理
+#### 复杂请求的跨域实现原理
 <p>先进行预检请求(必须是OPTIONS方法)，再进行实际请求</p>
 
 - 预检请求头部
@@ -73,3 +73,5 @@
 1. `Origin` 一个页面的资源可能来自于知道来自于多个域名，在ajax等子请求中标明来源于某个域名下的脚本，以通过服务器的安全效验
 2. `Access-Control-Request-Method` 告知服务器接下来的请求会使用哪些方法
 3. `Access-Control-Request-Headers` 告知服务器接下来的请求会传递哪些头部
+
+- 响应头部
