@@ -75,3 +75,10 @@
 3. `Access-Control-Request-Headers` 告知服务器接下来的请求会传递哪些头部
 
 - 响应头部
+1. `Access-Control-Allow-Methods` 在预检请求的响应中，告知客户端接下来的请求允许使用的方法
+2. `Access-Control-Allow-Headers` 在预检请求的响应中，告知客户端接下来的请求允许携带的头部
+3. `Access-Control-Max-Age` 在预检请求的响应中，告知客户端该响应信息可以缓存多久
+4. `Access-Control-Expose-Headers` 告知浏览器哪些响应头部可以供客户端使用，默认情况下只有`Cache-Control、Content-Language、Content-Type、Expires、 
+Last-Language、Pragma` 可供使用
+5. `Access-Control-Allow-Origin` 告知浏览器允许哪些域访问当前资源，*表示允许所有域，为避免缓存错乱，响应中需要携带`Vary:Origin`
+6. `Access-Control-Allow-Credentials` 告知浏览器是否可以将`Credentials`暴露给客户端使用，`Credentials`包含`Cookie、authorization`等头部、TLS证书等
