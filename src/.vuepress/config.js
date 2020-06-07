@@ -16,13 +16,14 @@ module.exports = {
             { text: 'JS', link: '/pages/js/' },
             { text: 'ES6', link: '/pages/es6/' },
             { text: 'TS', link: '/pages/TS/' },
-            { text: '框架', link: '/pages/frame/' },
             { text: 'Node', link: '/pages/node/' },
             { text: '浏览器', link: '/pages/browser/' },
             { text: '网络', link: '/pages/network/' },
             { text: '优化', link: '/pages/optimize/' },
             { text: '安全', link: '/pages/security/' },
             { text: 'webpack', link: '/pages/webpack/' },
+            { text: '框架', link: '/pages/frame/' },
+            { text: '服务器', link: '/pages/server/Nginx' },
             { text: '架构', link: '/pages/framework/' },
             { text: '开发问题', link: '/pages/question/' },
         ],
@@ -125,6 +126,14 @@ module.exports = {
                 collapsable: false,
                 children: [
                     ''
+                ]
+            }],
+            '/pages/server/Nginx': [{
+                title: '服务器',
+                path: '/pages/server/Nginx',
+                collapsable: false,
+                children: [
+                    'Nginx',
                 ]
             }],
             '/pages/webpack/': [{
