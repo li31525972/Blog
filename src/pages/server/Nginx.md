@@ -2,6 +2,20 @@
 
 ## Nginx 安装部署
 ### 获取安装文件
+#### 官方下载网址
+```js
+http://nginx.org/en/download.html
+```
+<img src="/nginx-download.png">
+
+### Mac安装方式-测试使用
+```js
+// 先安装Homebrew
+https://brew.sh/
+
+// 安装Nginx
+brew install nginx
+```
 
 ### 安装Nginx和基本配置
 

@@ -359,6 +359,14 @@ Date: Sat, 06 Jun 2020 11:32:16 GMT
 - 服务器发出响应的时间到使用缓存的响应发生时经过的秒数
 
 ### Cache-Control
+1. `must-revalidate` 告诉客户端一旦缓存过期，必须向服务器验证后才可使用
+2. `proxy-revalidate` 与`must-revalidate`类似，但它仅对代理服务器的共享缓存有效
+3. `no-cache` 告诉客户端不能直接使用缓存的响应，使用前必须在源服务器验证得到304返回码，如果`no-cache`后指定头部，则若客户端的后续请求及响应中不含有这些头则可直接使用缓存
+4. `max-age` 告诉客户端缓存`Age`超出`max-age`秒后则缓存过期 
+5. `s-maxage` 与`max-age`相似，但仅针对共享缓存，且优先级高于`max-age`和`Expires`
+6. `private` 表示该响应不能被代理服务器作为共享缓存使用，若`private`后指定头部，则在告诉代理服务器不能缓存指定的头部，但可缓存其他部分
+7. `no-store` 告诉所有下游节点不能对响应进行缓存
+8. `no-transform` 告诉代理服务器不能修改消息包体的内容
 
 
 ## 条件请求
@@ -468,6 +476,11 @@ Set-Cookie: ab_jid_BFESS=285e62d190506240060ebc3b20afa329fe17; Path=/; Domain=mi
 
 ### 缓存的工作原理
 - 在第一个请求中缓存了，为后续的请求使用第一个请求缓存住的响应
+- 页面缓存状态是由HTTP header头部决定的，一个浏览器请求信息，一个服务器响应信息，主要包括`Pragma: 
+no-cache、Cache-Control、Expires、Last-Modified、If-Modified-Since`,其中`no-cache`由HTTP1.0规定，`Cache-Control`由HTTP1.1规定
+1. 第一次请求：浏览器通过http的header报头，附带Expires，Cache-Control，Last-Modified/Etag向服务器请求，此时服务器记录第一次请求的Last-Modified/Etag
+2. 再次请求：当浏览器再次请求的时候，请求头附带Expires，Cache-Control，If-Modified-Since/Etag向服务器请求
+3. 服务器根据第一次记录的Last-Modified/Etag和再次请求的If-Modified-Since/Etag做对比，判断是否需要更新，服务器通过这两个头判断本地资源未发生变化，客户端不需要重新下载，返回304响应。
 
 ### 私有缓存与共享缓存
 #### 私有缓存
@@ -479,7 +492,12 @@ Set-Cookie: ab_jid_BFESS=285e62d190506240060ebc3b20afa329fe17; Path=/; Domain=mi
 2. 正向代理
 3. 反向代理
 
-### 什么样的响应才会被缓存
+### 什么样的响应才会被缓存 
+- 请求方法可以被缓存理解(不只有GET方法)
+- 响应码可以被缓存理解(404、206也可以被缓存)
+- 响应与请求的头部没有指明`no-store`
+- 响应中至少应含有以下头部中的1个或者多个：`Expires、max-age、s-maxage、public`，当响应中没有明确指示过期时间的头部时，如果响应码非常明确，也可以缓存
+- 如果缓存在代理服务器上：不含有`private、Authorization`
 
 ### 缓存新鲜度的四种计算方式
 - 缓存优先级：`S-MaxAge、Max-Age、Expires、预估过期时间`
