@@ -22,6 +22,8 @@ module.exports = {
             { text: '优化', link: '/pages/optimize/' },
             { text: '安全', link: '/pages/security/' },
             { text: 'webpack', link: '/pages/webpack/' },
+            { text: '算法', link: '/pages/algorithm/' },
+            { text: '数据结构', link: '/pages/dataStructure/' },
             { text: '框架', link: '/pages/frame/' },
             { text: '服务器', link: '/pages/server/Nginx' },
             { text: '架构', link: '/pages/framework/' },
@@ -139,6 +141,22 @@ module.exports = {
             '/pages/webpack/': [{
                 title: 'webpack',
                 path: '/pages/webpack/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/algorithm/': [{
+                title: '算法',
+                path: '/pages/algorithm/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/dataStructure/': [{
+                title: '数据结构',
+                path: '/pages/dataStructure/',
                 collapsable: false,
                 children: [
                     ''
