@@ -33,6 +33,14 @@ brew install nginx
 // 配置文件目录
 /usr/local/etc/nginx/
 ```
+- 进入`nginx.conf`页面后，修改配置项
+<img src="/nginx-author.png">
+<img src="/nginx-port.png">
+
+#### `Nginx`命令
+1. 启动Nginx: `sudo nginx`
+2. 关闭Nginx：`nginx -s stop`
+3. 重新启动：`sudo nginx -s reload`
 
 ### 安装Nginx和基本配置
 
