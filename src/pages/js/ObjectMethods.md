@@ -12,3 +12,12 @@ let obj = {
     foo, // 等同于：foo: foo
 }
 ```
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

@@ -356,3 +356,15 @@
     console.log(list) // [11, 12, 13, "4,5,6,7,8,9,10,1110"] 没有拉平的变成了字符串？
     console.log(newArr) // [1, 2, 3, Array(2)]
 ```
+
+
+
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

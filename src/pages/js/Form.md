@@ -30,3 +30,12 @@
 
 ### onchange()
 - value值发生改变时触发
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

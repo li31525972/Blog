@@ -53,3 +53,11 @@ window.onerror = function(message, url, line) {
     
 }
 ```
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

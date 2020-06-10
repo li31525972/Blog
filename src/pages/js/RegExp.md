@@ -220,3 +220,11 @@
     let reg = /([A-Z]|[a-z])/
     console.log(reg.source) // ([A-Z]|[a-z])
 ```
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

@@ -29,3 +29,16 @@
 
 ### Number.isSafeInteger()
 - 表示的整数范围在-2^53到2^53之间（不含两个端点），超过这个范围，无法精确表示这个值。
+
+
+
+
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

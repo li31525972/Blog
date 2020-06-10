@@ -534,3 +534,9 @@ no-cache、Cache-Control、Expires、Last-Modified、If-Modified-Since`,其中`n
 3. 下载完毕后拼装成统一的文件
 
 
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

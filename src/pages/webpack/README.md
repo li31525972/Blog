@@ -613,3 +613,14 @@ module.exports = {
 ## 整体配置结构
 
 ## 多种配置类型
+
+
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

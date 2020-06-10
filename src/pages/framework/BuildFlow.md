@@ -9,3 +9,12 @@
 ## 设计构建流
 
 ## 持续交付
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

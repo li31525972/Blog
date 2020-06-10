@@ -10,3 +10,12 @@
 
 ## 层次设计
 
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

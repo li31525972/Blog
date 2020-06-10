@@ -4,3 +4,11 @@
 2. 树
 3. 图
 4. 其他数据结构
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

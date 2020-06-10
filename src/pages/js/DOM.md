@@ -439,3 +439,14 @@ document.querySelector('div').addEventListener('transitionend', event => {
 
 ### stopPropagation()
 - 阻止事件冒泡
+
+
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

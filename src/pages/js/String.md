@@ -239,3 +239,11 @@ console.log(String.raw`Hi\n${2+3}!`) // Hi\n5!
 
 ### matchAll()
 - `matchAll()`方法返回一个正则表达式在当前字符串的所有匹配，
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

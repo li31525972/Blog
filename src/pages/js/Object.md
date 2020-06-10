@@ -349,3 +349,11 @@ let Per = {
     console.log(person) // person 继承了 B， B继承了A
 ```
 
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

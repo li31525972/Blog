@@ -3,3 +3,13 @@
 ## 技术准备期
 ## 业务回补期
 ## 成长优化期
+
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

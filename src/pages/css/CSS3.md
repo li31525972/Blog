@@ -732,3 +732,10 @@ div {
 
 ## 栅格布局
 
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

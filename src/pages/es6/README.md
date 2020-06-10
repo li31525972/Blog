@@ -55,3 +55,11 @@ let [a = 10, b, c, d] = [1, 2, 3, 4]
 <font color='red'><b>注意：只有当解构的值`===`严格等于`undefined`时默认值会生效</b></font>
 
 
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

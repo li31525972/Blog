@@ -82,3 +82,15 @@
 Last-Language、Pragma` 可供使用
 5. `Access-Control-Allow-Origin` 告知浏览器允许哪些域访问当前资源，*表示允许所有域，为避免缓存错乱，响应中需要携带`Vary:Origin`
 6. `Access-Control-Allow-Credentials` 告知浏览器是否可以将`Credentials`暴露给客户端使用，`Credentials`包含`Cookie、authorization`等头部、TLS证书等
+
+
+
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

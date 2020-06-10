@@ -878,3 +878,13 @@ h1::after {
 /* 值大的元素会覆盖其他元素 */
 
 ```
+
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

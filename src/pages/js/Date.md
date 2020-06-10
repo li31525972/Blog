@@ -87,3 +87,12 @@
     let cur = new Date('2010-05-01').getTime()
     console.log(cur) // 1272672000000
 ```
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>
