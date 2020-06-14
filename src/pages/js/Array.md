@@ -326,6 +326,7 @@
     
     console.log(list.includes(2)) // true
     console.log(list.includes(7)) // false
+    
 ```
 
 ### flat()
