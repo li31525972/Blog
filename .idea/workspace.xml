@@ -28,12 +28,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/frame/vue.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="323">
+              <first_editor relative-caret-position="306">
                 <caret line="727" column="74" selection-start-line="727" selection-start-column="74" selection-end-line="727" selection-end-column="74" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/optimize/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="680">
+                <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
               </first_editor>
               <second_editor />
             </state>
@@ -58,6 +70,7 @@
       <find>pertotype</find>
       <find>before</find>
       <find>Teacher</find>
+      <find>prov</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -108,7 +121,6 @@
         <option value="$PROJECT_DIR$/src/pages/js/RegExp.md" />
         <option value="$PROJECT_DIR$/src/pages/js/String.md" />
         <option value="$PROJECT_DIR$/src/pages/node/README.md" />
-        <option value="$PROJECT_DIR$/src/pages/optimize/README.md" />
         <option value="$PROJECT_DIR$/src/pages/question/README.md" />
         <option value="$PROJECT_DIR$/src/pages/TS/README.md" />
         <option value="$PROJECT_DIR$/src/pages/webpack/README.md" />
@@ -117,11 +129,13 @@
         <option value="$PROJECT_DIR$/src/pages/algorithm/README.md" />
         <option value="$PROJECT_DIR$/src/pages/dataStructure/README.md" />
         <option value="$PROJECT_DIR$/src/pages/frame/vue.md" />
+        <option value="$PROJECT_DIR$/src/pages/optimize/README.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="y" value="93" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="x" value="2991" />
+    <option name="y" value="249" />
     <option name="width" value="1440" />
     <option name="height" value="810" />
   </component>
@@ -348,13 +362,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="275068000" />
+    <option name="totallyTimeSpent" value="277158000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="93" width="1440" height="810" extended-state="1" />
+    <frame x="3170" y="0" width="1710" height="1440" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1529246" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1284784" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -725,16 +739,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/optimize/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="187">
-            <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/question/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -848,8 +852,18 @@
     <entry file="file://$PROJECT_DIR$/src/pages/frame/vue.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="323">
+          <first_editor relative-caret-position="306">
             <caret line="727" column="74" selection-start-line="727" selection-start-column="74" selection-end-line="727" selection-end-column="74" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/optimize/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="680">
+            <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
           </first_editor>
           <second_editor />
         </state>
