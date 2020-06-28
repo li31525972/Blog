@@ -709,6 +709,44 @@ var CompB = {
 - 详情请看[官网](https://cn.vuejs.org/v2/api/#provide-inject)
 <font color='red'><b>注意：provide 和 inject 主要在开发高阶插件/组件库时使用。并不推荐用于普通应用程序代码中。</b></font>
 
+```vue
+<!--parent组件-->
+provide() {
+        <!--注意：这并不是响应式的数据-->
+        return {
+            parent: this.parent,
+        }
+    },
+    data() {
+        return {
+            parent: {},
+        }
+    },
+    
+<!--响应式处理-->
+    provide() {
+        this.parent = Vue.observable({ name: 'value' }) // 注意：没有定义键也不是响应式的
+        return {
+            parent: this.parent
+        }
+    },
+    data() {
+        return {
+            // parent: {},
+        }
+    },
+
+<!--inject使用组件-->
+export default {
+    inject: ['parent'],
+    created() {
+        console.log(this.parent)
+    },
+}
+
+```
+ 
+
 ## 其他
 ### name
 - 允许组件模板递归地调用自身。注意，组件在全局用 Vue.component() 注册时，全局 ID 自动作为组件的 name。
