@@ -44,8 +44,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/optimize/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="680">
-                <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+              <first_editor relative-caret-position="565">
+                <caret line="99" column="47" selection-start-line="99" selection-start-column="47" selection-end-line="99" selection-end-column="47" />
               </first_editor>
               <second_editor />
             </state>
@@ -310,19 +310,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/.vuepress/public/imgs" />
+      <recent name="$PROJECT_DIR$/src/.vuepress/public" />
+      <recent name="$PROJECT_DIR$/src/static/imgs" />
+      <recent name="$PROJECT_DIR$/src/pages/vue" />
+      <recent name="$PROJECT_DIR$/src/pages/css3" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/.vuepress/public/imgs" />
       <recent name="$PROJECT_DIR$/src/pages/css" />
       <recent name="$PROJECT_DIR$/src/pages/frame" />
       <recent name="$PROJECT_DIR$/src/.vuepress/public" />
       <recent name="$PROJECT_DIR$/src/.vuepress" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/.vuepress/public" />
-      <recent name="$PROJECT_DIR$/src/static/imgs" />
-      <recent name="$PROJECT_DIR$/src/pages/vue" />
-      <recent name="$PROJECT_DIR$/src/pages/css3" />
-      <recent name="$PROJECT_DIR$/src/pages/js" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -362,7 +362,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="277158000" />
+    <option name="totallyTimeSpent" value="284099000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3170" y="0" width="1710" height="1440" extended-state="0" />
@@ -862,8 +862,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/optimize/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="680">
-            <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+          <first_editor relative-caret-position="565">
+            <caret line="99" column="47" selection-start-line="99" selection-start-column="47" selection-end-line="99" selection-end-column="47" />
           </first_editor>
           <second_editor />
         </state>
