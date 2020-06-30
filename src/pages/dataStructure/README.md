@@ -35,8 +35,8 @@ class Stack {
     * 接下来是为栈声明的一些方法
     */
     // 添加一个或多个新元素到栈顶
-    push(...values) {
-    	this.items.push(...values)
+    push(value) {
+    	this.items.push(value)
     }
     // 移除栈顶的元素，同时返回被移除的元素
     pop() {
@@ -65,7 +65,7 @@ class Stack {
 }
 
 let stack = new Stack()
-stack.push(1,2,3,4)
+stack.push(1)
 console.log(stack.peek())
 console.log(stack.size())
 console.log(stack.isEmpty())
@@ -88,8 +88,8 @@ class Queue {
 		this.items = []
 	}
 	// 添加新的项
-	push(...values) {
-		this.items.push(...values)
+	push(value) {
+		this.items.push(value)
 	}
 	// 移除队列的第一项
 	shift() {
@@ -118,7 +118,7 @@ class Queue {
 }
 
 let queue = new Queue()
-queue.push(1,2,3)
+queue.push(1)
 queue.print()
 console.log(queue.shift())
 queue.print()
