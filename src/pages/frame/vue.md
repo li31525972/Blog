@@ -13,6 +13,37 @@ return createElement('h1', this.blogTitle)
 也常简写它为“VNode”。“虚拟 DOM”是我们对由 Vue 组件树建立起来的整个 VNode 树的称呼。
 [选自官网](https://cn.vuejs.org/v2/guide/render-function.html#%E8%99%9A%E6%8B%9F-DOM)
 
+## 声明周期
+### beforeCreate
+- 创建组件之前， 在实例初始化之后，数据观察(data observe) 和 event/watcher 事件配置之前被调用，此时无法获取data中的数据和methods中的方法
+
+### created
+- 组件初始化之后被调用，这个时候就可以调用methods中的方法和data中的数据了，常用来发送请求获取数据
+
+### beforeMounte
+- 在挂载之前调用，<font color='red'>注意：该钩子在服务端渲染期间不被调用</font>
+
+### mounted
+- 此时Vue实例就已经挂载到页面中了，可以获取el中的DOM元素，进行DOM操作，<font color='red'>注意：该钩子在服务端渲染期间不被调用</font>
+
+### beforeUpdate
+- 数据更新时调用，发生在virtual DOM 重新渲染和打补丁之前，可以在这个函数中进一步改变状态，不会触发附加的重渲染过程，注意：此处获取的数据是更新后的数据，但是获取的DOM元素是更新之前的，<font color='red'>注意：该钩子在服务端渲染期间不被调用</font>
+
+### updated
+- 组件DOM已经更新，可以执行依赖于DOM的操作，<font color='red'>注意：该钩子在服务端渲染期间不被调用</font>
+
+### beforeDestroy
+- 组件销毁之前调用，<font color='red'>注意：该钩子在服务端渲染期间不被调用</font>
+
+### destroyed
+- 组件销毁，Vue实例销毁后调用，调用后Vue实例指示的所有东西都会解绑，所有的事件监听器都会被移除，所有的子实例也会被销毁，<font color='red'>注意：该钩子在服务端渲染期间不被调用</font>
+
+### activated
+- 被`keep-alive`缓存的组件激活时调用，<font color='red'>注意：该钩子在服务端渲染期间不被调用</font>
+
+### deactivated
+- 被`keep-alive`缓存的组件停用时调用，<font color='red'>注意：该钩子在服务端渲染期间不被调用</font>
+
 ## 模板语法
 ### 插值
 ```vue
