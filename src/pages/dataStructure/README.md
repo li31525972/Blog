@@ -17,6 +17,10 @@
 - 优势：在元素的更新、插入、删除的操作时间复杂度是O(1)
 - 劣势：在元素的查找方面，时间复杂度是O(n)
 
+#### 双向链表
+
+#### 循环链表
+
 ### 栈
 - 栈是一种遵从后进先出原则的有序集合，新添加的或待删除的元素都保存在栈的同一端，称作栈顶，另一端称作栈底，在栈里新元素靠近栈顶，旧元素都接近栈底，栈的基本操作为入栈和出栈
 
@@ -129,9 +133,132 @@ queue.print()
 ### 优先队列
 - 优先队列不再遵循先入先出的原则，而是分为两种情况
 1. 最大优先队列， 无论入队顺序如何，都是当前最大的元素优先出队
-2. 最小优先队列， 无论入队顺序如何，都是当前最小的元素优先出队
+```js
+            // 创建一个类表示队列
+class Queue {
+	// 各种属性和方法的声明
+	constructor() {
+		// 保存队列里的元素
+		this.items = []
+	}
 
-#### 优先队列的实现
+	// 添加新的项
+	push(name, level) {
+
+		let params = { name, level }
+		let len = this.items.length
+		if (this.items.length) {
+			for (let i = 0; i < this.items.length; i++) {
+				if (this.items[i].level < level ) {
+					this.items.splice(i, 0, params)
+					break
+				}
+			}
+			if (len === this.items.length) {
+				this.items.push(params)
+			}
+		} else {
+			this.items.push(params)
+		}
+	}
+	// 移除队列的第一项
+	shift() {
+		return this.items.shift()
+	}
+	// 返回队列里的第一个元素，队列不做任何变动
+	front() {
+		return this.items[0]
+	}
+    // 判断栈里有没有元素，有返回true没有返回false
+    isEmpty() {
+    	return this.items.length > 0
+    }
+    // 移除栈里的所有元素
+    clear() {
+    	this.items = []
+    }
+    // 返回栈里的元素个数
+    size() {
+    	return this.items.length
+    }
+    // 打印栈中的元素
+    print() {
+    	console.log(this.items)
+    }
+}
+
+let queue = new Queue()
+queue.push(1,2)
+queue.push(2,2)
+queue.push(2,4)
+queue.push(3,2)
+queue.print()
+```
+2. 最小优先队列， 无论入队顺序如何，都是当前最小的元素优先出队
+```js
+// 创建一个类表示队列
+class Queue {
+	// 各种属性和方法的声明
+	constructor() {
+		// 保存队列里的元素
+		this.items = []
+	}
+
+	// 添加新的项
+	push(name, level) {
+
+		let params = { name, level }
+		let len = this.items.length
+		if (this.items.length) {
+			for (let i = 0; i < this.items.length; i++) {
+				if (this.items[i].level > level ) {
+					this.items.splice(i, 0, params)
+					break
+				}
+			}
+			if (len === this.items.length) {
+				this.items.push(params)
+			}
+		} else {
+			this.items.push(params)
+		}
+	}
+	// 移除队列的第一项
+	shift() {
+		return this.items.shift()
+	}
+	// 返回队列里的第一个元素，队列不做任何变动
+	front() {
+		return this.items[0]
+	}
+    // 判断栈里有没有元素，有返回true没有返回false
+    isEmpty() {
+    	return this.items.length > 0
+    }
+    // 移除栈里的所有元素
+    clear() {
+    	this.items = []
+    }
+    // 返回栈里的元素个数
+    size() {
+    	return this.items.length
+    }
+    // 打印栈中的元素
+    print() {
+    	console.log(this.items)
+    }
+}
+
+let queue = new Queue()
+queue.push(1,2)
+queue.push(2,2)
+queue.push(2,4)
+queue.push(3,2)
+queue.print()
+```
+
+
+#### 优先队列的其它实现
 1. 最大堆的堆顶是整个堆中的最大元素
 2. 最小堆的堆顶是整个堆中的最小元素
 
