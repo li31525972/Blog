@@ -19,6 +19,7 @@ module.exports = {
             { text: 'Node', link: '/pages/node/' },
             { text: '浏览器', link: '/pages/browser/' },
             { text: '网络', link: '/pages/network/' },
+            { text: '调试', link: '/pages/tool/' },
             { text: '优化', link: '/pages/optimize/' },
             { text: '安全', link: '/pages/security/' },
             { text: 'webpack', link: '/pages/webpack/' },
@@ -109,6 +110,14 @@ module.exports = {
             '/pages/network/': [{
                 title: '网络',
                 path: '/pages/network/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/tool/': [{
+                title: '调试',
+                path: '/pages/tool/',
                 collapsable: false,
                 children: [
                     ''
