@@ -19,14 +19,14 @@ module.exports = {
             { text: 'Node', link: '/pages/node/' },
             { text: '浏览器', link: '/pages/browser/' },
             { text: '网络', link: '/pages/network/' },
-            { text: '调试', link: '/pages/tool/' },
+            { text: '抓包与调试', link: '/pages/tool/Chrome' },
             { text: '优化', link: '/pages/optimize/' },
             { text: '安全', link: '/pages/security/' },
             { text: 'webpack', link: '/pages/webpack/' },
-            { text: '算法', link: '/pages/algorithm/' },
             { text: '数据结构', link: '/pages/dataStructure/' },
+            { text: '算法', link: '/pages/algorithm/' },
+            { text: '服务', link: '/pages/server/Nginx' },
             { text: '框架', link: '/pages/frame/' },
-            { text: '服务器', link: '/pages/server/Nginx' },
             { text: '架构', link: '/pages/framework/' },
             { text: '开发问题', link: '/pages/question/' },
         ],
@@ -115,12 +115,12 @@ module.exports = {
                     ''
                 ]
             }],
-            '/pages/tool/': [{
-                title: '调试',
-                path: '/pages/tool/',
+            '/pages/tool/Chrome': [{
+                title: '抓包与调试',
+                path: '/pages/tool/Chrome',
                 collapsable: false,
                 children: [
-                    ''
+                    'Chrome'
                 ]
             }],
             '/pages/optimize/': [{
@@ -140,7 +140,7 @@ module.exports = {
                 ]
             }],
             '/pages/server/Nginx': [{
-                title: '服务器',
+                title: '服务',
                 path: '/pages/server/Nginx',
                 collapsable: false,
                 children: [
@@ -193,7 +193,7 @@ module.exports = {
                 'Evolution',
             ],
         },
-        sidebarDepth: 3,
+        sidebarDepth: 2,
         lastUpdated: '更新时间',
         searchMaxSuggestions: 10,
     },
