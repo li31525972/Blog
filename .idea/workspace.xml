@@ -20,8 +20,23 @@
         <entry file="file://$PROJECT_DIR$/src/pages/server/Nginx.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="1011">
-                <caret line="332" column="8" selection-start-line="332" selection-start-column="8" selection-end-line="332" selection-end-column="8" />
+              <first_editor relative-caret-position="841">
+                <caret line="1001" lean-forward="true" selection-start-line="1001" selection-end-line="1001" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/network/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="800">
+                <caret line="166" column="61" selection-start-line="166" selection-start-column="61" selection-end-line="166" selection-end-column="61" />
+                <folding>
+                  <element signature="n#!!doc" expanded="true" />
+                </folding>
               </first_editor>
               <second_editor />
             </state>
@@ -107,7 +122,6 @@
         <option value="$PROJECT_DIR$/src/pages/question/README.md" />
         <option value="$PROJECT_DIR$/src/pages/TS/README.md" />
         <option value="$PROJECT_DIR$/src/pages/webpack/README.md" />
-        <option value="$PROJECT_DIR$/src/pages/network/README.md" />
         <option value="$PROJECT_DIR$/src/pages/es6/README.md" />
         <option value="$PROJECT_DIR$/src/pages/algorithm/README.md" />
         <option value="$PROJECT_DIR$/src/pages/dataStructure/README.md" />
@@ -116,6 +130,7 @@
         <option value="$PROJECT_DIR$/src/pages/optimize/README.md" />
         <option value="$PROJECT_DIR$/src/pages/tool/README.md" />
         <option value="$PROJECT_DIR$/src/.vuepress/config.js" />
+        <option value="$PROJECT_DIR$/src/pages/network/README.md" />
         <option value="$PROJECT_DIR$/src/pages/server/Nginx.md" />
       </list>
     </option>
@@ -363,7 +378,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="313436000" />
+    <option name="totallyTimeSpent" value="334459000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3170" y="0" width="1710" height="1440" extended-state="0" />
@@ -755,16 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/network/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="801">
-            <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/css/CSS3.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -872,11 +877,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/network/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="800">
+            <caret line="166" column="61" selection-start-line="166" selection-start-column="61" selection-end-line="166" selection-end-column="61" />
+            <folding>
+              <element signature="n#!!doc" expanded="true" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/server/Nginx.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="1011">
-            <caret line="332" column="8" selection-start-line="332" selection-start-column="8" selection-end-line="332" selection-end-column="8" />
+          <first_editor relative-caret-position="841">
+            <caret line="1001" lean-forward="true" selection-start-line="1001" selection-end-line="1001" />
           </first_editor>
           <second_editor />
         </state>
