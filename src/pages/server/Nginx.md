@@ -47,7 +47,7 @@ brew install nginx
 #### 文件目录结构
 - `src` 目录中存放了`Nginx`软件的所有源代码
 - `man` 目录中存放了`Nginx`软件的帮助文档，`Nginx`安装完成后，在`Fedora`的命令行中使用`man`命令可以查看
-```$xslt
+```$xlsx
 #man nginx
 ```
 - `html` 目录中存放了两个后缀名为`.html`的静态网页文件，这两个文件与`Nginx`服务器的运行相关
@@ -89,7 +89,7 @@ brew install nginx
 1. 在`Nginx`服务启动以后，默认在`Nginx`服务器安装目录下的`logs`目录中会产生文件名为`nginx
 .pid`的文件，此文件保存的就是`Nginx`服务主进程的PID，这个文件的存放路径和文件名都可以在`Nginx`服务器的配置文件中进行配置
 2. 使用`Linux`平台下查看进程的工具`ps`，使用方法是：
-```text
+```xlsx
   # ps -ef | grep nginx
   501 43612     1   0  9 620  ??         0:00.01 nginx: master process nginx
   501 49364 43612   0 10 620  ??         0:00.09 nginx: worker process
@@ -107,12 +107,12 @@ brew install nginx
 |   WINCH       |       平缓停止 worker process，用于Nginx的平滑升级        |
 
 - 用法是：
-```text
+```xlsx
 # kill SIGNAL PID
 ```
 - `SIGNAL`，用于指定信号，上表中的某一个
 - `PID`，指定`Nginx`服务主进程的PID，也可以使用`nginx.pid`动态获取PID号：
-```text
+```xlsx
 # kill SIGNAL `filepath`
 ```
 - `filepath`为`nginx.pid`的路径
@@ -131,7 +131,7 @@ brew install nginx
 
 ### 基本配置
 - 默认的Nginx服务器配置文件都存放在安装目录conf中，主配置文件为`nginx.conf`, 以下为基本配置方法：
-```$xslt
+```$xlsx
 #user  nobody;
 worker_processes  1;                                # 全局生效
 
@@ -183,7 +183,7 @@ http {
 ```
 
 ### nginx.conf 文件结构
-```$xslt
+```$xlsx
 ---                                 # 全局块
 
 events {                            # events 块
@@ -233,7 +233,7 @@ http {                              # http 块
 5. location块：基于Nginx服务器接收到的请求字符串，对除虚拟主机名称(也可以是IP别名)之外的字符串进行匹配，对特定的请求进行处理，地址定向、数据缓存和应答控制等功能都是在这部分实现
 
 ### 运行Nginx服务器的用户(组)
-```$xslt
+```$xlsx
 user user [group];
 
 所有用户都可以启动Nginx的两种方法
@@ -247,7 +247,7 @@ user nobody nobody;     2. 将用户(和用户组)设置为nobody，这也是use
 ### 允许生成的 worker process 数
 - `worker process`是`Nginx`服务器实现并发处理的关键，从理论上来说，`worker 
 process`的值越大，可以支持的并发数越多，但实际上还要受到来自软件本身、操作系统本身资源和能力、硬件设备等制约，配置允许生成的`worker process`数的指令是`worker_processes`，语法格式为：
-```text
+```xlsx
 worker_processes number | auto;
 ```
 - `number` 指定`Nginx`进程最多可以产生的`worker process`数
@@ -258,7 +258,7 @@ worker_processes number | auto;
 
 ### Nginx 进程 PID 存放路径
 - 指令是`pid`，语法格式为：
-```text
+```xlsx
 pid `file`
 ```
 - `file`指存放路径和文件名称
@@ -271,7 +271,7 @@ pid `file`
 
 ### 配置文件引入
 - `Nginx`提供了`include`指令来完成配置文件的引入，语法为：
-```text
+```xlsx
 include `file`
 file 指要引入的配置文件，支持相对路径
 ```
@@ -280,21 +280,21 @@ file 指要引入的配置文件，支持相对路径
 ### 网络连接序列化
 - 当某一时刻只有一个网络连接到来时，多个睡眠进程会被同时唤醒，但只有一个进程可获得连接，如果每次唤醒的进程数太多，会影响一部分系统性能，为解决这个问题，`Nginx`配置了一个指令`accept_mutex
 `，当其开启的时候，将对多个`Nginx`进程接收连接进行序列化，防止多个进程对连接的争抢，语法结构为：
-```text
+```xlsx
 accept_mutex on | off
 ```
 <font color='red'><b>此指令只能在`event`块中设置,默认为开启(on)</b></font>
 
 ### 是否允许同时接收多个网络连接
 - 每个`Nginx`服务器的`worker process`都有能力同时接收多个新到达的网络连接，需要在配置文件中进行设置，指令为`multi_accept`，语法结构为：
-```text
+```xlsx
 multi_accept on | off;
 ```
 <font color='red'><b>此指令只能在`event`块中设置,默认为关闭(off)</b></font>
 
 ### 事件驱动模型
 - `Nginx`服务器提供了多种事件驱动模型来处理网络消息，配置文件中为我们提供了相关的指令来强制`Nginx`服务器选择哪种事件驱动模型进行消息处理，指令为`use`，语法结构为：
-```text
+```xlsx
 use method;
 ```
 - `method`可选择的内容有：
@@ -308,7 +308,7 @@ use method;
 
 ### 最大连接数
 - 指令`worker_connections`主要用来设置允许每一个`worker process`同时开启的最大连接数，语法结构为：
-```text
+```xlsx
 worker_connections number;
 ```
 - 默认值为 512
@@ -339,17 +339,17 @@ keepalive_requests numbers;
 ### MIME-Type
 - 常用的浏览器中，可以显示的内容有HTML、XML、GIF及Flash等种类繁多的文本、媒体资源，浏览器区分这些资源，需要使用`MIME Type`，`Nginx`服务器作为web服务器，必须能够识别客户端请求的资源类型
 - 在默认的`Nginx`配置文件中，在`http`全局块中有以下两行配置
-```$xslt
+```$xlsx
     include       mime.types;
     default_type  application/octet-stream;
 ```
 - 第一行从外部引入了 `mime.types` 文件，来看一下这个文件的内容：
-```$xslt
+```$xlsx
 types {
-    text/html                                        html htm shtml;
+    xlsx/html                                        html htm shtml;
     ...
 
-    text/mathml                                      mml;
+    xlsx/mathml                                      mml;
     ...
 
     image/png                                        png;
@@ -373,10 +373,10 @@ types {
 ```
 - 从`mime_types`文件的内容片段可以看到，定义了一个`types`结构，结构中包含了浏览器能够识别的`MIME`类型以及对应相关类型的文件后缀名
 - 第二行中使用指令 `default_type` 配置了用于处理前端请求的`MIME`类型，其语法结构为：
-```xslt
+```xlsx
 default_type mime-type;
 ```
-- 其中`mime-type`为`types`块中定义的`MIME-type`，如果不加此指令，默认值为`text/plain`，此指令还可以在http块、server块或者location块中进行配置
+- 其中`mime-type`为`types`块中定义的`MIME-type`，如果不加此指令，默认值为`xlsx/plain`，此指令还可以在http块、server块或者location块中进行配置
 
 ### 网络监听
 - 配置监听使用指令`listen`，其配置方法主要有三种
@@ -495,7 +495,7 @@ location /404.html {
 ## 日志
 ### 错误日志
 - 在全局块、http块和server块中都可以对`Nginx`服务器的日志进行相关配置，语法结构为：
-```text
+```xlsx
 error_log file | stderr [debug | info | notice | warn | error | crit | alert | emerg];
 日志的级别可选项，由低到高分为：debug | info | notice | warn | error | crit | alert | emerg
 
@@ -677,10 +677,10 @@ gzip_proxied off | expired | no-cache | no-store | private | no_last_modified | 
 ```xlsx
 gzip_types mime-type ...;
 ```
-- `mime-type`变量的默认取值为`text/html`，但实际上，在`gzip`指令设置为`on`时，Nginx服务器会对所有的`text/html`类型页面数据进行`Gzip`压缩，还可以取值为`*`，表示对所有`MIME
+- `mime-type`变量的默认取值为`xlsx/html`，但实际上，在`gzip`指令设置为`on`时，Nginx服务器会对所有的`xlsx/html`类型页面数据进行`Gzip`压缩，还可以取值为`*`，表示对所有`MIME
 `类型的页面数据进行`Gzip`压缩，一般的压缩常规的文件类型时，可以设置为：
 ```xlsx
-gzip_types text/plain application/x-javasctipt text/css text/html applicaiton/xml;
+gzip_types xlsx/plain application/x-javasctipt xlsx/css xlsx/html applicaiton/xml;
 ```
 
 9. `gzip_vary`该指令用于设置在使用`Gzip`功能时是否发送带有`Vary: 
@@ -747,7 +747,7 @@ http {
     gzip_min_length 1024;       # 响应页数据上限
     gzip_buffers 4 16k;         # 缓存空间大小
     gzip_comp_level 2;          # 压缩级别为2
-    gzip_types text/plain application/x-javasctipt text/css text/html applicaiton/xml;  # 压缩源文件类型
+    gzip_types xlsx/plain application/x-javasctipt xlsx/css xlsx/html applicaiton/xml;  # 压缩源文件类型
     gzip_vary on;               # 启用压缩标识
     gunzip_static on;           # 检查预压缩文件
 
