@@ -1,4 +1,5 @@
 # node
+[官网地址](http://nodejs.cn/api/)
 
 ## Mac OS 环境搭建
 ### 安装[Homebrew](https://brew.sh/)
@@ -24,8 +25,32 @@
 ## Windows 环境搭建
 - 没用过，自行百度
 
- 
+## 工具软件安装
 
+### nodemon 自动重启服务器
+#### 安装
+`sudo npm i nodemon -g`
 
+#### 使用方式
+`nodemon 文件名`
 
+### cnpm
+
+#### 安装
+`sudo npm i cnpm -g`
+
+#### 使用方式
+`cnpm i 包名`
+
+### nrm 一次性设置多个镜像网站地址
+```shell
+# 安装
+sudo npm i nrm -g
+
+# 查看已存在的镜像网站地址
+nrm ls
+
+# 切换默认使用的源
+nrm use [name]
+```
 
