@@ -35,8 +35,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/node/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="148">
-                <caret line="25" column="10" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+              <first_editor relative-caret-position="1268">
+                <caret line="95" column="22" selection-start-line="95" selection-start-column="22" selection-end-line="95" selection-end-column="22" />
               </first_editor>
               <second_editor />
             </state>
@@ -59,8 +59,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/node/Express.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="590">
-                <caret line="104" column="10" selection-start-line="104" selection-start-column="10" selection-end-line="104" selection-end-column="10" />
+              <first_editor relative-caret-position="654">
+                <caret line="274" column="21" selection-start-line="274" selection-start-column="21" selection-end-line="274" selection-end-column="21" />
               </first_editor>
               <second_editor />
             </state>
@@ -160,7 +160,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
@@ -374,10 +374,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="347250000" />
+    <option name="totallyTimeSpent" value="355614000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1529246" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -878,8 +879,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/node/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="148">
-            <caret line="25" column="10" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+          <first_editor relative-caret-position="1268">
+            <caret line="95" column="22" selection-start-line="95" selection-start-column="22" selection-end-line="95" selection-end-column="22" />
           </first_editor>
           <second_editor />
         </state>
@@ -888,8 +889,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/node/Express.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="590">
-            <caret line="104" column="10" selection-start-line="104" selection-start-column="10" selection-end-line="104" selection-end-column="10" />
+          <first_editor relative-caret-position="654">
+            <caret line="274" column="21" selection-start-line="274" selection-start-column="21" selection-end-line="274" selection-end-column="21" />
           </first_editor>
           <second_editor />
         </state>

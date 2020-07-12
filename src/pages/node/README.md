@@ -54,3 +54,58 @@ nrm ls
 nrm use [name]
 ```
 
+## Node中的模块化
+
+### exports
+```js
+// a.js
+exports.name = '小明'
+exports.age = 18
+
+// b.js
+const a = reuqire('./a.js')
+console.log(a) // { name: '小明', age: 18 }
+```
+
+### module.exports
+```js
+// a.js
+const name = '小明'
+const age = 18
+
+module.exports = {
+    name,
+    age
+}
+
+// b.js
+const a = require('./a.js')
+console.log(a) // { name: '小明', age: 18 }
+```
+
+## 第三方包文件规范
+- `bin` 二进制文件存放目录
+- `lib` 核心库文件存放目录，编写的js模块文件
+- `doc` 相关文档存放目录，例如使用说明文档
+- `test` 测试文件存放目录，`demo`文件
+- `package.json` 包描述文件
+```xlsx
+    name: 包名
+    version： 版本号
+    main: 入口文件地址
+    dependencies: 依赖关系
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
