@@ -16,6 +16,7 @@ module.exports = {
             { text: 'JS', link: '/pages/js/' },
             { text: 'ES6', link: '/pages/es6/' },
             { text: 'TS', link: '/pages/TS/' },
+            { text: 'D3', link: '/pages/D3/' },
             { text: 'Node', link: '/pages/node/' },
             { text: '浏览器', link: '/pages/browser/' },
             { text: '网络', link: '/pages/network/' },
@@ -76,6 +77,14 @@ module.exports = {
             '/pages/TS/': [{
                 title: 'TypeScript',
                 path: '/pages/TS/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/D3/': [{
+                title: 'D3',
+                path: '/pages/D3/',
                 collapsable: false,
                 children: [
                     ''
