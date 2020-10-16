@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f0d944b-bf8d-44e8-b435-1c3c976bdacc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/.vuepress/public/imgs/filter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.vuepress/public/imgs/gradient.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/D3/API.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/.vuepress/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/D3/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/D3/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/D3/API.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/D3/API.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -67,8 +62,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/D3/API.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="238">
-                <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+              <first_editor relative-caret-position="714">
+                <caret line="111" column="19" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="19" />
               </first_editor>
               <second_editor />
             </state>
@@ -306,7 +301,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="371597000" />
+    <option name="totallyTimeSpent" value="373353000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -849,8 +844,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/D3/API.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="238">
-            <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+          <first_editor relative-caret-position="714">
+            <caret line="111" column="19" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="19" />
           </first_editor>
           <second_editor />
         </state>
