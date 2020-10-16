@@ -1,4 +1,20 @@
-# D3.js
+# D3基础知识
+## 安装
+```
+js引用(官网下载)
+官网地址：https://d3js.org/
+
+js引用(CDN)
+<script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script>
+
+vue安装
+cnpm i d3 -D
+
+import * as d3 from 'd3'
+```
+
+## [SVG参考手册](https://www.runoob.com/svg/svg-reference.html)
+## [官网](https://d3js.org/)
 
 ## 简介
 ### D3
@@ -11,7 +27,7 @@
 4. <strong>`大量布局`</strong>，饼状图、树形图、打包图、矩阵树形图等，D3将大量复杂的算法封装成一个一个布局，能够适用于各种图表的制作
 5. <strong>`基于SVG，缩放不会损失精度`</strong>，SVG是可缩放的矢量图形，D3大部分是在SVG上绘制的，并且提供了大量的图形生成器，使得在SVG上绘制图形变得简单，另外，由于SVG是矢量图，所以放大缩小不会有精度损失
 
-## [SVG参考手册](https://www.runoob.com/svg/svg-reference.html)
+
 ## 图形元素
 - svg是指可缩放矢量图形，是用于描述二维矢量图形的一种图形格式，由万维网联盟制定的开放标准，SVG使用了XML格式来定义图形，除了IE8之前的版本外绝大部分浏览器都支持SVG，可将SVG文本直接嵌入HTML中显示，D3十分适合在SVG中绘制图形
 ```html
@@ -181,12 +197,83 @@
 > * `text-decoration`上划线、下划线等
 
 
+### 标记
+- 标记(marker)是SVG中的一个重要的概念，能依附于`<path><line><polyline><polygon>`元素上，最典型的应用就是给线段加箭头，标记`<marker>`写在`<defs></defs>`中，defs用于定义可重复利用的图形元素
 
+参数：
+> * `viewBox`坐标系的区域
+> * `refX,refY`在`viewBox`内的基准点，绘制时此点在直线端点上
+> * `markerUnits`标记大小的基准，有两个值，即`strokeWidth`(线的宽度)`userSpaceOnUse`(线前端的大小)
+> * `markerWidth,markerHeight`标识的大小
+> * `orient`绘制方向，可设置为`auto`(自动确认方向)和角度值
+> * `id`标识的ID号
 
+```html
+<svg width="400" height="400">
+    <defs>
+        <marker
+                id="arrow"
+                markerUnits="strokeWidth"
+                markerWidth="8"
+                markerHeight="8"
+                viewBox="0 0 12 12"
+                refX="6"
+                refY="6"
+                orient="auto"
+        >
+            <path d="M2,2 L10,6 L2,10 L6,6 L2,2" style="fill: #000;"/>
+        </marker>
+    </defs>
+    
+    <line x1="0" y1="0" x2="200" y2="280" style="stroke: black; stroke-width: 3;" marker-end="url(#arrow)"></line>
+</svg>
+```
+- 上面标记里，id定义为`arrow`，接下来在需要使用的地方使用，`markerUnits`定义为`strokeWidth`，标识此标记的大小以调用此标记的元素的轮廓线的大小为基准，`markerWidth`和`markerHeight`分别定义为8，在viewBox坐标系中绘制的图形会被自动伸缩到此尺寸，`refX`和`refY`标识调用此标记的直线上的点对应于`viewBox`坐标系中的位置，`orient`设定为`auto`标识箭头的方向让其自行判定
+- `#arrow`表示使用id为`arrow`的标记
+- `marker-start`路径起点处
+- `marker-mid`路径中间端点处(对于只有起点和终点的直线line没有效果)
+- `marker-end`路径的终点处
 
+### 滤镜 `<filter>`
+- 滤镜(filter)能使图形更具有艺术效果，对源图形使用滤镜能修改其显示效果，但是滤镜不会改变源图形的数学参数，只是将其渲染后传送给显示设备，滤镜的标签为`<filter>`，和`<marker>`一样，都是定义在`<defs>`中，滤镜的种类有很多，下面举例一个滤镜`feGaussianBlur`的用法：
+```html
+<svg style="flex: 1;">
+    <defs>
+        <filter id="GaussianBlur">
+            <feGaussianBlur in="SourceGraphisc" stdDeviation="2"></feGaussianBlur>
+        </filter>
+    </defs>
+    
+    <rect x="100" y="100" width="100" height="100" style="fill: #000;"></rect>
+    <rect x="210" y="100" width="100" height="100" style="fill: #000;" filter="url(#GaussianBlur)"></rect>
+</svg>
+```
+<img src="/imgs/filter.png"/>
 
-
-
+### 渐变
+- 有时需要再图形上使用渐变的颜色，渐变表示一种颜色平滑过渡到另一种颜色，`SVG`中有线性渐变`<linearGradient>`和放射性渐变`<radialGradIent>`,渐变也是定义在defs上，定义一个id号，在图形上指定此id号即可
+- `x1,x2,y1,y2`定义渐变的方向
+- `offset`定义渐变开始的位置
+- `stop-color`定义此位置的颜色
+```html
+<svg style="flex: 1;">
+    <defs>
+        <linearGradient id="linearGradient" x1="0%" x2="0%" y1="100%" y2="0%">
+            <stop offset="0%" stop-color="#f00"></stop>
+            <stop offset="100%" stop-color="#00f"></stop>
+        </linearGradient>
+        
+        <linearGradient id="linearGradient2" x1="100%" x2="0%" y1="0%" y2="0%">
+            <stop offset="0%" stop-color="#f00"></stop>
+            <stop offset="100%" stop-color="#00f"></stop>
+        </linearGradient>
+    </defs>
+    
+    <rect x="100" y="100" width="100" height="100" fill="url(#linearGradient)"></rect>
+    <rect x="210" y="100" width="100" height="100" fill="url(#linearGradient2)"></rect>
+</svg>
+```
+<img src="/imgs/gradient.png"/>
 
 
 

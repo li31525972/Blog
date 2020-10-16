@@ -87,7 +87,8 @@ module.exports = {
                 path: '/pages/D3/',
                 collapsable: false,
                 children: [
-                    ''
+                    '',
+                    'API',
                 ]
             }],
             '/pages/frame/': [{
