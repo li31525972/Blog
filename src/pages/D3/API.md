@@ -355,6 +355,63 @@ console.log(newList)
         console.log(list2); // [2, 4, 6, 8]
 ```
 
+### permute 指定索引排序
+- 根据指定的索引号数组返回排列后的数组，原数组不变
+```js
+let list = ['张三', '李四', '王五']
+console.log(d3.permute(list, [1,0,2])) // ["李四", "张三", "王五"]
+```
+
+### zip 用多个数组制作数组的数组
+- 用多个数组制作数组的数组，参数是多个数组，输出二维数组：
+```js
+        let list = [1,2,3]
+        let list1 = [4,5,6]
+        let list2 = [7,8,9]
+        let result = d3.zip(list,list1,list2)
+        console.log(result)
+        /*
+        * [
+        *   [1, 4, 7]
+            [2, 5, 8]
+            [3, 6, 9]
+          ]
+          可以看到，参数的每个第i项变成了新数组的第i项
+        * */
+```
+### transpose 求转置矩阵
+- 将矩阵的行换成相应的列，得到的矩阵即转置矩阵
+```js
+        let list = [1,2,3]
+        let list1 = [4,5,6]
+        let list2 = [7,8,9]
+        let result = d3.transpose([list,list1,list2])
+        console.log(result)
+        /*
+        * [
+        *   [1, 4, 7]
+            [2, 5, 8]
+            [3, 6, 9]
+        * ]
+        * */
+```
+
+## 映射
+### map 构造映射
+- 构造映射，第一个参数是源数组，第二个参数是映射的`key`
+```js
+        let list = [
+            { name: '111', id: 1 },
+            { name: '222', id: 2 },
+            { name: '333', id: 3 },
+        ]
+        let result = d3.map(list, data => data.id)
+        console.log(result) // [1, 2, 3]
+```
+
+### has 判断是否存在指定的`key`
+
+
 
 
 
