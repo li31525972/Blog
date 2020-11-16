@@ -23,7 +23,7 @@
 - 查看版本：`redis-cli --version`
 
 ## Windows 环境搭建
-- 没用过，自行百度
+- 看上面官网，安装Windows版
 
 ## 工具软件安装
 
