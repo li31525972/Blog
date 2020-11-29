@@ -98,7 +98,8 @@ module.exports = {
                 children: [
                     '',
                     'vue',
-                    'vueSource'
+                    'vueSource',
+                    'vueTopic',
                 ]
             }],
             '/pages/node/': [{
