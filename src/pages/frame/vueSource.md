@@ -114,6 +114,7 @@ export function initMixin (Vue: Class<Component>) {
 
     let startTag, endTag
     /* istanbul ignore if */
+    // 在非生产环境 并且 config.performance为true(开启性能追踪) 并且 当前浏览器支持 performance API时，开启性能追踪
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
       startTag = `vue-perf-start:${vm._uid}`
       endTag = `vue-perf-end:${vm._uid}`
@@ -145,13 +146,14 @@ export function initMixin (Vue: Class<Component>) {
     initLifecycle(vm) // 初始化生命周期
     initEvents(vm) // 初始化事件中心
     initRender(vm) // 初始化 render
-    callHook(vm, 'beforeCreate') // 
+    callHook(vm, 'beforeCreate') // 调用当前实例的 beforeCreate钩子函数
     initInjections(vm) // resolve injections before data/props
     initState(vm) // 初始化属性 data、methods等
     initProvide(vm) // resolve provide after data/props
     callHook(vm, 'created')
 
     /* istanbul ignore if */
+    // 在非生产环境 并且 config.performance为true(开启性能追踪) 并且 当前浏览器支持 performance API时，开启性能追踪
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
       vm._name = formatComponentName(vm, false)
       mark(endTag)
@@ -581,6 +583,7 @@ Vue.prototype.$mount = function (
         
         if (template) {
             /* istanbul ignore if */
+            // 在非生产环境 并且 config.performance为true(开启性能追踪) 并且 当前浏览器支持 performance API时，开启性能追踪
             if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
                 mark('compile')
             }
@@ -606,28 +609,13 @@ Vue.prototype.$mount = function (
     return mount.call(this, el, hydrating)
 }
 
-/**
- * Get outerHTML of elements, taking care
- * of SVG elements in IE as well.
- */
-function getOuterHTML(el: Element): string {
-    if (el.outerHTML) {
-        return el.outerHTML
-    } else {
-        const container = document.createElement('div')
-        container.appendChild(el.cloneNode(true))
-        return container.innerHTML
-    }
-}
-
-Vue.compile = compileToFunctions
-
 export default Vue
 ```
 
 
 ### `runtime-only`版本`$mount`
 ```js
+// 入口文件路径为 src/platforms/web/runtime/index.js
 import Vue from 'core/index'
 import { mountComponent } from 'core/instance/lifecycle'
 import { devtools, inBrowser } from 'core/util/index'
@@ -651,9 +639,142 @@ Vue.prototype.$mount = function (
     return mountComponent(this, el, hydrating)
 }
 
+
+function mountComponent(
+        vm: Component,
+        el: ?Element,
+        hydrating?: boolean
+): Component {
+    // 将传入的el挂载到 vm.$el 上面
+    vm.$el = el
+    // 判断当前实例上面是否存在render函数
+    if (!vm.$options.render) {
+        /*
+        * return 出一个内容是当前参数的虚拟dom
+        * const createEmptyVNode = (text: string = '') => {
+        *     创建一个虚拟dom
+              const node = new VNode() // VNode 是一个自定义的虚拟dom的一个类
+              node.text = text
+              node.isComment = true
+              return node
+           }
+        * */
+        vm.$options.render = createEmptyVNode
+        // 判断当前环境是不是非生产环境
+        if (process.env.NODE_ENV !== 'production') {
+            /* istanbul ignore if */
+            // 当前实例template存在并且template第一个字符是# 或者 当前实例el存在 或者 传入的el存在，抛出错误信息：
+            /*
+            * '您使用的是仅运行时构建的Vue模板' + '编译器不可用。可以将模板预编译为' + 渲染函数，或使用编译器包含的构建。
+            * 意思就是说 在使用了编译阶段运行的runtime-only版本时候，只能使用render函数进行构建，不支持 el 和 template选项
+            * */
+            if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
+                    vm.$options.el || el) {
+                warn(
+                        'You are using the runtime-only build of Vue where the template ' +
+                        'compiler is not available. Either pre-compile the templates into ' +
+                        'render functions, or use the compiler-included build.',
+                        vm
+                )
+            } else {
+                // 以上情况都不存在，抛出错误信息：因为没有定义模板或者render函数组件挂载失败
+                warn(
+                        'Failed to mount component: template or render function not defined.',
+                        vm
+                )
+            }
+        }
+    }
+    // 调用当前实例的钩子函数 beforeMount
+    callHook(vm, 'beforeMount')
+
+    let updateComponent
+    /* istanbul ignore if */
+    // 在非生产环境 并且 config.performance为true(开启性能追踪) 并且 当前浏览器支持 performance API时，开启性能追踪
+    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+        updateComponent = () => {
+            const name = vm._name
+            const id = vm._uid
+            const startTag = `vue-perf-start:${ id }`
+            const endTag = `vue-perf-end:${ id }`
+
+            mark(startTag)
+            const vnode = vm._render()
+            mark(endTag)
+            measure(`vue ${ name } render`, startTag, endTag)
+
+            mark(startTag)
+            vm._update(vnode, hydrating)
+            mark(endTag)
+            measure(`vue ${ name } patch`, startTag, endTag)
+        }
+    } else {
+        updateComponent = () => {
+            vm._update(vm._render(), hydrating)
+        }
+    }
+
+    // we set this to vm._watcher inside the watcher's constructor
+    // since the watcher's initial patch may call $forceUpdate (e.g. inside child
+    // component's mounted hook), which relies on vm._watcher being already defined
+    new Watcher(vm, updateComponent, noop, {
+        before() {
+            if (vm._isMounted && !vm._isDestroyed) {
+                callHook(vm, 'beforeUpdate')
+            }
+        }
+    }, true /* isRenderWatcher */)
+    hydrating = false
+
+    // manually mounted instance, call mounted on self
+    // mounted is called for render-created child components in its inserted hook
+    if (vm.$vnode == null) {
+        vm._isMounted = true
+        callHook(vm, 'mounted')
+    }
+    return vm
+}
+
 ```
 
+## 性能埋点
+### performance
+- Vue 启用性能监控的属性
+### mark
+- 性能监控的实现，参考[Performance](https://developer.mozilla.org/zh-CN/docs/Web/API/Performance)
+```js
+import { inBrowser } from './env'
 
+export let mark
+export let measure
+
+if (process.env.NODE_ENV !== 'production') {
+    // inBrowser 检测是否是浏览器环境 window.performance 检测浏览器是否支持 performance
+    const perf = inBrowser && window.performance
+    /* istanbul ignore if */
+    // 判断浏览器performance是否支持 mark、measure、clearMarks、clearMeasures
+    if (
+            perf &&
+            perf.mark &&
+            perf.measure &&
+            perf.clearMarks &&
+            perf.clearMeasures
+    ) {
+        /*
+        * mark：根据给出 name 值，在浏览器的性能输入缓冲区中创建一个相关的timestamp
+        * measure：在浏览器的指定 start mark 和 end mark 间的性能输入缓冲区中创建一个指定的 timestamp
+        * clearMarks：将给定的 mark 从浏览器的性能输入缓冲区中移除。
+        * */
+        mark = tag => perf.mark(tag)
+        measure = (name, startTag, endTag) => {
+            perf.measure(name, startTag, endTag)
+            perf.clearMarks(startTag)
+            perf.clearMarks(endTag)
+            // perf.clearMeasures(name)
+        }
+    }
+}
+```
 
 
 
