@@ -710,6 +710,11 @@ function mountComponent(
         }
     } else {
         updateComponent = () => {
+            /*
+            * vm.render() 渲染出一个VNode，
+            * hydrating false
+            * vm._update 是在文件加载的时候在 src/core/instance/index.js 入口文件执行的 lifecycleMixin(Vue) 中挂载到 vm上面的
+            * */
             vm._update(vm._render(), hydrating)
         }
     }
@@ -717,6 +722,14 @@ function mountComponent(
     // we set this to vm._watcher inside the watcher's constructor
     // since the watcher's initial patch may call $forceUpdate (e.g. inside child
     // component's mounted hook), which relies on vm._watcher being already defined
+    /*
+    * Watcher 这是一个渲染的 watcher 类， 定义在 src/core/observer/watcher.js 文件中，可以看下面 watcher 源码解析
+    * vm 当前实例
+    * updateComponent 函数，内部是一个Vue执行更新的一个函数
+    * noop 一个空函数
+    * {}, 一个配置项
+    * true 是否是一个渲染函数
+    * */
     new Watcher(vm, updateComponent, noop, {
         before() {
             if (vm._isMounted && !vm._isDestroyed) {
@@ -736,6 +749,359 @@ function mountComponent(
 }
 
 ```
+
+## watcher 
+- `Vue`观察者模式的一个类
+```js
+import {
+    warn,
+    remove,
+    isObject,
+    parsePath,
+    _Set as Set,
+    handleError,
+    noop
+} from '../util/index'
+
+import { traverse } from './traverse'
+import { queueWatcher } from './scheduler'
+import Dep, { pushTarget, popTarget } from './dep'
+
+import type { SimpleSet } from '../util/index'
+
+let uid = 0
+
+/**
+ * A watcher parses an expression, collects dependencies,
+ * and fires callback when the expression value changes.
+ * This is used for both the $watch() api and directives.
+ */
+export default class Watcher {
+    vm: Component;
+    expression: string;
+    cb: Function;
+    id: number;
+    deep: boolean;
+    user: boolean;
+    lazy: boolean;
+    sync: boolean;
+    dirty: boolean;
+    active: boolean;
+    deps: Array<Dep>;
+    newDeps: Array<Dep>;
+    depIds: SimpleSet;
+    newDepIds: SimpleSet;
+    before: ?Function;
+    getter: Function;
+    value: any;
+    
+    constructor(
+            vm: Component, // vm 当前的实例
+            expOrFn: string | Function, // 
+            cb: Function, // 回调
+            options?: ?Object, // 配置项 
+            isRenderWatcher?: boolean // 是否是一个 渲染 watcher
+    ) {
+        this.vm = vm
+        // 如果当前是渲染watcher，那么在vm._watcher 上面绑定当前的this
+        if (isRenderWatcher) {
+            vm._watcher = this
+        }
+        // push到所有的vm._watchers 里边
+        vm._watchers.push(this)
+        // 如果传入了options，对options做处理
+        if (options) {
+            this.deep = !!options.deep // 将options中的值转化为一个Boolean值
+            this.user = !!options.user // 将options中的值转化为一个Boolean值
+            this.lazy = !!options.lazy // 将options中的值转化为一个Boolean值
+            this.sync = !!options.sync // 将options中的值转化为一个Boolean值
+            this.before = options.before // 将options中传入的before函数挂载到 当前this上面
+        } else {
+            // 将deep、user、lazy、sync赋值为false
+            this.deep = this.user = this.lazy = this.sync = false
+        }
+        this.cb = cb
+        this.id = ++uid // uid for batching
+        this.active = true
+        this.dirty = this.lazy // for lazy watchers
+        this.deps = []
+        this.newDeps = []
+        this.depIds = new Set()
+        this.newDepIds = new Set()
+        // 生产环境 对expOrFn进行 toString， 否则置空
+        this.expression = process.env.NODE_ENV !== 'production'
+                          ? expOrFn.toString()
+                          : ''
+        /*
+         * expOrFn 如果是函数 赋值到当前this的getter上面，初始化的时候肯定是函数
+         */
+        if (typeof expOrFn === 'function') {
+            this.getter = expOrFn
+        } else {
+            // 否则使用parsePath 进行转换，这个主要是用来 做 watch 监听属性的`a.b.c`的
+            this.getter = parsePath(expOrFn)
+            // expOrFn如果不是`a.b.c`这种格式，那么抛出一个错误信息：watcher只接受简单的`.`分隔路径 
+            if (!this.getter) {
+                this.getter = noop
+                process.env.NODE_ENV !== 'production' && warn(
+                        `Failed watching path: "${ expOrFn }" ` +
+                        'Watcher only accepts simple dot-delimited paths. ' +
+                        'For full control, use a function instead.',
+                        vm
+                )
+            }
+        }
+        this.value = this.lazy
+                     ? undefined
+                     : this.get()
+    }
+    
+    // const unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F
+    -\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/
+    // const bailRE = new RegExp(`[^${ unicodeRegExp.source }.$_\\d]`)
+    // 
+    // export function parsePath(path: string): any {
+    //     if (bailRE.test(path)) {
+    //         return
+    //     }
+    //     const segments = path.split('.')
+    //     return function (obj) {
+    //         for (let i = 0; i < segments.length; i++) {
+    //             if (!obj) {
+    //                 return
+    //             }
+    //             obj = obj[segments[i]]
+    //         }
+    //         return obj
+    //     }
+    // }
+    
+    /**
+     * Evaluate the getter, and re-collect dependencies.
+     */
+    get() {
+        pushTarget(this)
+        let value
+        const vm = this.vm
+        try {
+            value = this.getter.call(vm, vm)
+        } catch (e) {
+            if (this.user) {
+                handleError(e, vm, `getter for watcher "${ this.expression }"`)
+            } else {
+                throw e
+            }
+        } finally {
+            // "touch" every property so they are all tracked as
+            // dependencies for deep watching
+            if (this.deep) {
+                traverse(value)
+            }
+            popTarget()
+            this.cleanupDeps()
+        }
+        return value
+    }
+    
+    /**
+     * Add a dependency to this directive.
+     */
+    addDep(dep: Dep) {
+        const id = dep.id
+        if (!this.newDepIds.has(id)) {
+            this.newDepIds.add(id)
+            this.newDeps.push(dep)
+            if (!this.depIds.has(id)) {
+                dep.addSub(this)
+            }
+        }
+    }
+    
+    /**
+     * Clean up for dependency collection.
+     */
+    cleanupDeps() {
+        let i = this.deps.length
+        while (i--) {
+            const dep = this.deps[i]
+            if (!this.newDepIds.has(dep.id)) {
+                dep.removeSub(this)
+            }
+        }
+        let tmp = this.depIds
+        this.depIds = this.newDepIds
+        this.newDepIds = tmp
+        this.newDepIds.clear()
+        tmp = this.deps
+        this.deps = this.newDeps
+        this.newDeps = tmp
+        this.newDeps.length = 0
+    }
+    
+    /**
+     * Subscriber interface.
+     * Will be called when a dependency changes.
+     */
+    update() {
+        /* istanbul ignore else */
+        if (this.lazy) {
+            this.dirty = true
+        } else if (this.sync) {
+            this.run()
+        } else {
+            queueWatcher(this)
+        }
+    }
+    
+    /**
+     * Scheduler job interface.
+     * Will be called by the scheduler.
+     */
+    run() {
+        if (this.active) {
+            const value = this.get()
+            if (
+                    value !== this.value ||
+                    // Deep watchers and watchers on Object/Arrays should fire even
+                    // when the value is the same, because the value may
+                    // have mutated.
+                    isObject(value) ||
+                    this.deep
+            ) {
+                // set new value
+                const oldValue = this.value
+                this.value = value
+                if (this.user) {
+                    try {
+                        this.cb.call(this.vm, value, oldValue)
+                    } catch (e) {
+                        handleError(e, this.vm, `callback for watcher "${ this.expression }"`)
+                    }
+                } else {
+                    this.cb.call(this.vm, value, oldValue)
+                }
+            }
+        }
+    }
+    
+    /**
+     * Evaluate the value of the watcher.
+     * This only gets called for lazy watchers.
+     */
+    evaluate() {
+        this.value = this.get()
+        this.dirty = false
+    }
+    
+    /**
+     * Depend on all deps collected by this watcher.
+     */
+    depend() {
+        let i = this.deps.length
+        while (i--) {
+            this.deps[i].depend()
+        }
+    }
+    
+    /**
+     * Remove self from all dependencies' subscriber list.
+     */
+    teardown() {
+        if (this.active) {
+            // remove self from vm's watcher list
+            // this is a somewhat expensive operation so we skip it
+            // if the vm is being destroyed.
+            if (!this.vm._isBeingDestroyed) {
+                remove(this.vm._watchers, this)
+            }
+            let i = this.deps.length
+            while (i--) {
+                this.deps[i].removeSub(this)
+            }
+            this.active = false
+        }
+    }
+}
+```
+
+## render
+```js
+// 入口文件为 src/core/instance/render.js
+// 会在Vue的入口文件加载时执行 renderMixin(Vue)
+
+function renderMixin(Vue: Class<Component>) {
+    // install runtime convenience helpers
+    installRenderHelpers(Vue.prototype)
+    
+    Vue.prototype.$nextTick = function (fn: Function) {
+        return nextTick(fn, this)
+    }
+    
+    Vue.prototype._render = function (): VNode {
+        const vm: Component = this
+        // 从当前实例拿到 render 函数
+        const { render, _parentVnode } = vm.$options
+        
+        if (_parentVnode) {
+            vm.$scopedSlots = normalizeScopedSlots(
+                    _parentVnode.data.scopedSlots,
+                    vm.$slots,
+                    vm.$scopedSlots
+            )
+        }
+        
+        // set parent vnode. this allows render functions to have access
+        // to the data on the placeholder node.
+        vm.$vnode = _parentVnode
+        // render self
+        let vnode
+        try {
+            // There's no need to maintain a stack because all render fns are called
+            // separately from one another. Nested component's render fns are called
+            // when parent component is patched.
+            currentRenderingInstance = vm
+            vnode = render.call(vm._renderProxy, vm.$createElement)
+        } catch (e) {
+            handleError(e, vm, `render`)
+            // return error render result,
+            // or previous vnode to prevent render error causing blank component
+            /* istanbul ignore else */
+            if (process.env.NODE_ENV !== 'production' && vm.$options.renderError) {
+                try {
+                    vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e)
+                } catch (e) {
+                    handleError(e, vm, `renderError`)
+                    vnode = vm._vnode
+                }
+            } else {
+                vnode = vm._vnode
+            }
+        } finally {
+            currentRenderingInstance = null
+        }
+        // if the returned array contains only a single node, allow it
+        if (Array.isArray(vnode) && vnode.length === 1) {
+            vnode = vnode[0]
+        }
+        // return empty vnode in case the render function errored out
+        if (!(vnode instanceof VNode)) {
+            if (process.env.NODE_ENV !== 'production' && Array.isArray(vnode)) {
+                warn(
+                        'Multiple root nodes returned from render function. Render function ' +
+                        'should return a single root node.',
+                        vm
+                )
+            }
+            vnode = createEmptyVNode()
+        }
+        // set parent
+        vnode.parent = _parentVnode
+        return vnode
+    }
+}
+```
+
+
 
 ## 性能埋点
 ### performance
