@@ -239,7 +239,7 @@ let Per = {
 ```
 
 ### constructor
-- 所有的原型对象会自动获得一个 `constructor` 属性，这个属性包含一个指向 `prototype` 属性所在函数的指针
+- 所有的原型对象会自动获得一个 `constructor` 属性，这个属性包含一个指向 `prototype` 属性所在函数的指针，会返回当前对象原型创建的函数
 ```js
     function Person() {}
     Person.prototype.name = '小明'

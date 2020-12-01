@@ -43,14 +43,18 @@ import { renderMixin } from './render'
 import { eventsMixin } from './events'
 import { lifecycleMixin } from './lifecycle'
 import { warn } from '../util/index'
-
+// Vue的本质是一个Class，new Vue 就是创建一个Vue的实例
 function Vue (options) {
-  if (process.env.NODE_ENV !== 'production' &&
-    !(this instanceof Vue)
-  ) {
-    warn('Vue is a constructor and should be called with the `new` keyword')
-  }
+    // 在非生产环境并且当前this是Vue的实例，抛出错误信息：Vue是一个构造函数，应该使用' new '关键字调用它
+    if (process.env.NODE_ENV !== 'production' && !(this instanceof Vue)) {
+        warn('Vue is a constructor and should be called with the `new` keyword')
+    }
+    // 同时执行this._init()这个初始化的方法 并将options传入
   this._init(options)
+  /*
+  *     this._init()是Vue原型上的一个方法，那么这个方法是什么时候定义的呢？
+  *     看上面的源码部分，该文件在加载的时候执行了一堆的 mixin, 而 this._init() 原型方法就是在 initMixin(Vue) 中定义的 
+  * */ 
 }
 
 initMixin(Vue)
@@ -60,31 +64,6 @@ lifecycleMixin(Vue)
 renderMixin(Vue)
 
 export default Vue
-
-```
-
-### 解析
-```js
-
-// Vue的本质是一个Class，new Vue 就是创建一个Vue的实例
-function Vue (options) {
-  if (process.env.NODE_ENV !== 'production' &&
-    !(this instanceof Vue)
-  ) {
-    warn('Vue is a constructor and should be called with the `new` keyword')
-  }
-  // 同时执行this._init()这个初始化的方法 并将options传入
-  this._init(options) 
-  /*
-  *     this._init()是Vue原型上的一个方法，那么这个方法是什么时候定义的呢？
-  *     看上面的源码部分，该文件在加载的时候执行了一堆的 mixin, 而 this._init() 原型方法就是在 initMixin(Vue) 中定义的 
-  * */ 
-  initMixin(Vue)
-  stateMixin(Vue)
-  eventsMixin(Vue)
-  lifecycleMixin(Vue)
-  renderMixin(Vue)
-}
 
 ```
 
@@ -129,6 +108,9 @@ export function initMixin (Vue: Class<Component>) {
       // internal component options needs special treatment.
       initInternalComponent(vm, options)
     } else {
+        /*
+        * 
+        * */
       vm.$options = mergeOptions(
         resolveConstructorOptions(vm.constructor),
         options || {},
@@ -136,9 +118,11 @@ export function initMixin (Vue: Class<Component>) {
       )
     }
     /* istanbul ignore else */
+    // 如果不是生产环境执行 initProxy
     if (process.env.NODE_ENV !== 'production') {
       initProxy(vm)
     } else {
+        // 生产环境将 vm_renderProxy 指向当前 vm
       vm._renderProxy = vm
     }
     // expose real self
@@ -458,6 +442,77 @@ callHook(vm, 'created')
 
 
 ```
+
+### initProxy
+- 就是使用了`Proxy`API
+- [MDN官网 Proxy](https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions/API/proxy)
+- [阮一峰老师的讲解](https://es6.ruanyifeng.com/#docs/proxy)
+```js
+// 入口文件为 src/core/instance/proxy.js
+
+    /*
+    * 查看浏览器对于API的支持
+    * */
+    function isNative(Ctor: any): boolean {
+        return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
+    }
+
+    // 判断 Proxy 是否存在，并且当前环境支持 Proxy
+    const hasProxy = typeof Proxy !== 'undefined' && isNative(Proxy)
+
+    initProxy = function initProxy(vm) {
+        // 判断当前环境是否支持Proxy，如果支持就会对实例进行代理
+        if (hasProxy) {
+            // determine which proxy handler to use
+            // 获取当前实例的Options
+            const options = vm.$options
+            // 
+            const handlers = options.render && options.render._withStripped
+                    ? getHandler
+                    : hasHandler
+            // 这里定义的 _renderProxy 就是对 vm 进行了一层拦截，当访问 vm 的时候，去执行后面的 handlers 里面重新定义的方法
+            vm._renderProxy = new Proxy(vm, handlers)
+        } else {
+            // 这一层是指当前环境没有 Proxy 或者是当前环境不支持 Proxy API时，将 _renderProxy 指向当前 vm
+            vm._renderProxy = vm
+        }
+    }
+    
+    
+    const hasHandler = {
+        // 拦截 key in target 的操作，返回一个布尔值。
+        has(target, key) {
+            // 当前的 key 是否存在 目标对象 上
+            const has = key in target
+            /*
+            * 
+            * allowedGlobals 用来判断当前变量是否合法(是否是Vue内部保留关键字) 返回 Boolean 值
+            * isAllowed 是关键字 或者 key是字符串 并且 _ 开头 并且 在 $data 上面没有定义
+            * */
+            const isAllowed = allowedGlobals(key) || (typeof key === 'string' && key.charAt(0) === '_' && !(key in target.$data))
+            
+            if (!has && !isAllowed) {
+                // key 在 target.$data 存在抛出错误信息：当前的key 在渲染期间使用但是没有在 实例上面定义
+                if (key in target.$data) warnReservedPrefix(target, key)
+                // 否则抛出错误信息：key 不是在实例上面定义的，不是响应式的，请在实例当中定义
+                else warnNonPresent(target, key)
+            }
+            return has || !isAllowed
+        }
+    }
+
+    const getHandler = {
+        get(target, key) {
+            if (typeof key === 'string' && !(key in target)) {
+                if (key in target.$data) warnReservedPrefix(target, key)
+                else warnNonPresent(target, key)
+            }
+            return target[key]
+        }
+    }
+```
+
+
 
 ## $mount 源码解析
 - `$mount`方法的实现是和平台、构建方式都相关的
@@ -1039,7 +1094,7 @@ function renderMixin(Vue: Class<Component>) {
     
     Vue.prototype._render = function (): VNode {
         const vm: Component = this
-        // 从当前实例拿到 render 函数
+        // 从当前实例拿到 render 函数，这个函数可以通过用户自己写，或者是编译生成
         const { render, _parentVnode } = vm.$options
         
         if (_parentVnode) {
@@ -1060,6 +1115,10 @@ function renderMixin(Vue: Class<Component>) {
             // separately from one another. Nested component's render fns are called
             // when parent component is patched.
             currentRenderingInstance = vm
+            /*
+            * vm._renderProxy 定义在 init 方法里边
+            * vm.$createElement 是在执行init的时候执行的 initRender 的时候定义的
+            * */
             vnode = render.call(vm._renderProxy, vm.$createElement)
         } catch (e) {
             handleError(e, vm, `render`)
@@ -1068,6 +1127,7 @@ function renderMixin(Vue: Class<Component>) {
             /* istanbul ignore else */
             if (process.env.NODE_ENV !== 'production' && vm.$options.renderError) {
                 try {
+                    
                     vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e)
                 } catch (e) {
                     handleError(e, vm, `renderError`)

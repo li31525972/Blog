@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f0d944b-bf8d-44e8-b435-1c3c976bdacc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/frame/vueSource.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/frame/vueSource.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/js/Object.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/js/Object.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -16,44 +18,20 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/D3/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="2720">
-                <caret line="160" selection-start-line="160" selection-end-line="160" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/framework/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="459">
-                <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="294">
-              <caret line="101" column="31" selection-start-line="101" selection-start-column="31" selection-end-line="101" selection-end-column="31" />
+              <caret line="102" column="17" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/framework/Implementation.md">
+        <entry file="file://$PROJECT_DIR$/src/pages/js/Object.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="663">
-                <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+              <first_editor relative-caret-position="299">
+                <caret line="241" column="81" selection-start-line="241" selection-start-column="81" selection-end-line="241" selection-end-column="81" />
               </first_editor>
               <second_editor />
             </state>
@@ -64,13 +42,11 @@
         <entry file="file://$PROJECT_DIR$/src/pages/frame/vueSource.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="362">
-                <caret line="1042" column="35" selection-start-line="1042" selection-start-column="35" selection-end-line="1042" selection-end-column="35" />
+              <first_editor relative-caret-position="423">
+                <caret line="496" column="58" selection-start-line="496" selection-start-column="58" selection-end-line="496" selection-end-column="58" />
                 <folding>
                   <element signature="n#!!doc" expanded="true" />
-                  <element signature="e#38#72#0" expanded="true" />
-                  <element signature="e#0#30#0" expanded="true" />
-                  <element signature="e#60#92#0" expanded="true" />
+                  <element signature="n#!!doc" expanded="true" />
                   <element signature="e#46#74#0" expanded="true" />
                   <element signature="e#0#125#0" expanded="true" />
                   <element signature="n#!!doc" expanded="true" />
@@ -85,8 +61,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/frame/vueTopic.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="527">
-                <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+              <first_editor relative-caret-position="408">
+                <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
               </first_editor>
               <second_editor />
             </state>
@@ -117,6 +93,8 @@
       <find>visitor</find>
       <find>visited</find>
       <find>initData</find>
+      <find>performance</find>
+      <find>constructor</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -151,7 +129,6 @@
         <option value="$PROJECT_DIR$/src/pages/js/Global.md" />
         <option value="$PROJECT_DIR$/src/pages/js/Math.md" />
         <option value="$PROJECT_DIR$/src/pages/js/Number.md" />
-        <option value="$PROJECT_DIR$/src/pages/js/Object.md" />
         <option value="$PROJECT_DIR$/src/pages/js/ObjectMethods.md" />
         <option value="$PROJECT_DIR$/src/pages/js/README.md" />
         <option value="$PROJECT_DIR$/src/pages/js/String.md" />
@@ -175,6 +152,7 @@
         <option value="$PROJECT_DIR$/src/pages/frame/vue.md" />
         <option value="$PROJECT_DIR$/src/.vuepress/config.js" />
         <option value="$PROJECT_DIR$/src/pages/frame/vueTopic.md" />
+        <option value="$PROJECT_DIR$/src/pages/js/Object.md" />
         <option value="$PROJECT_DIR$/src/pages/frame/vueSource.md" />
       </list>
     </option>
@@ -219,6 +197,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="frame" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Blog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Blog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -289,18 +274,18 @@
       <workItem from="1605493540979" duration="99000" />
       <workItem from="1606360644606" duration="1296000" />
       <workItem from="1606571830023" duration="14136000" />
-      <workItem from="1606712838674" duration="2075000" />
+      <workItem from="1606712838674" duration="10437000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="416577000" />
+    <option name="totallyTimeSpent" value="418768000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3170" y="0" width="1710" height="1440" extended-state="0" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.102427475" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10186859" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -529,16 +514,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="731">
             <caret line="43" column="8" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/js/Object.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1283">
-            <caret line="358" column="8" selection-start-line="358" selection-start-column="8" selection-end-line="358" selection-end-column="8" />
           </first_editor>
           <second_editor />
         </state>
@@ -791,10 +766,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="101" column="31" selection-start-line="101" selection-start-column="31" selection-end-line="101" selection-end-column="31" />
+    <entry file="file://$PROJECT_DIR$/src/pages/frame/vueTopic.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="408">
+            <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
@@ -808,11 +786,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/frame/vueTopic.md">
+    <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="102" column="17" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/js/Object.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="527">
-            <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+          <first_editor relative-caret-position="299">
+            <caret line="241" column="81" selection-start-line="241" selection-start-column="81" selection-end-line="241" selection-end-column="81" />
           </first_editor>
           <second_editor />
         </state>
@@ -821,13 +806,11 @@
     <entry file="file://$PROJECT_DIR$/src/pages/frame/vueSource.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="362">
-            <caret line="1042" column="35" selection-start-line="1042" selection-start-column="35" selection-end-line="1042" selection-end-column="35" />
+          <first_editor relative-caret-position="423">
+            <caret line="496" column="58" selection-start-line="496" selection-start-column="58" selection-end-line="496" selection-end-column="58" />
             <folding>
               <element signature="n#!!doc" expanded="true" />
-              <element signature="e#38#72#0" expanded="true" />
-              <element signature="e#0#30#0" expanded="true" />
-              <element signature="e#60#92#0" expanded="true" />
+              <element signature="n#!!doc" expanded="true" />
               <element signature="e#46#74#0" expanded="true" />
               <element signature="e#0#125#0" expanded="true" />
               <element signature="n#!!doc" expanded="true" />
