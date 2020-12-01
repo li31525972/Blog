@@ -92,7 +92,6 @@ export function initMixin (Vue: Class<Component>) {
     vm._uid = uid++
 
     let startTag, endTag
-    /* istanbul ignore if */
     // 在非生产环境 并且 config.performance为true(开启性能追踪) 并且 当前浏览器支持 performance API时，开启性能追踪
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
       startTag = `vue-perf-start:${vm._uid}`
@@ -1121,10 +1120,12 @@ function renderMixin(Vue: Class<Component>) {
             * */
             vnode = render.call(vm._renderProxy, vm.$createElement)
         } catch (e) {
+            // 通过全局错误钩子抛出错误信息用以让用户收集处理
             handleError(e, vm, `render`)
             // return error render result,
             // or previous vnode to prevent render error causing blank component
             /* istanbul ignore else */
+            // 当开发环境并且存在 renderError 那么会使用这个方法去查询 VNode 版本去对 VNode 进行降级
             if (process.env.NODE_ENV !== 'production' && vm.$options.renderError) {
                 try {
                     
@@ -1139,12 +1140,13 @@ function renderMixin(Vue: Class<Component>) {
         } finally {
             currentRenderingInstance = null
         }
-        // if the returned array contains only a single node, allow it
+        // 如果获取到的VNode 是单个节点，那么获取他数组内的元素
         if (Array.isArray(vnode) && vnode.length === 1) {
             vnode = vnode[0]
         }
-        // return empty vnode in case the render function errored out
+        // 如果 获取到的 vnode 不是 VNode 的实例
         if (!(vnode instanceof VNode)) {
+            // 在开发环境并且 vnode 是一个数组，抛出错误信息：每个根节点只能有一个 VNode
             if (process.env.NODE_ENV !== 'production' && Array.isArray(vnode)) {
                 warn(
                         'Multiple root nodes returned from render function. Render function ' +
@@ -1152,15 +1154,265 @@ function renderMixin(Vue: Class<Component>) {
                         vm
                 )
             }
+            // 对 vnode 赋值一个 空的 VNode
             vnode = createEmptyVNode()
         }
         // set parent
         vnode.parent = _parentVnode
+        // 最后将 vnode 返回出去
         return vnode
     }
 }
 ```
 
+## Virtual DOM
+
+### 真实DOM
+```js
+var span = document.querySelector('span')
+var str = ''
+for (var key in span) { 
+    str += key + '' 
+}
+console.log(str)
+// titlelangtranslatedirhiddenaccessKeydraggablespellcheckautocapitalizecontentEditableisContentEditableinputModeoffsetParentoffsetTopoffsetLeftoffsetWidthoffsetHeightstyleinnerTextouterTextonabortonbluroncanceloncanplayoncanplaythroughonchangeonclickoncloseoncontextmenuoncuechangeondblclickondragondragendondragenterondragleaveondragoverondragstartondropondurationchangeonemptiedonendedonerroronfocusonformdataoninputoninvalidonkeydownonkeypressonkeyuponloadonloadeddataonloadedmetadataonloadstartonmousedownonmouseenteronmouseleaveonmousemoveonmouseoutonmouseoveronmouseuponmousewheelonpauseonplayonplayingonprogressonratechangeonresetonresizeonscrollonseekedonseekingonselectonstalledonsubmitonsuspendontimeupdateontoggleonvolumechangeonwaitingonwebkitanimationendonwebkitanimationiterationonwebkitanimationstartonwebkittransitionendonwheelonauxclickongotpointercaptureonlostpointercaptureonpointerdownonpointermoveonpointeruponpointercancelonpointeroveronpointeroutonpointerenteronpointerleaveonselectstartonselectionchangeonanimationendonanimationiterationonanimationstartontransitionrunontransitionstartontransitionendontransitioncanceloncopyoncutonpastedatasetnonceautofocustabIndexattachInternalsblurclickfocusonpointerrawupdateenterKeyHintnamespaceURIprefixlocalNametagNameidclassNameclassListslotattributesshadowRootpartassignedSlotinnerHTMLouterHTMLscrollTopscrollLeftscrollWidthscrollHeightclientTopclientLeftclientWidthclientHeightattributeStyleMaponbeforecopyonbeforecutonbeforepasteonsearchelementTimingonfullscreenchangeonfullscreenerroronwebkitfullscreenchangeonwebkitfullscreenerroronbeforexrselectchildrenfirstElementChildlastElementChildchildElementCountpreviousElementSiblingnextElementSiblingafteranimateappendattachShadowbeforeclosestcomputedStyleMapgetAttributegetAttributeNSgetAttributeNamesgetAttributeNodegetAttributeNodeNSgetBoundingClientRectgetClientRectsgetElementsByClassNamegetElementsByTagNamegetElementsByTagNameNShasAttributehasAttributeNShasAttributeshasPointerCaptureinsertAdjacentElementinsertAdjacentHTMLinsertAdjacentTextmatchesprependquerySelectorquerySelectorAllreleasePointerCaptureremoveremoveAttributeremoveAttributeNSremoveAttributeNodereplaceWithrequestFullscreenrequestPointerLockscrollscrollByscrollIntoViewscrollIntoViewIfNeededscrollTosetAttributesetAttributeNSsetAttributeNodesetAttributeNodeNSsetPointerCapturetoggleAttributewebkitMatchesSelectorwebkitRequestFullScreenwebkitRequestFullscreenariaAtomicariaAutoCompleteariaBusyariaCheckedariaColCountariaColIndexariaColSpanariaCurrentariaDescriptionariaDisabledariaExpandedariaHasPopupariaHiddenariaKeyShortcutsariaLabelariaLevelariaLiveariaModalariaMultiLineariaMultiSelectableariaOrientationariaPlaceholderariaPosInSetariaPressedariaReadOnlyariaRelevantariaRequiredariaRoleDescriptionariaRowCountariaRowIndexariaRowSpanariaSelectedariaSetSizeariaSortariaValueMaxariaValueMinariaValueNowariaValueTextgetAnimationsreplaceChildrennodeTypenodeNamebaseURIisConnectedownerDocumentparentNodeparentElementchildNodesfirstChildlastChildpreviousSiblingnextSiblingnodeValuetextContentELEMENT_NODEATTRIBUTE_NODETEXT_NODECDATA_SECTION_NODEENTITY_REFERENCE_NODEENTITY_NODEPROCESSING_INSTRUCTION_NODECOMMENT_NODEDOCUMENT_NODEDOCUMENT_TYPE_NODEDOCUMENT_FRAGMENT_NODENOTATION_NODEDOCUMENT_POSITION_DISCONNECTEDDOCUMENT_POSITION_PRECEDINGDOCUMENT_POSITION_FOLLOWINGDOCUMENT_POSITION_CONTAINSDOCUMENT_POSITION_CONTAINED_BYDOCUMENT_POSITION_IMPLEMENTATION_SPECIFICappendChildcloneNodecompareDocumentPositioncontainsgetRootNodehasChildNodesinsertBeforeisDefaultNamespaceisEqualNodeisSameNodelookupNamespaceURIlookupPrefixnormalizeremoveChildreplaceChildaddEventListenerdispatchEventremoveEventListenertitle lang translate dir hidden accessKey draggable spellcheck autocapitalize contentEditable isContentEditable inputMode offsetParent offsetTop offsetLeft offsetWidth offsetHeight style innerText outerText onabort onblur oncancel oncanplay oncanplaythrough onchange onclick onclose oncontextmenu oncuechange ondblclick ondrag ondragend ondragenter ondragleave ondragover ondragstart ondrop ondurationchange onemptied onended onerror onfocus onformdata oninput oninvalid onkeydown onkeypress onkeyup onload onloadeddata onloadedmetadata onloadstart onmousedown onmouseenter onmouseleave onmousemove onmouseout onmouseover onmouseup onmousewheel onpause onplay onplaying onprogress onratechange onreset onresize onscroll onseeked onseeking onselect onstalled onsubmit onsuspend ontimeupdate ontoggle onvolumechange onwaiting onwebkitanimationend onwebkitanimationiteration onwebkitanimationstart onwebkittransitionend onwheel onauxclick ongotpointercapture onlostpointercapture onpointerdown onpointermove onpointerup onpointercancel onpointerover onpointerout onpointerenter onpointerleave onselectstart onselectionchange onanimationend onanimationiteration onanimationstart ontransitionrun ontransitionstart ontransitionend ontransitioncancel oncopy oncut onpaste dataset nonce autofocus tabIndex attachInternals blur click focus onpointerrawupdate enterKeyHint namespaceURI prefix localName tagName id className classList slot attributes shadowRoot part assignedSlot innerHTML outerHTML scrollTop scrollLeft scrollWidth scrollHeight clientTop clientLeft clientWidth clientHeight attributeStyleMap onbeforecopy onbeforecut onbeforepaste onsearch elementTiming onfullscreenchange onfullscreenerror onwebkitfullscreenchange onwebkitfullscreenerror onbeforexrselect children firstElementChild lastElementChild childElementCount previousElementSibling nextElementSibling after animate append attachShadow before closest computedStyleMap getAttribute getAttributeNS getAttributeNames getAttributeNode getAttributeNodeNS getBoundingClientRect getClientRects getElementsByClassName getElementsByTagName getElementsByTagNameNS hasAttribute hasAttributeNS hasAttributes hasPointerCapture insertAdjacentElement insertAdjacentHTML insertAdjacentText matches prepend querySelector querySelectorAll releasePointerCapture remove removeAttribute removeAttributeNS removeAttributeNode replaceWith requestFullscreen requestPointerLock scroll scrollBy scrollIntoView scrollIntoViewIfNeeded scrollTo setAttribute setAttributeNS setAttributeNode setAttributeNodeNS setPointerCapture toggleAttribute webkitMatchesSelector webkitRequestFullScreen webkitRequestFullscreen ariaAtomic ariaAutoComplete ariaBusy ariaChecked ariaColCount ariaColIndex ariaColSpan ariaCurrent ariaDescription ariaDisabled ariaExpanded ariaHasPopup ariaHidden ariaKeyShortcuts ariaLabel ariaLevel ariaLive ariaModal ariaMultiLine ariaMultiSelectable ariaOrientation ariaPlaceholder ariaPosInSet ariaPressed ariaReadOnly ariaRelevant ariaRequired ariaRoleDescription ariaRowCount ariaRowIndex ariaRowSpan ariaSelected ariaSetSize ariaSort ariaValueMax ariaValueMin ariaValueNow ariaValueText getAnimations replaceChildren nodeType nodeName baseURI isConnected ownerDocument parentNode parentElement childNodes firstChild lastChild previousSibling nextSibling nodeValue textContent ELEMENT_NODE ATTRIBUTE_NODE TEXT_NODE CDATA_SECTION_NODE ENTITY_REFERENCE_NODE ENTITY_NODE PROCESSING_INSTRUCTION_NODE COMMENT_NODE DOCUMENT_NODE DOCUMENT_TYPE_NODE DOCUMENT_FRAGMENT_NODE NOTATION_NODE DOCUMENT_POSITION_DISCONNECTED DOCUMENT_POSITION_PRECEDING DOCUMENT_POSITION_FOLLOWING DOCUMENT_POSITION_CONTAINS DOCUMENT_POSITION_CONTAINED_BY DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC appendChild cloneNode compareDocumentPosition contains getRootNode hasChildNodes insertBefore isDefaultNamespace isEqualNode isSameNode lookupNamespaceURI lookupPrefix normalize removeChild replaceChild addEventListener dispatchEvent removeEventListener "
+
+// 从这里可以看出真实的DOM元素是非常庞大的，当我们频繁的去做DOM更新，会产生一定的性能问题
+
+```
+### VNode
+- `Virtual DOM`就是用原生`JS`对象去描述一个`DOM`节点，`Vue`中是用`VNode`类去描述
+- `VNode`只是用来映射真实`DOM`的渲染，不需要包含操作`DOM`的方法，因此它是非常轻量的
+```js
+// 入口文件为：src/core/vdom/vnode.js
+// VNode 的定义
+export default class VNode {
+    tag: string | void;
+    data: VNodeData | void;
+    children: ?Array<VNode>;
+    text: string | void;
+    elm: Node | void;
+    ns: string | void;
+    context: Component | void; // rendered in this component's scope
+    key: string | number | void;
+    componentOptions: VNodeComponentOptions | void;
+    componentInstance: Component | void; // component instance
+    parent: VNode | void; // component placeholder node
+    
+    // strictly internal
+    raw: boolean; // contains raw HTML? (server only)
+    isStatic: boolean; // hoisted static node
+    isRootInsert: boolean; // necessary for enter transition check
+    isComment: boolean; // empty comment placeholder?
+    isCloned: boolean; // is a cloned node?
+    isOnce: boolean; // is a v-once node?
+    asyncFactory: Function | void; // async component factory function
+    asyncMeta: Object | void;
+    isAsyncPlaceholder: boolean;
+    ssrContext: Object | void;
+    fnContext: Component | void; // real context vm for functional nodes
+    fnOptions: ?ComponentOptions; // for SSR caching
+    devtoolsMeta: ?Object; // used to store functional render context for devtools
+    fnScopeId: ?string; // functional scope id support
+    
+    constructor(
+            tag?: string,
+            data?: VNodeData,
+            children?: ?Array<VNode>,
+            text?: string,
+            elm?: Node,
+            context?: Component,
+            componentOptions?: VNodeComponentOptions,
+            asyncFactory?: Function
+    ) {
+        this.tag = tag
+        this.data = data
+        this.children = children
+        this.text = text
+        this.elm = elm
+        this.ns = undefined
+        this.context = context
+        this.fnContext = undefined
+        this.fnOptions = undefined
+        this.fnScopeId = undefined
+        this.key = data && data.key
+        this.componentOptions = componentOptions
+        this.componentInstance = undefined
+        this.parent = undefined
+        this.raw = false
+        this.isStatic = false
+        this.isRootInsert = true
+        this.isComment = false
+        this.isCloned = false
+        this.isOnce = false
+        this.asyncFactory = asyncFactory
+        this.asyncMeta = undefined
+        this.isAsyncPlaceholder = false
+    }
+    
+    // DEPRECATED: alias for componentInstance for backwards compat.
+    /* istanbul ignore next */
+    get child(): Component | void {
+        return this.componentInstance
+    }
+}
+```
+
+## createElement
+```js
+// 入口文件为：src/core/vdom/create-element.js
+
+const SIMPLE_NORMALIZE = 1
+const ALWAYS_NORMALIZE = 2
+
+// 将参数进行重载处理
+export function createElement(
+        context: Component, // vm 实例
+        tag: any, // 标签
+        data: any, // VNodeData
+        children: any, // 子节点
+        normalizationType: any, //
+        alwaysNormalize: boolean //
+): VNode | Array<VNode> {
+    /*
+    * 当data是数组 或者是基本类型对参数进行重载
+    * */
+    if (Array.isArray(data) || isPrimitive(data)) {
+        normalizationType = children
+        children = data
+        data = undefined
+    }
+    // 手写的render函数做区分处理
+    if (isTrue(alwaysNormalize)) {
+        normalizationType = ALWAYS_NORMALIZE
+    }
+    return _createElement(context, tag, data, children, normalizationType)
+}
+
+```
+
+
+### _createElement
+```js
+export function _createElement(
+        context: Component,
+        tag?: string | Class<Component> | Function | Object,
+        data?: VNodeData,
+        children?: any,
+        normalizationType?: number
+): VNode | Array<VNode> {
+    /*
+    * data存在 并且 data.__ob__ 存在，抛出错误信息：VNodeData 不能是响应式的，返回一个 空VNode
+    * */
+    if (isDef(data) && isDef((data: any).__ob__)) {
+        process.env.NODE_ENV !== 'production' && warn(
+                `Avoid using observed data object as vnode data: ${ JSON.stringify(data) }\n` +
+                'Always create fresh vnode data objects in each render!',
+                context
+        )
+        // createEmptyVNode 可以理解为是一个注释节点
+        return createEmptyVNode()
+    }
+    // 这个是判断 component 标签的 is 属性
+    if (isDef(data) && isDef(data.is)) {
+        tag = data.is
+    }
+    // 当这个 component is 属性是空的时候，返回一个 空VNode
+    if (!tag) {
+        return createEmptyVNode()
+    }
+    // 在开发环境对非基础类型的key做判断，抛出错误信息
+    if (process.env.NODE_ENV !== 'production' && isDef(data) && isDef(data.key) && !isPrimitive(data.key)) {
+        if (!__WEEX__ || !('@binding' in data.key)) {
+            warn(
+                    'Avoid using non-primitive value as key, ' +
+                    'use string/number value instead.',
+                    context
+            )
+        }
+    }
+    // support single function children as default scoped slot
+    if (Array.isArray(children) && typeof children[0] === 'function') {
+        data = data || {}
+        data.scopedSlots = { default: children[0] }
+        children.length = 0
+    }
+    
+    /*
+    * 对手写的render的 children 做 normalizeChildren
+    * 对编译生成的render的 children 做 simpleNormalizeChildren
+    * */
+    if (normalizationType === ALWAYS_NORMALIZE) {
+        children = normalizeChildren(children)
+    } else if (normalizationType === SIMPLE_NORMALIZE) {
+        children = simpleNormalizeChildren(children)
+    }
+    let vnode, ns
+    if (typeof tag === 'string') {
+        let Ctor
+        ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag)
+        if (config.isReservedTag(tag)) {
+            // platform built-in elements
+            if (process.env.NODE_ENV !== 'production' && isDef(data) && isDef(data.nativeOn)) {
+                warn(
+                        `The .native modifier for v-on is only valid on components but it was used on <${ tag }>.`,
+                        context
+                )
+            }
+            vnode = new VNode(config.parsePlatformTagName(tag), data, children,undefined, undefined, context)
+        } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
+            // component
+            vnode = createComponent(Ctor, data, context, children, tag)
+        } else {
+            // unknown or unlisted namespaced elements
+            // check at runtime because it may get assigned a namespace when its
+            // parent normalizes children
+            vnode = new VNode(tag, data, children,undefined, undefined, context)
+        }
+    } else {
+        // direct component options / constructor
+        vnode = createComponent(tag, data, context, children)
+    }
+    if (Array.isArray(vnode)) {
+        return vnode
+    } else if (isDef(vnode)) {
+        if (isDef(ns)) {
+            applyNS(vnode, ns)
+        }
+        if (isDef(data)) {
+            registerDeepBindings(data)
+        }
+        return vnode
+    } else {
+        return createEmptyVNode()
+    }
+}
+```
+
+### simpleNormalizeChildren
+```js
+// 对 children 做处理，将数组降维处理，只拉平一次，也就是将二维数组变成一维
+function simpleNormalizeChildren(children: any) {
+    for (let i = 0; i < children.length; i++) {
+        if (Array.isArray(children[i])) {
+            /*
+            * 相当于 [].cancat([0,1,[2,3],4])
+            * cancat(连接一个或多个数组) 还能这么用？哎，孤陋寡闻了
+            * */
+            return Array.prototype.concat.apply([], children)
+        }
+    }
+    return children
+}
+```
+
+### normalizeChildren
+```js
+function normalizeChildren(children: any): ?Array<VNode> {
+    return isPrimitive(children) ? [createTextVNode(children)] : 
+           Array.isArray(children) ? normalizeArrayChildren(children) : undefined
+}
+```
 
 
 ## 性能埋点

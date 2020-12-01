@@ -20,7 +20,7 @@ module.exports = {
             { text: 'Node', link: '/pages/node/' },
             { text: '浏览器', link: '/pages/browser/' },
             { text: '网络', link: '/pages/network/' },
-            { text: '抓包与调试', link: '/pages/tool/Chrome' },
+            { text: '工具', link: '/pages/tool/' },
             { text: '优化', link: '/pages/optimize/' },
             { text: '安全', link: '/pages/security/' },
             { text: 'webpack', link: '/pages/webpack/' },
@@ -127,14 +127,17 @@ module.exports = {
                     ''
                 ]
             }],
-            '/pages/tool/Chrome': [{
-                title: '抓包与调试',
-                path: '/pages/tool/Chrome',
-                collapsable: false,
-                children: [
-                    'Chrome'
-                ]
-            }],
+            '/pages/tool/': [
+                {
+                    title: '常用工具',
+                    path: '/pages/tool/',
+                    collapsable: false,
+                    children: [
+                            '',
+                        'Chrome',
+                    ]
+                },
+            ],
             '/pages/optimize/': [{
                 title: '优化',
                 path: '/pages/optimize/',
