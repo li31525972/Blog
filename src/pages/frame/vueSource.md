@@ -1339,8 +1339,8 @@ export function _createElement(
     }
     
     /*
-    * 对手写的render的 children 做 normalizeChildren
-    * 对编译生成的render的 children 做 simpleNormalizeChildren
+    * 对手写的render的 children 做 递归处理 多维变一维
+    * 对编译生成的render的 children 做 拉伸处理 二维变一维
     * */
     if (normalizationType === ALWAYS_NORMALIZE) {
         children = normalizeChildren(children)
@@ -1348,9 +1348,14 @@ export function _createElement(
         children = simpleNormalizeChildren(children)
     }
     let vnode, ns
+    /*
+    * 下面是创建 VNode 相关
+    */
+    // 标签名是字符串类型
     if (typeof tag === 'string') {
         let Ctor
         ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag)
+        // 如果是原生标签
         if (config.isReservedTag(tag)) {
             // platform built-in elements
             if (process.env.NODE_ENV !== 'production' && isDef(data) && isDef(data.nativeOn)) {
@@ -1359,17 +1364,18 @@ export function _createElement(
                         context
                 )
             }
+            // 创建一个Vue标签
             vnode = new VNode(config.parsePlatformTagName(tag), data, children,undefined, undefined, context)
+            // 对组件进行解析
         } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
             // component
             vnode = createComponent(Ctor, data, context, children, tag)
         } else {
-            // unknown or unlisted namespaced elements
-            // check at runtime because it may get assigned a namespace when its
-            // parent normalizes children
+            // 没有识别的标签，创建一个VNode
             vnode = new VNode(tag, data, children,undefined, undefined, context)
         }
     } else {
+        // 标签名是组件
         // direct component options / constructor
         vnode = createComponent(tag, data, context, children)
     }
@@ -1414,6 +1420,72 @@ function normalizeChildren(children: any): ?Array<VNode> {
     return isPrimitive(children) ? [createTextVNode(children)] : 
             // 当children是数组时 对数组进行
            Array.isArray(children) ? normalizeArrayChildren(children) : undefined
+}
+```
+
+### normalizeArrayChildren
+- 对`children`进行递归处理成一维数组，并且对文本节点进行优化
+```js
+function normalizeArrayChildren(children: any, nestedIndex?: string): Array<VNode> {
+    const res = []
+    let i, c, lastIndex, last
+    for (i = 0; i < children.length; i++) {
+        c = children[i]
+        // 当子元素是undefined 或者 null 或者 Boolean 类型 跳过
+        if (isUndef(c) || typeof c === 'boolean') {
+            continue
+        }
+        lastIndex = res.length - 1
+        last = res[lastIndex]
+        //  子元素是数组类型并且长度大于0 进行递归操作
+        if (Array.isArray(c)) {
+            if (c.length > 0) {
+                c = normalizeArrayChildren(c, `${ nestedIndex || '' }_${ i }`)
+                // merge adjacent text nodes
+                // 当拉平过后的子元素的第一项和res里边的最后一项都是文本进行节点合并
+                if (isTextNode(c[0]) && isTextNode(last)) {
+                    res[lastIndex] = createTextVNode(last.text + (c[0]: any).text)
+                    c.shift()
+                }
+                res.push.apply(res, c)
+            }
+            // 子元素是基础类型
+        } else if (isPrimitive(c)) {
+            // 当前数组最后一项是文本节点，进行节点合并
+            if (isTextNode(last)) {
+                
+                res[lastIndex] = createTextVNode(last.text + c)
+            } else if (c !== '') {
+                // 直接push 一个 文本节点
+                res.push(createTextVNode(c))
+            }
+        } else {
+            if (isTextNode(c) && isTextNode(last)) {
+                // 节点合并
+                res[lastIndex] = createTextVNode(last.text + c.text)
+            } else {
+                // 对于嵌套循环类的key做默认处理
+                if (isTrue(children._isVList) && isDef(c.tag) && isUndef(c.key) && isDef(nestedIndex)) {
+                    c.key = `__vlist${ nestedIndex }_${ i }__`
+                }
+                res.push(c)
+            }
+        }
+    }
+    
+    return res
+}
+```
+
+### isTextNode
+```js
+// 判断是否文本节点
+function isTextNode(node): boolean {
+    /*
+    * isDef: v => v !== undefined && v !== null
+    * isFalse: v === false
+    * */
+    return isDef(node) && isDef(node.text) && isFalse(node.isComment)
 }
 ```
 
