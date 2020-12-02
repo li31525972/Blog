@@ -1408,8 +1408,11 @@ function simpleNormalizeChildren(children: any) {
 
 ### normalizeChildren
 ```js
+// 对于用户手写render的children做处理，返回一维数组
 function normalizeChildren(children: any): ?Array<VNode> {
+    // children是基础类型时 创建一个文本标签将children放到标签内
     return isPrimitive(children) ? [createTextVNode(children)] : 
+            // 当children是数组时 对数组进行
            Array.isArray(children) ? normalizeArrayChildren(children) : undefined
 }
 ```
