@@ -1187,44 +1187,7 @@ console.log(str)
 // 入口文件为：src/core/vdom/vnode.js
 // VNode 的定义
 export default class VNode {
-    tag: string | void;
-    data: VNodeData | void;
-    children: ?Array<VNode>;
-    text: string | void;
-    elm: Node | void;
-    ns: string | void;
-    context: Component | void; // rendered in this component's scope
-    key: string | number | void;
-    componentOptions: VNodeComponentOptions | void;
-    componentInstance: Component | void; // component instance
-    parent: VNode | void; // component placeholder node
-    
-    // strictly internal
-    raw: boolean; // contains raw HTML? (server only)
-    isStatic: boolean; // hoisted static node
-    isRootInsert: boolean; // necessary for enter transition check
-    isComment: boolean; // empty comment placeholder?
-    isCloned: boolean; // is a cloned node?
-    isOnce: boolean; // is a v-once node?
-    asyncFactory: Function | void; // async component factory function
-    asyncMeta: Object | void;
-    isAsyncPlaceholder: boolean;
-    ssrContext: Object | void;
-    fnContext: Component | void; // real context vm for functional nodes
-    fnOptions: ?ComponentOptions; // for SSR caching
-    devtoolsMeta: ?Object; // used to store functional render context for devtools
-    fnScopeId: ?string; // functional scope id support
-    
-    constructor(
-            tag?: string,
-            data?: VNodeData,
-            children?: ?Array<VNode>,
-            text?: string,
-            elm?: Node,
-            context?: Component,
-            componentOptions?: VNodeComponentOptions,
-            asyncFactory?: Function
-    ) {
+    constructor(tag, data, children, text, context, elm, componentOptions, asyncFactory) {
         this.tag = tag
         this.data = data
         this.children = children
@@ -1250,11 +1213,66 @@ export default class VNode {
         this.isAsyncPlaceholder = false
     }
     
-    // DEPRECATED: alias for componentInstance for backwards compat.
-    /* istanbul ignore next */
-    get child(): Component | void {
+    get child() {
         return this.componentInstance
     }
+    
+}
+```
+
+### createEmptyVNode
+- 创建注释节点
+```js
+/*
+* 创建一个注释节点
+* 从内部的操作可以看出 text 对应的就是文本内容 
+* isComment 固定值 true
+* */ 
+const createEmptyVNode = text => {
+    const node = new VNode()
+    node.text = text
+    node.isComment = true
+    return node
+}
+```
+
+### createTextVNode
+- 创建文本节点
+```js
+/*
+* 从上面的VNode的定义可以看出，createTextVNode 也只接受了一个参数 文本内容
+* tag、data、children 都是 undefined
+* */
+function createTextVNode(val) {
+    return new VNode(undefined, undefined, undefined, String(val))
+}
+```
+
+### cloneVNode
+- 克隆节点
+```js
+function cloneVNode(vnode) {
+    const cloned = new VNode(
+            vnode.tag, 
+            vnode.data,
+            vnode.children && vnode.children.slice(),
+            vnode.text,
+            vnode.elm,
+            vnode.context,
+            vnode.componentOptions,
+            vnode.asyncFactory
+    )
+    cloned.ns = vnode.ns
+    cloned.isStatic = vnode.isStatic
+    cloned.key = vnode.key
+    cloned.isComment = vnode.isComment
+    cloned.fnContext = vnode.fnContext
+    cloned.fnOptions = vnode.fnOptions
+    cloned.fnScopeId = vnode.fnScpoeId
+    cloned.asyncMeta = vnode.asyncMeta
+    cloned.isCloned = true
+    
+    return cloned
 }
 ```
 

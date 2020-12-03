@@ -19,8 +19,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="727">
-              <caret line="138" column="18" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="18" />
+            <state relative-caret-position="294">
+              <caret line="102" column="17" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/js/Object.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="299">
+                <caret line="241" column="81" selection-start-line="241" selection-start-column="81" selection-end-line="241" selection-end-column="81" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -29,10 +41,15 @@
         <entry file="file://$PROJECT_DIR$/src/pages/frame/vueSource.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="525">
-                <caret line="1357" column="18" lean-forward="true" selection-start-line="1357" selection-start-column="18" selection-end-line="1357" selection-end-column="18" />
+              <first_editor relative-caret-position="290">
+                <caret line="1189" column="56" selection-start-line="1189" selection-start-column="56" selection-end-line="1189" selection-end-column="56" />
                 <folding>
-                  <element signature="e#0#30#0" expanded="true" />
+                  <element signature="e#60#92#0" expanded="true" />
+                  <element signature="e#46#74#0" expanded="true" />
+                  <element signature="e#0#125#0" expanded="true" />
+                  <element signature="n#!!doc" expanded="true" />
+                  <element signature="n#!!doc" expanded="true" />
+                  <element signature="n#!!doc" expanded="true" />
                   <element signature="n#!!doc" expanded="true" />
                 </folding>
               </first_editor>
@@ -45,8 +62,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/frame/vueTopic.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="663">
-                <caret line="38" selection-start-line="38" selection-end-line="38" selection-end-column="51" />
+              <first_editor relative-caret-position="408">
+                <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
               </first_editor>
               <second_editor />
             </state>
@@ -183,7 +200,14 @@
               <item name="Blog" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="tool" type="462c0819:PsiDirectoryNode" />
+              <item name="frame" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Blog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Blog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -260,13 +284,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="429774000" />
+    <option name="totallyTimeSpent" value="431863000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3170" y="0" width="1710" height="1440" extended-state="0" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12374186" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10186859" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -749,8 +773,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="727">
-          <caret line="138" column="18" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="18" />
+        <state relative-caret-position="294">
+          <caret line="102" column="17" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -777,8 +801,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/frame/vueTopic.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="663">
-            <caret line="38" selection-start-line="38" selection-end-line="38" selection-end-column="51" />
+          <first_editor relative-caret-position="408">
+            <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
           </first_editor>
           <second_editor />
         </state>
@@ -787,10 +811,15 @@
     <entry file="file://$PROJECT_DIR$/src/pages/frame/vueSource.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="525">
-            <caret line="1357" column="18" lean-forward="true" selection-start-line="1357" selection-start-column="18" selection-end-line="1357" selection-end-column="18" />
+          <first_editor relative-caret-position="290">
+            <caret line="1189" column="56" selection-start-line="1189" selection-start-column="56" selection-end-line="1189" selection-end-column="56" />
             <folding>
-              <element signature="e#0#30#0" expanded="true" />
+              <element signature="e#60#92#0" expanded="true" />
+              <element signature="e#46#74#0" expanded="true" />
+              <element signature="e#0#125#0" expanded="true" />
+              <element signature="n#!!doc" expanded="true" />
+              <element signature="n#!!doc" expanded="true" />
+              <element signature="n#!!doc" expanded="true" />
               <element signature="n#!!doc" expanded="true" />
             </folding>
           </first_editor>
