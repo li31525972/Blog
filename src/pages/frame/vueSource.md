@@ -1226,7 +1226,7 @@ export default class VNode {
 /*
 * 创建一个注释节点
 * 从内部的操作可以看出 text 对应的就是文本内容 
-* isComment 固定值 true
+* isComment 固定值 true 
 * */ 
 const createEmptyVNode = text => {
     const node = new VNode()
@@ -1505,6 +1505,14 @@ function isTextNode(node): boolean {
     * */
     return isDef(node) && isDef(node.text) && isFalse(node.isComment)
 }
+```
+
+## update
+- `_update`是实例的一个私有方法，调用的时机有两个，一个是首次渲染，一个是数据更新
+```js
+// 入口文件：src/core/instance/lifecycle.js
+
+
 ```
 
 

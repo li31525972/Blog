@@ -25,13 +25,14 @@ npm i webpack -D  安装最新稳定版
 npm i webpack@<version> -D  安装指定版本
 npm i webpack@bate -D  安装最新的体验版
 
-在项目根目录下对应的命令行里通过 `node_modules/.bin/webpack` 运行 webpack 的可执行文件
-
 ```
-
 ### 安装到全局
 ```markdown
 npm i webpack -g 
+
+最新插件
+npm i webpack-cli -g
+
 ```
 
 ### 使用webpack
@@ -43,6 +44,19 @@ const path = require('path')
 module.exports = {
     
 }
+```
+
+### 文件执行
+```
+在项目根目录下对应的命令行里通过 `node_modules/.bin/webpack` 运行 webpack 的可执行文件
+```
+
+### 命令执行
+- 在`Npm Script`里定义的任务会优先使用本项目下的`webpack`
+```
+    "scripts": {
+        "dev": "webpack --config webpack.config.js",
+    },
 ```
 
 
@@ -428,6 +442,10 @@ module.exports = {
 ```
 
 ## DevServer
+```
+需要安装
+npm i webpack-dev-server -D
+```
 ### hot
 - 默认情况下发现代码更新后通过自动刷新整个页面来实现实时预览，开启模块热替换功能后，将不再刷新整个页面的情况下通过新模块替换旧模块来做的实时预览
 ```js
