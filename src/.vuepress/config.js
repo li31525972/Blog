@@ -27,7 +27,7 @@ module.exports = {
             { text: '数据结构', link: '/pages/dataStructure/' },
             { text: '算法', link: '/pages/algorithm/' },
             { text: '服务', link: '/pages/server/Nginx' },
-            { text: '框架', link: '/pages/frame/' },
+            { text: 'Vue源码', link: '/pages/frame/' },
             { text: '架构', link: '/pages/framework/' },
             { text: '开发问题', link: '/pages/question/' },
         ],
@@ -92,12 +92,12 @@ module.exports = {
             //     ]
             // }],
             '/pages/frame/': [{
-                title: '框架',
+                title: 'Vue系列源码',
                 path: '/pages/frame/',
                 collapsable: false,
                 children: [
                     '',
-                    'vue',
+                    'firstInit',
                     'vueSource',
                     'vueTopic',
                 ]
