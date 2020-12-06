@@ -17,7 +17,6 @@ function Vue (options) {
 }
 ```
 
-## _init
 ```js
 Vue.prototype._init = function (options) {
         // 将当前实例缓存到 vm 上面
@@ -45,7 +44,10 @@ Vue.prototype._init = function (options) {
         if (options && options._isComponent) {
             initInternalComponent(vm, options)
         } else {
-            // 初始化 options 合并
+            /*
+            * 初始化 options 合并父组件和子组件的options
+            * 策略为: 优先使用父组件的，具体源码看下发
+            * */ 
             vm.$options = mergeOptions(
                     resolveConstructorOptions(vm.constructor),
                     options || {},
@@ -58,7 +60,7 @@ Vue.prototype._init = function (options) {
         } else {
             vm._renderProxy = vm
         }
-        // expose real self
+        // 缓存当前实例到 _self 上面
         vm._self = vm
         initLifecycle(vm) // 初始化生命周期
         initEvents(vm) // 初始化事件中心
@@ -83,7 +85,7 @@ Vue.prototype._init = function (options) {
     }
 ```
 
-### resolveConstructorOptions
+## resolveConstructorOptions
 ```js
 /*
 * Ctor Vue
@@ -115,7 +117,7 @@ function resolveConstructorOptions(Ctor) {
 }
 ```
 
-### mergeOptions
+## mergeOptions
 ```js
 function mergeOptions(parent, child, vm) {
     // check 组件 名称是否符合规则
@@ -127,15 +129,14 @@ function mergeOptions(parent, child, vm) {
     if (typeof child === 'function') {
         child = child.options
     }
-    
+    // 抹平`props`的异常，如：`props`里边定义了两个相同的`key`之类的，将值放在 `child.props` 上面
     normalizeProps(child, vm)
+    // 抹平`inject`的异常
     normalizeInject(child, vm)
+    // 初始化指令
     normalizeDirectives(child)
     
-    // Apply extends and mixins on the child options,
-    // but only if it is a raw options object that isn't
-    // the result of another mergeOptions call.
-    // Only merged options has the _base property.
+    // 首次加载跳过
     if (!child._base) {
         if (child.extends) {
             parent = mergeOptions(parent, child.extends, vm)
@@ -149,25 +150,38 @@ function mergeOptions(parent, child, vm) {
     
     const options = {}
     let key
+    // 合并父组件options上的字段
     for (key in parent) {
         mergeField(key)
     }
+    // 合并子组件上面在父组件上面不存在的字段
     for (key in child) {
         if (!hasOwn(parent, key)) {
             mergeField(key)
         }
     }
     
+    var strats = config.optionMergeStrategies // optionMergeStrategies: Object.create(null)
+    // 合并字段 当前实例上存在用当前的否则用父组件的
     function mergeField(key) {
         const strat = strats[key] || defaultStrat
         options[key] = strat(parent[key], child[key], vm, key)
     }
-    
+    // 将合并后的 options 返回
     return options
 }
 ```
+#### defaultStrat
+- 当前实例上存在用当前的否则用父组件的
+```js
+var defaultStrat = function (parentVal, childVal) {
+    return childVal === undefined
+           ? parentVal
+           : childVal
+};
+```
 
-#### checkComponents
+### checkComponents
 ```js
 function checkComponents(options) {
     for (const key in options.components) {
@@ -194,7 +208,9 @@ function validateComponentName(name) {
 }
 ```
 
-#### normalizeProps
+### normalizeProps
+- 处理`props`的异常，缓存等，如：`props`里边定义了两个相同的`key`之类的
+- 最后挂载到`options.props`上面
 ```js
 function normalizeProps(options, vm) {
     // 获取 props 如果不存在直接 return
@@ -204,6 +220,7 @@ function normalizeProps(options, vm) {
     
     const res = {}
     let i, val, name
+    // 数组
     if (Array.isArray(props)) {
         i = props.length
         while (i--) {
@@ -215,14 +232,23 @@ function normalizeProps(options, vm) {
                 warn('props must be strings when using array syntax.')
             }
         }
+        // 对象 - 首次进入这里
     } else if (isPlainObject(props)) {
         for (const key in props) {
             val = props[key]
+            // camelize 将'is-show'转为'isShow'
             name = camelize(key)
+            /*
+            * 将val 的值进行转换为对象 存储到 res 当中
+            * 
+            * 如果在props里面定义{ str: 'str' } 结果是什么呢？ 
+            * 结果是: str: {type: "str"}
+            * */ 
             res[name] = isPlainObject(val)
                     ? val
                     : { type: val }
         }
+        // 如果上面条件都不符合并且是开发环境，抛出错误信息：无效的props属性，需要一个数组或者对象
     } else if (process.env.NODE_ENV !== 'production') {
         warn(
                 `Invalid value for option "props": expected an Array or an Object, ` +
@@ -230,14 +256,131 @@ function normalizeProps(options, vm) {
                 vm
         )
     }
+    // 挂载到 options.props 上面
     options.props = res
 }
 ```
+#### isPlainObject
+```js
+function isPlainObject(obj) {
+    return _toString.call(obj) === '[object Object]'
+}
+```
 
+#### camelize
+```js
+function cached(fn) {
+    // 创建一个缓存对象
+    const cache = Object.create(null)
+    return (function cachedFn(str) {
+        const hit = cache[str]
+        return hit || (cache[str] = fn(str))
+    })
+}
 
+var camelizeRE = /-(\w)/g;
+var camelize = cached(function (str) {
+    return str.replace(camelizeRE, function (_, c) {
+        return c ? c.toUpperCase() : '';
+    })
+});
+```
 
+### normalizeInject
+- 抹平`inject`异常
+```js
+function normalizeInject(options, vm) {
+    // 首次加载 inject 是空 直接return 下边不用看
+    const inject = options.inject
+    if (!inject) {
+        return
+    }
+    const normalized = options.inject = {}
+    if (Array.isArray(inject)) {
+        for (let i = 0; i < inject.length; i++) {
+            normalized[inject[i]] = { from: inject[i] }
+        }
+    } else if (isPlainObject(inject)) {
+        for (const key in inject) {
+            const val = inject[key]
+            normalized[key] = isPlainObject(val)
+                              ? extend({ from: key }, val)
+                              : { from: val }
+        }
+    } else if (process.env.NODE_ENV !== 'production') {
+        warn(
+                `Invalid value for option "inject": expected an Array or an Object, ` +
+                `but got ${ toRawType(inject) }.`,
+                vm
+        )
+    }
+}
+```
+### normalizeDirectives
+- 初始化指令
+```js
+function normalizeDirectives(options) {
+    const dirs = options.directives
+    if (dirs) {
+        for (const key in dirs) {
+            const def = dirs[key]
+            if (typeof def === 'function') {
+                dirs[key] = { bind: def, update: def }
+            }
+        }
+    }
+}
+```
 
+## initProxy
+- 初始化`Proxy`
+```js
+// hasProxy 当前环境存在并且当前环境支持 isNative为判断原生支持属性的方法
+var hasProxy = typeof Proxy !== 'undefined' && isNative(Proxy);
+function isNative(Ctor) {
+    return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
+}
 
+function initProxy(vm) {
+        if (hasProxy) {
+            // 获取当前实例的 options
+            var options = vm.$options;
+            // 首次初始化时不存在 render(还没有initRender) handlers = hasHandler
+            var handlers = options.render && options.render._withStripped
+                           ? getHandler
+                           : hasHandler;
+            // 将当前实例代理到当前实例的 _renderProxy 上面
+            vm._renderProxy = new Proxy(vm, handlers);
+        } else {
+            // 否则将 _renderProxy 指向当前实例
+            vm._renderProxy = vm;
+        }
+    };
+```
+### hasHandler
+```js
+    const hasHandler = {
+        // 拦截 key in target 的操作，返回一个布尔值。
+        has(target, key) {
+            // 当前的 key 是否存在 目标对象 上
+            const has = key in target
+            /*
+            * 
+            * allowedGlobals 用来判断当前变量是否合法(是否是Vue内部保留关键字) 返回 Boolean 值
+            * isAllowed 是关键字 或者 key是字符串 并且 _ 开头 并且 在 $data 上面没有定义
+            * */
+            const isAllowed = allowedGlobals(key) || (typeof key === 'string' && key.charAt(0) === '_' && !(key in target.$data))
+            
+            if (!has && !isAllowed) {
+                // key 在 target.$data 存在抛出错误信息：当前的key 在渲染期间使用但是没有在 实例上面定义
+                if (key in target.$data) warnReservedPrefix(target, key)
+                // 否则抛出错误信息：key 不是在实例上面定义的，不是响应式的，请在实例当中定义
+                else warnNonPresent(target, key)
+            }
+            return has || !isAllowed
+        }
+    }
+```
 
 
 
