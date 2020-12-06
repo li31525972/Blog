@@ -71,63 +71,9 @@ export default Vue
 ## initMixin
 - 该方法文件加载的时候做的事情就比较简单了，就是为Vue的原型添加了`_init`方法，内部的代码不会执行
 ```js
-function initMixin(Vue: Class<Component>) {
-    Vue.prototype._init = function (options?: Object) {
-        const vm: Component = this
-        // a uid
-        vm._uid = uid++
+function initMixin(Vue) {
+    Vue.prototype._init = function (options) {
         
-        let startTag, endTag
-        /* istanbul ignore if */
-        if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
-            startTag = `vue-perf-start:${ vm._uid }`
-            endTag = `vue-perf-end:${ vm._uid }`
-            mark(startTag)
-        }
-        
-        // a flag to avoid this being observed
-        vm._isVue = true
-        // merge options
-        if (options && options._isComponent) {
-            // optimize internal component instantiation
-            // since dynamic options merging is pretty slow, and none of the
-            // internal component options needs special treatment.
-            initInternalComponent(vm, options)
-        } else {
-            vm.$options = mergeOptions(
-                    resolveConstructorOptions(vm.constructor),
-                    options || {},
-                    vm
-            )
-        }
-        /* istanbul ignore else */
-        if (process.env.NODE_ENV !== 'production') {
-            initProxy(vm)
-        } else {
-            vm._renderProxy = vm
-        }
-        // expose real self
-        vm._self = vm
-        initLifecycle(vm) // 初始化生命周期
-        initEvents(vm) // 初始化事件中心
-        initRender(vm) // 初始化render
-        callHook(vm, 'beforeCreate')
-        initInjections(vm) // resolve injections before data/props
-        initState(vm) // 初始化state
-        initProvide(vm) // resolve provide after data/props
-        callHook(vm, 'created')
-        
-        /* istanbul ignore if */
-        if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
-            vm._name = formatComponentName(vm, false)
-            mark(endTag)
-            measure(`vue ${ vm._name } init`, startTag, endTag)
-        }
-        // 判断是否传入el
-        if (vm.$options.el) {
-            // 使用$mount挂载el
-            vm.$mount(vm.$options.el)
-        }
     }
 }
 ```
@@ -135,7 +81,7 @@ function initMixin(Vue: Class<Component>) {
 ## stateMixin
 - 主要改写`Vue`原型上的`$data、$props`的`get、set`方法，定义了`$set、$delete、$watch`方法
 ```js
-export function stateMixin(Vue: Class<Component>) {
+export function stateMixin(Vue) {
     // 定义 dataDef 对象，改写 dataDef 对象的 get 方法，访问它就是访问 dataDef 的 _data 属性
     const dataDef = {}
     dataDef.get = function () {
@@ -172,12 +118,8 @@ export function stateMixin(Vue: Class<Component>) {
     Vue.prototype.$delete = del // 函数
     
     // 函数内部不用看
-    Vue.prototype.$watch = function (
-            expOrFn: string | Function,
-            cb: any,
-            options?: Object
-    ): Function {
-        const vm: Component = this
+    Vue.prototype.$watch = function ( expOrFn, cb, options) {
+        const vm = this
         if (isPlainObject(cb)) {
             return createWatcher(vm, expOrFn, cb, options)
         }
@@ -287,50 +229,117 @@ export function initGlobalAPI(Vue) {
     Vue.nextTick = nextTick
     
     // 2.6 explicit observable API
-    Vue.observable = <T>(obj: T): T => {
+    Vue.observable = (obj) => {
         observe(obj)
         return obj
     }
     
     Vue.options = Object.create(null)
+    // Vue options 添加 components filters directives 属性
     ASSET_TYPES.forEach(type => {
         Vue.options[type + 's'] = Object.create(null)
     })
     
-    // this is used to identify the "base" constructor to extend all plain-object
-    // components with in Weex's multi-instance scenarios.
+    // Vue 挂载到 options._base 上面
     Vue.options._base = Vue
     
+    // 将 keep-alive 组件添加到全局组件上
     extend(Vue.options.components, builtInComponents)
     
+    // 为`Vue`添加`use`方法，第三方插件注册
     initUse(Vue)
+    // 为 Vue 添加静态方法 mixin
     initMixin(Vue)
+    // 为`Vue`添加静态方法`extend`
     initExtend(Vue)
     initAssetRegisters(Vue)
+}
+
+function extend(to, _from) {
+    for (const key in _from) {
+        to[key] = _from[key]
+    }
+    return to
 }
 ```
 
 ### initUse
-- 为`Vue`添加`use`方法
+- 为`Vue`添加`use`方法，第三方插件注册
 ```js
 function initUse(Vue) {
     Vue.use = function (plugin) {
+        // 获取当前插件
         const installedPlugins = (this._installedPlugins || (this._installedPlugins = []))
+        // 插件中存在当前插件直接返回
         if (installedPlugins.indexOf(plugin) > -1) {
             return this
         }
         
-        // additional parameters
+        // 将插件的参数从伪数组转化为真数组
         const args = toArray(arguments, 1)
+        // 将Vue 存到 args 里
         args.unshift(this)
+        // 判断插件是否有 install 方法并且调用，将参数重新返回去，并且将 Vue 放在第一个参数
         if (typeof plugin.install === 'function') {
+            
             plugin.install.apply(plugin, args)
         } else if (typeof plugin === 'function') {
             plugin.apply(null, args)
         }
+        // 存储当前插件，return Vue
         installedPlugins.push(plugin)
         return this
     }
+}
+
+// 第一个参数是插件本身，所以不需要
+function toArray(list, start) {
+    start = start || 0
+    let i = list.length - start
+    const ret = new Array(i)
+    while (i--) {
+        ret[i] = list[i + start]
+    }
+    return ret
+}
+```
+
+### initMixin
+```js
+function initMixin(Vue) {
+    Vue.mixin = function (mixin) {
+        this.options = mergeOptions(this.options, mixin)
+        return this
+    }
+}
+```
+
+### initExtend
+- 为`Vue`添加静态方法`extend`
+```js
+export function initExtend(Vue) {
+    
+    Vue.cid = 0
+    let cid = 1
+
+    Vue.extend = function (extendOptions) {
+        
+    }
+}
+```
+
+### initAssetRegisters
+- 为`Vue`添加静态方法 `component、filter、directive` 
+```js
+export function initAssetRegisters(Vue) {
+    /**
+     * Create asset registration methods.
+     */
+    ASSET_TYPES.forEach(type => {
+        Vue[type] = function (id, definition) {
+            
+        }
+    })
 }
 ```
 

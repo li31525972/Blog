@@ -96,12 +96,11 @@ function resolveConstructorOptions(Ctor) {
         const superOptions = resolveConstructorOptions(Ctor.super)
         const cachedSuperOptions = Ctor.superOptions
         if (superOptions !== cachedSuperOptions) {
-            // super option changed,
-            // need to resolve new options.
+            
             Ctor.superOptions = superOptions
-            // check if there are any late-modified/attached options (#4976)
+            
             const modifiedOptions = resolveModifiedOptions(Ctor)
-            // update base extend options
+            
             if (modifiedOptions) {
                 extend(Ctor.extendOptions, modifiedOptions)
             }
@@ -119,10 +118,12 @@ function resolveConstructorOptions(Ctor) {
 ### mergeOptions
 ```js
 function mergeOptions(parent, child, vm) {
+    // check 组件 名称是否符合规则
     if (process.env.NODE_ENV !== 'production') {
         checkComponents(child)
     }
     
+    // 组件 - 不看
     if (typeof child === 'function') {
         child = child.options
     }
@@ -163,6 +164,73 @@ function mergeOptions(parent, child, vm) {
     }
     
     return options
+}
+```
+
+#### checkComponents
+```js
+function checkComponents(options) {
+    for (const key in options.components) {
+        validateComponentName(key)
+    }
+}
+
+/*
+* check 组件名称是否符合规则
+* */
+function validateComponentName(name) {
+    if (!new RegExp(`^[a-zA-Z][\\-\\.0-9_${ unicodeRegExp.source }]*$`).test(name)) {
+        warn(
+                'Invalid component name: "' + name + '". Component names ' +
+                'should conform to valid custom element name in html5 specification.'
+        )
+    }
+    if (isBuiltInTag(name) || config.isReservedTag(name)) {
+        warn(
+                'Do not use built-in or reserved HTML elements as component ' +
+                'id: ' + name
+        )
+    }
+}
+```
+
+#### normalizeProps
+```js
+function normalizeProps(options, vm) {
+    // 获取 props 如果不存在直接 return
+    const props = options.props
+    if (!props) return
+    
+    
+    const res = {}
+    let i, val, name
+    if (Array.isArray(props)) {
+        i = props.length
+        while (i--) {
+            val = props[i]
+            if (typeof val === 'string') {
+                name = camelize(val)
+                res[name] = { type: null }
+            } else if (process.env.NODE_ENV !== 'production') {
+                warn('props must be strings when using array syntax.')
+            }
+        }
+    } else if (isPlainObject(props)) {
+        for (const key in props) {
+            val = props[key]
+            name = camelize(key)
+            res[name] = isPlainObject(val)
+                    ? val
+                    : { type: val }
+        }
+    } else if (process.env.NODE_ENV !== 'production') {
+        warn(
+                `Invalid value for option "props": expected an Array or an Object, ` +
+                `but got ${ toRawType(props) }.`,
+                vm
+        )
+    }
+    options.props = res
 }
 ```
 
