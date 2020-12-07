@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="93" column="26" selection-start-line="93" selection-start-column="26" selection-end-line="93" selection-end-column="26" />
+            <state relative-caret-position="696">
+              <caret line="100" column="28" selection-start-line="100" selection-start-column="28" selection-end-line="100" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -30,8 +30,12 @@
         <entry file="file://$PROJECT_DIR$/src/pages/frame/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="-400">
-                <caret line="267" column="5" lean-forward="true" selection-start-line="267" selection-start-column="5" selection-end-line="267" selection-end-column="5" />
+              <first_editor relative-caret-position="650">
+                <caret line="389" selection-start-line="389" selection-end-line="407" selection-end-column="3" />
+                <folding>
+                  <element signature="n#!!doc" expanded="true" />
+                  <element signature="n#!!doc" expanded="true" />
+                </folding>
               </first_editor>
               <second_editor />
             </state>
@@ -39,13 +43,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/frame/merge.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="350">
+                <caret line="136" column="57" lean-forward="true" selection-start-line="136" selection-start-column="57" selection-end-line="136" selection-end-column="57" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/frame/firstInit.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="456">
-                <caret line="62" column="27" selection-start-line="62" selection-start-column="27" selection-end-line="62" selection-end-column="27" />
+              <first_editor relative-caret-position="940">
+                <caret line="87" selection-start-line="87" selection-end-line="88" selection-end-column="199" />
                 <folding>
-                  <element signature="n#!!doc" expanded="true" />
                   <element signature="n#!!doc" expanded="true" />
                 </folding>
               </first_editor>
@@ -85,7 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>###</find>
       <find>copyWithin</find>
       <find>find</find>
       <find>fill</find>
@@ -111,10 +125,11 @@
       <find>initProxy</find>
       <find>mergeOptions</find>
       <find>vm</find>
-      <find>resolveConstructorOptions</find>
       <find>warnNonPresent</find>
       <find>checkComponents</find>
+      <find>strats</find>
       <find>hasHandler</find>
+      <find>resolveConstructorOptions</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -123,7 +138,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/pages/css/CSS3.md" />
         <option value="$PROJECT_DIR$/src/pages/css/LESS.md" />
         <option value="$PROJECT_DIR$/src/pages/css/README.md" />
         <option value="$PROJECT_DIR$/src/pages/css/SCSS.md" />
@@ -174,6 +188,7 @@
         <option value="$PROJECT_DIR$/src/.vuepress/config.js" />
         <option value="$PROJECT_DIR$/src/pages/frame/README.md" />
         <option value="$PROJECT_DIR$/src/pages/frame/firstInit.md" />
+        <option value="$PROJECT_DIR$/src/pages/frame/merge.md" />
       </list>
     </option>
   </component>
@@ -296,10 +311,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="456179000" />
+    <option name="totallyTimeSpent" value="466340000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3170" y="0" width="1710" height="1440" extended-state="6" />
+    <frame x="3170" y="0" width="1710" height="1440" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1195974" />
@@ -326,16 +341,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/pages/framework/ActualCombat.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="153">
-            <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/framework/BuildFlow.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -793,23 +798,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="93" column="26" selection-start-line="93" selection-start-column="26" selection-end-line="93" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/frame/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-400">
-            <caret line="267" column="5" lean-forward="true" selection-start-line="267" selection-start-column="5" selection-end-line="267" selection-end-column="5" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/frame/vueSource.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
@@ -823,15 +811,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/frame/firstInit.md">
+    <entry file="file://$PROJECT_DIR$/src/.vuepress/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="100" column="28" selection-start-line="100" selection-start-column="28" selection-end-line="100" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/frame/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="456">
-            <caret line="62" column="27" selection-start-line="62" selection-start-column="27" selection-end-line="62" selection-end-column="27" />
+          <first_editor relative-caret-position="650">
+            <caret line="389" selection-start-line="389" selection-end-line="407" selection-end-column="3" />
             <folding>
               <element signature="n#!!doc" expanded="true" />
               <element signature="n#!!doc" expanded="true" />
             </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/frame/firstInit.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="940">
+            <caret line="87" selection-start-line="87" selection-end-line="88" selection-end-column="199" />
+            <folding>
+              <element signature="n#!!doc" expanded="true" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/frame/merge.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="350">
+            <caret line="136" column="57" lean-forward="true" selection-start-line="136" selection-start-column="57" selection-end-line="136" selection-end-column="57" />
           </first_editor>
           <second_editor />
         </state>

@@ -98,6 +98,7 @@ module.exports = {
                 children: [
                     '',
                     'firstInit',
+                    'merge',
                     'vueSource',
                     'vueTopic',
                 ]
@@ -133,7 +134,7 @@ module.exports = {
                     path: '/pages/tool/',
                     collapsable: false,
                     children: [
-                            '',
+                        '',
                         'Chrome',
                     ]
                 },
