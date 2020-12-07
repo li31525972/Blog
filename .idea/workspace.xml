@@ -46,8 +46,8 @@
         <entry file="file://$PROJECT_DIR$/src/pages/frame/merge.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="350">
-                <caret line="136" column="57" lean-forward="true" selection-start-line="136" selection-start-column="57" selection-end-line="136" selection-end-column="57" />
+              <first_editor relative-caret-position="763">
+                <caret line="113" column="127" selection-start-line="113" selection-start-column="127" selection-end-line="113" selection-end-column="127" />
               </first_editor>
               <second_editor />
             </state>
@@ -311,7 +311,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="466340000" />
+    <option name="totallyTimeSpent" value="466615000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3170" y="0" width="1710" height="1440" extended-state="0" />
@@ -848,8 +848,8 @@
     <entry file="file://$PROJECT_DIR$/src/pages/frame/merge.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="350">
-            <caret line="136" column="57" lean-forward="true" selection-start-line="136" selection-start-column="57" selection-end-line="136" selection-end-column="57" />
+          <first_editor relative-caret-position="763">
+            <caret line="113" column="127" selection-start-line="113" selection-start-column="127" selection-end-line="113" selection-end-column="127" />
           </first_editor>
           <second_editor />
         </state>

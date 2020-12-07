@@ -111,11 +111,11 @@ const defaultStrat = function (parentVal, childVal) {
 
 - `defaultStrat`从命名定义可以看出来是一个默认策略，他的逻辑很简单，只要子选项不是`undefined`那么就使用子选项，否则就使用父选项
 
-<font color="red"><b>但是这里需要注意的是`starts.el`和`starts.propsData`只是在非生产环境进行定义了， 而在生产环境访问是`undefined`</b></font>
+<font color="red"><b>但是这里需要注意的是`starts.el`和`starts.propsData`只是在非生产环境进行定义了， 而在生产环境访问是`undefined`，在开发环境将直接使用默认策略函数`defaultStrat`</b></font>
 ```js
 const strat = strats[key] || defaultStrat
 ```
-- 在开发环境将直接使用默认策略函数`defaultStrat`
+- 
 
 ## starts.data
 - 下面来看`data`的合并策略，首先给`starts`策略对象上声明`data`策略函数，用来处理`data`选项
