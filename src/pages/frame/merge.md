@@ -201,36 +201,39 @@ export function mergeDataOrFn(parentVal: any, childVal: any, vm?: Component): ?F
 * options[key] 的值是这个返回的函数
 * */
 ```
+<font color="red"><b>总结：父选项和子选项都是返回一个函数</b></font>
 
 ### mergeData
 ```js
 function mergeData(to: Object, from: ?Object): Object {
+    // from 不存在直接返回 to
     if (!from) return to
     let key, toVal, fromVal
 
-    const keys = hasSymbol
-            ? Reflect.ownKeys(from)
-            : Object.keys(from)
+    // 浏览器支持 Symbol 和 Reflect.ownKeys 使用 Reflect.ownKeys 获取form的key数组，否则使用 Object.keys 获取 from 的key数组
+    const keys = hasSymbol ? Reflect.ownKeys(from) : Object.keys(from)
 
+    
     for (let i = 0; i < keys.length; i++) {
         key = keys[i]
         // in case the object is already observed...
         if (key === '__ob__') continue
         toVal = to[key]
         fromVal = from[key]
+        // 如果 key 在 to 上面不存在，则用 set 函数将 to 对象设置 key 的值为 fromVal
         if (!hasOwn(to, key)) {
             set(to, key, fromVal)
-        } else if (
-                toVal !== fromVal &&
-                isPlainObject(toVal) &&
-                isPlainObject(fromVal)
-        ) {
+            
+        //    如果子选项和父选项不一样又都是一个对象，则递归合并
+        } else if (toVal !== fromVal && isPlainObject(toVal) && isPlainObject(fromVal)) {
             mergeData(toVal, fromVal)
         }
     }
+    // 将合并后的子选项返回
     return to
 }
 ```
+
 
 ## 钩子函数合并策略
 ```js
@@ -285,7 +288,7 @@ function mergeHook(parentVal: ?Array<Function>, childVal: ?Function | ?Array<Fun
             *   res = parentVal
             * }
             * 
-            * childVal 存在并且 parentVal 存在 返回合并后的配置项
+            * childVal 存在并且 parentVal 存在 将childVal 和 parentVal 合并为一个数组
             * childVal 存在并且 parentVal 不存在 将 childVal 转化为数组返回
             * childVal 不存在 返回 parentVal
             * childVal 不存在 并且 parentVal 不存在 返回 undefined
@@ -306,6 +309,7 @@ function dedupeHooks(hooks) {
     return res
 }
 ```
+<font color="red"><b>总结：将父选项和子选项合并为一个数组，数组内相同的选项使用父选项的，比如：在使用混入的时候，如果父组件存在就用父组件的</b></font>
 
 ## 全局(指令、过滤器、组件)合并
 ```js
@@ -358,6 +362,7 @@ function extend(to: Object, _from: ?Object): Object {
     return to
 }
 ```
+<font color="red"><b>总结：`components firectives filters`是以父选项为原型创建一个对象，将子选项合并到这个对象上，这样就既可以访问子选项，又能访问父选项</b></font>
 
 ## watch 合并
 ```js
@@ -372,32 +377,72 @@ strats.watch = function (parentVal: ?Object, childVal: ?Object, vm?: Component, 
     // 以parentVal为原型创建一个对象，火狐环境或者childVal不存在直接返回
     if (!childVal) return Object.create(parentVal || null)
     
+    // 非生产环境下check childVal上面有没有key这个属性 没有抛出错误信息：无效的选项 key, 需要一个对象 
     if (process.env.NODE_ENV !== 'production') {
         assertObjectType(key, childVal, vm)
     }
+    
     if (!parentVal) return childVal
+    // 将 parentVal 上的属性合并到 ret 上
     const ret = {}
     extend(ret, parentVal)
+    
+    //遍历子选项
     for (const key in childVal) {
+        // 获取缓存对象中是否有当前key的值
         let parent = ret[key]
+        // 获取子选项的值
         const child = childVal[key]
+        // 如果 parent 存在并且不是数组，转化为数组
         if (parent && !Array.isArray(parent)) {
             parent = [parent]
         }
+        // 将当前项和父选项进行合并为一个数组
         ret[key] = parent ? parent.concat(child) : Array.isArray(child) ? child : [child]
     }
+    // 将合并后的配置项返回
     return ret
 }
 ```
+<font color="red"><b>总结：`watch`合并是将父选项和子选项合并为一个数组</b></font>
 
 
+## props methods inject computed
+```js
+strats.props = strats.methods = strats.inject = strats.computed = 
+    function (parentVal, childVal, vm, key) {
+        // 开发环境判断子选项是不是Object类型
+        if (childVal && process.env.NODE_ENV !== 'production') {
+            assertObjectType(key, childVal, vm)
+        }
+        // 父选项不存在直接返回子选项，下面无需再执行
+        if (!parentVal) {
+            return childVal
+        }
+        // 将父选项和子选项合并到一个对象里并返回
+        const ret = Object.create(null)
+        extend(ret, parentVal)
+        if (childVal) {
+            extend(ret, childVal)
+        }
+        return ret
+}
+```
+<font color="red"><b>总结：`props methods inject computed`使用相同的合并策略，同名都是使用子选项的</b></font>
 
+## provide
+```js
+strats.provide = mergeDataOrFn
+// mergeDataOrFn ？有没有熟悉的感觉，这不是和 data 一样的策略合并函数吗？
+/*
+* strats.data = function(){
+*   return mergeDataOrFn()
+* }
+* 而 provide 是直接使用 mergeDataOrFn
+* */
 
-
-
-
-
-
+```
+<font color="red"><b>总结：`provide`使用的是和`data`一样的合并策略</b></font>
 
 
 <style>

@@ -99,6 +99,7 @@ module.exports = {
                     '',
                     'firstInit',
                     'merge',
+                    'init',
                     'vueSource',
                     'vueTopic',
                 ]
