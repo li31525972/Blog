@@ -94,7 +94,9 @@ function remove(event, fn) {
 function updateListeners(on, oldOn, add, remove, createOnceHandler, vm) {
     let name, def, cur, old, event
     for (name in on) {
+        // 获取当前事件
         def = cur = on[name]
+        // 获取旧事件
         old = oldOn[name]
         event = normalizeEvent(name)
         
@@ -110,11 +112,15 @@ function updateListeners(on, oldOn, add, remove, createOnceHandler, vm) {
                     `Invalid handler for event "${ event.name }": got ` + String(cur),
                     vm
             )
+            // 上次事件不存在
         } else if (isUndef(old)) {
+            // 当前事件的 fns 不存在 不存在声明一个函数
             if (isUndef(cur.fns)) {
                 cur = on[name] = createFnInvoker(cur, vm)
             }
+            // 判断当前事件名是不是 ~ 开头
             if (isTrue(event.once)) {
+                // 如果是
                 cur = on[name] = createOnceHandler(event.name, cur, event.capture)
             }
             add(event.name, cur, event.capture, event.passive, event.params)
@@ -127,6 +133,50 @@ function updateListeners(on, oldOn, add, remove, createOnceHandler, vm) {
         if (isUndef(on[name])) {
             event = normalizeEvent(name)
             remove(event.name, oldOn[name], event.capture)
+        }
+    }
+}
+
+// cached 在页面加载期间调用，调用 normalizeEvent 相当于调用 cachedFn
+const normalizeEvent = cached((name) => {
+    // 判断第一个字符是不是 & 去掉该符号
+    const passive = name.charAt(0) === '&'
+    name = passive ? name.slice(1) : name
+
+    // 判断第一个字符是不是 ~ 去掉该符号
+    const once = name.charAt(0) === '~' // Prefixed last, checked first
+    name = once ? name.slice(1) : name
+
+    // 判断第一个字符是不是 ! 去掉该符号
+    const capture = name.charAt(0) === '!'
+    name = capture ? name.slice(1) : name
+
+    // 返回处理后的结果
+    return {
+        name,
+        once,
+        capture,
+        passive
+    }
+})
+
+// 缓存事件对象
+function cached(fn) {
+    // 创建一个空对象，return 一个函数
+    const cache = Object.create(null)
+    return (function cachedFn(str) {
+        const hit = cache[str]
+        return hit || (cache[str] = fn(str))
+    })
+}
+
+function createOnceHandler(event, fn) {
+    // target 是当前实例vm， 在 updateComponentListeners 里边被定义
+    const _target = target
+    return function onceHandler() {
+        const res = fn.apply(null, arguments)
+        if (res !== null) {
+            _target.$off(event, onceHandler)
         }
     }
 }
