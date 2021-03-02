@@ -299,10 +299,175 @@ let Per = {
     console.log(Object.keys(person1)) // ["name"]
 ```
 
+## 类属性
+### 私有属性
+- 私有属性和私有方法只有在类的内部才可以访问
+```js
+function Shape() {
+    var name = 'Shape'
+    var getName = function() {
+        console.log(name) // 'Shape'
+    }
+    getName()
+}
+var shape = new Shape()
+console.log(shape.name, shape.getName()) // 'undefined' 'Error'
+```
+### 公有属性
+- 公有属性和公有方法可以在类的内部使用，也可以通过实例化对象使用
+```js
+function Shape() {
+    this.name = 'Shape'
+    this.getName = function() {
+        console.log(this.name)
+    }
+    this.getName()
+}
+var shape = new Shape()
+console.log(shape.name, shape.getName())
+```
+
+### Map类的实现
+```js
+function JMap() {
+    var list = {}
+    this.set = function(key, value) {
+        list[key] = value
+        return this
+    }
+    this.get = function(key) {
+        if (list[key]) {
+            return list[key]
+        }
+        return null
+    }
+    this.has = function(key) {
+        if (list[key]) {
+            return true
+        }
+        return false
+    }
+    this.remove = function(key) {
+        if (list[key]) {
+            delete list[key]
+            return true
+        }
+        return false
+    }
+    this.clear = function() {
+        list = {}
+        return this
+    }
+    this.forEach = function(fn) {
+        for (var key in list) {
+            fn(key, list[key])
+        }
+    }
+}
+var list = new JMap()
+list.set('1', [0, 1]).set('3', { name: '111' })
+list.forEach((key, value) => {
+    console.log(key, value)
+})
+```
+## 类方法
+### 静态属性、方法
+- 在构造函数本身上添加的属性或方法称之为静态属性和静态方法，只能通过构造函数去调用，不能通过实例调用
+```js
+function Person() {}
+Person.title = '1'
+Person.showTitle = function() {
+    console.log(this.title)
+}
+console.log(Person.title) // '1'
+Person.showTitle() // '1'
+
+var person = new Person()
+console.log(person.title) // 'undefined'
+person.showTitle() // 'Error'
+```
+### 实例属性、方法
+- 在构造函数中通过`this`添加的属性和方法，只能通过实例才能访问
+```js
+function Person() {
+    this.title = '2'
+    this.showTitle = function() {
+        console.log(this.title)
+    }
+}
+console.log(Person.title) // 'undefined'
+Person.showTitle() // 'Error'
+var person = new Person()
+console.log(person.title) // '2'
+person.showTitle() // '2'
+```
+### 原型属性、方法
+- 构造函数通过`prototype`定义在原型上面的属性和方法称之为原型属性、方法，原型属性和原型方法构造函数和实例都可以访问
+```js
+function Person() {}
+Person.prototype.title = '2'
+Person.prototype.showTitle = function() {
+    console.log(this.title)
+}
+console.log(Person.prototype.title) // '2'
+Person.prototype.showTitle() // '2'
+
+var person = new Person()
+console.log(person.title) // '2'
+person.showTitle() // '2'
+```
+
+## `{}`空类
+### 访问原型
+- 空类的原型可以通过`Object.getPrototypeOf()`访问，也可以通过`__proto__`访问
+```js
+var person = {}
+Object.getPrototypeOf(person).title = '1'
+person.__proto__.showTitle = function() {
+    console.log(this.title)
+}
+
+console.log(person.title) // '1'
+person.showTitle() // '1'
+```
 
 ## 继承和原型链
 ### 继承概念
 - 大多数语言的都支持两种继承方式：接口继承和实现继承，在 `ECMAScript` 因为没有函数签名，无法实现接口继承，只支持实现继承，而实现继承主要靠原型链来实现
+
+### 继承的简单案例
+```js
+function Person() {
+    this.title = '1'
+    this.showTitle = function() {
+        console.log(this.title)
+    }
+}
+function Student() {
+    this.level = 1
+    this.showLevel = function() {
+        console.log(this.level)
+    }
+}
+Student.prototype = new Person()
+// 修正 Student 构造函数的指向
+Student.prototype.constructor = Student
+
+var person = new Person()
+var student = new Student()
+
+person.constructor.prototype.hi = function() {
+    console.log('hi')
+}
+// 如果不修正指向 那么 student.constructor 将指向 Person
+student.constructor.prototype.show = function() {
+    console.log('show')
+}
+console.log(student.hi) // 'hi'
+console.log(student.show) // 'show'
+console.log(person.hi) // 'hi'
+console.log(person.show) // 'Error'
+```
 
 ### 组合继承
 - 最常用的继承方式

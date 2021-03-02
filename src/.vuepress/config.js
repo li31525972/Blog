@@ -63,7 +63,6 @@ module.exports = {
                         'DOM',
                         'Form',
                         'Error',
-                        'Class',
                         'JavaScript设计模式',
                     ]
                 }
