@@ -27,6 +27,7 @@ module.exports = {
             { text: '数据结构', link: '/pages/dataStructure/' },
             { text: '算法', link: '/pages/algorithm/' },
             { text: '服务', link: '/pages/server/Nginx' },
+            { text: 'git', link: '/pages/git/' },
             { text: 'Vue源码', link: '/pages/frame/' },
             { text: '架构', link: '/pages/framework/' },
             { text: '开发问题', link: '/pages/question/' },
@@ -184,6 +185,14 @@ module.exports = {
             '/pages/dataStructure/': [{
                 title: '数据结构',
                 path: '/pages/dataStructure/',
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }],
+            '/pages/git/': [{
+                title: 'git',
+                path: '/pages/git/',
                 collapsable: false,
                 children: [
                     ''
