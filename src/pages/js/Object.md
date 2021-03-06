@@ -468,7 +468,31 @@ console.log(student.show) // 'show'
 console.log(person.hi) // 'hi'
 console.log(person.show) // 'Error'
 ```
-
+### 继承封装
+```js
+function extend(subClass, supClass) {
+    var F = function() {}
+    F.prototype = supClass.prototype
+    
+    subClass.prototype = new F()
+    subClass.prototype.constructor = subClass
+    
+    subClass.supClass = supClass.prototype
+    if (supClass.prototype.constructor = Object.prototype.constructor) {
+        supClass.prototype.constructor = supClass
+    }
+}
+function Teacher(name, book) {
+    Teacher.supClass.constructor.call(this, name)
+    this.book = book
+    this.getName = function() {
+        return this.name
+    }
+}
+extend(Teacher, Person)
+var teacher = new Teacher('张三', '体育')
+teacher.getName()
+```
 ### 组合继承
 - 最常用的继承方式
 ```js
@@ -523,7 +547,7 @@ console.log(person.show) // 'Error'
 
 
 
-<style>
+1<style>
 #app .theme-default-content {
     max-width: 1200px;
 }

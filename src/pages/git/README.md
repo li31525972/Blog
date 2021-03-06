@@ -22,6 +22,9 @@ git add index.html
 
 将当前目录及子目录添加到版本库中
 git add .
+
+选择性添加(交互界面操作输入7退出)
+git add -i
 ```
 
 ### 撤销修改
@@ -44,6 +47,9 @@ git rm --cached file
 
 从暂存区删除文件，工作区不受影响(取消暂存，相当于 git add file 的反操作)
 git reset file
+
+将所有文件从暂存区撤出
+git reset
 ```
 ### 以暂存区替换当前工作区
 - 会清除工作区中未添加到暂存区的改动
@@ -66,7 +72,7 @@ git commit -m "提交说明"
 git reset --soft HEAD^
 
 彻底撤销最近的提交，引用回退到前一次，工作区和暂存区回退到上一次提交的状态，自上一次以来的提交全部丢失
-git reset --hard HEAD^
+git reset --hard HEAD^ 或者 git reset --hard 版本号
 ```
 
 ## 文件追踪
@@ -109,7 +115,7 @@ git stash pop
 显示提交日志(可查看提交ID、作者、时间、备注)
 git log
 
-仅查看提交版本号和提交备注
+仅查看提交版本号和提交备注(git log --oneline)只显示版本号前几位
 git log --pretty=oneline
 
 以图表形式查看日志

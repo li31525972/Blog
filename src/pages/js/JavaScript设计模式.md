@@ -49,8 +49,51 @@ console.log(message)
 
 
 ### 工厂方法模式
+```js
+function Message() {
+    if (!(this instanceof Message)) {
+        return new Message()
+    }
+}
+Message.prototype = {
+    Alert: function() {
+        console.log('Alert')
+    },
+    confirm: function() {
+        console.log('confirm')
+    }
+}
+
+var demo = new Demo()
+demo.alert()
+```
 
 ### 抽象工厂模式
+```js
+function Message(subClass, supType) {
+    if (typeof Message[supType] === 'function') {
+        var F = function() {}
+        F.prototype = new Message[supType]()
+        subClass.prototype = new F()
+        subClass.constructor = subClass
+    } else {
+        throw new Error('未创建该抽象类')
+    }
+}
+Message.alert = function() {}
+Message.alert.prototype = {
+    show: function() {
+         throw new Error('抽象方法不能调用！')
+    },
+    hidden: function() {
+         throw new Error('抽象方法不能调用！')
+    }
+}
+function alert() {}
+Message(alert, 'alert')
+var alert1 = new alert()
+alert1.show()
+```
 
 ### 建造者模式
 
