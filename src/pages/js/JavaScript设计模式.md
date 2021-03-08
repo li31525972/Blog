@@ -100,6 +100,60 @@ alert1.show()
 ### 原型模式
 
 ### 单例模式
+- 保证一个类仅有一个实例，并提供一个全局的访问点(在下一次获取该类的实例的时候，直接返回之前创建的对象)
+#### 简单的单例模式
+```js
+// 这种简单的单例可以定义命名空间、管理代码库的各个模块
+var element = {
+    utils: {
+        method1: function() {},
+        method2: function() {}
+    },
+    ajax: {
+        get: function() {},
+        post: function() {}
+    }
+}
+// 那么我们想用公共的方法、ajax时候就是这样：
+element.utils.method1()
+element.ajax.get()
+```
+#### 单例模式-闭包
+```js
+// 在es6之前管理常量最长用的方法，因为没有给予赋值变量的方法，只提供了获取变量的方法，从而实现常量的需求
+var Config = (function() {
+  var conf = {
+      name: '小明',
+      role: 'admin'
+  }
+  return {
+      // 取值方法
+      get(name) {
+          return conf[name]
+      }
+  }
+})()
+Config.get('name')
+```
+#### 惰性单例
+```js
+var Config = (function() {
+  var instance = null
+  function init() {
+      return {
+          name: '小明',
+          role: 'admin'
+      }
+  }
+  return function() {
+    if (!instance) {
+         instance = init()
+    }
+    return instance
+  }
+})()
+console.log(Config().name)
+```
 
 ## 结构性设计模式
 

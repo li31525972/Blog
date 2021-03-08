@@ -78,11 +78,11 @@ git reset --hard HEAD^ 或者 git reset --hard 版本号
 ## 文件追踪
 ### 取消追踪
 ```
-git update-index --assume-changed index.html
+git update-index --assume-unchanged index.html
 ```
 ### 恢复追踪
 ```
-git update-index --no-assume-changed index.html
+git update-index --no-assume-unchanged index.html
 ```
 
 
