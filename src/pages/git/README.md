@@ -12,6 +12,31 @@
 ```
 brew install git
 ```
+## 初始化
+### 无项目
+```
+git init
+```
+### 有项目
+```
+git init project
+```
+## 配置文件
+### 设置
+- `--local` 对某个仓库有效
+- `--global` 对当前用户所有仓库有效
+- `--system` 对系统所有的登录用户有效
+```
+git config --global user.name '李亚辉'
+git config --global user.email '31525972@qq.com'
+```
+### 查看
+```
+git config --list --global
+git config --list --local
+git config --list --system
+```
+
 ## 暂存区
 
 ### 提交变更到暂存区
@@ -19,6 +44,9 @@ brew install git
 ```
 提交单文件
 git add index.html
+
+将git已经添加到版本控制的文件全部提交到暂存区
+git add -u
 
 将当前目录及子目录添加到版本库中
 git add .
@@ -66,16 +94,21 @@ git checkout .
 ```
 git commit -m "提交说明"
 ```
+### 修改提交信息
+```
+最近一次
+git commit --amend
+
+历史变更
+
+```
 ### 撤销最新的提交
 ```
 工作区和暂存区不改变，引用向前回退一次，撤销最新的提交以便重新提交 HEAD^ = HEAD~1
 git reset --soft HEAD^
-
-彻底撤销最近的提交，引用回退到前一次，工作区和暂存区回退到上一次提交的状态，自上一次以来的提交全部丢失
-git reset --hard HEAD^ 或者 git reset --hard 版本号
 ```
 
-## 文件追踪
+## 文件
 ### 取消追踪
 ```
 git update-index --assume-unchanged index.html
@@ -85,6 +118,11 @@ git update-index --assume-unchanged index.html
 git update-index --no-assume-unchanged index.html
 ```
 
+### 文件重命名
+```
+将 index.html 重命名为 index.js
+git mv index.html index.js
+```
 
 
 
@@ -111,8 +149,12 @@ git stash pop
 
 ## 日志
 ### 查看日志
+- `--oneline` 简洁形式查看
+- `-n` 查看最近几次提交(-4或者, 查看最近4次)
+- `--all` 查看所有分支的历史记录
+- `--graph` 关系型查看(图表形式)
 ```
-显示提交日志(可查看提交ID、作者、时间、备注)
+显示当前分支提交日志(可查看提交ID、作者、时间、备注)
 git log
 
 仅查看提交版本号和提交备注(git log --oneline)只显示版本号前几位
@@ -147,6 +189,10 @@ git diff HEAD
 ```
 git diff --cached
 ```
+### 历史版本之间的变更对比
+```
+git diff fde1b588c28 71e743dc0fb3
+```
 
 ## 重置与回溯
 ### 替换当前暂存区
@@ -163,6 +209,11 @@ git checkout HEAD file
 全部替换
 git checkout HEAD .
 ```
+### 回溯到某个历史版本
+```
+彻底撤销最近的提交，引用回退到前一次，工作区和暂存区回退到上一次提交的状态，自上一次以来的提交全部丢失
+git reset --hard HEAD^ 或者 git reset --hard 版本号
+```
 
 
 ## 分支
@@ -175,6 +226,9 @@ git branch test
 
 以当前分支为基础创建新分支并切换到新分支
 git checkout -b test
+
+以对应的版本号为基础创建分支并切换过去
+git checkout -b test 9a5f185
 ```
 
 ### 查看分支
