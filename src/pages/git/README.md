@@ -79,6 +79,19 @@ git reset file
 将所有文件从暂存区撤出
 git reset
 ```
+### 以当前工作分支替换暂存区
+- 拉取最近一次提交到版本库的文件到暂存区，不影响工作区
+```
+全部文件
+git reset HEAD
+
+指定文件
+git reset HEAD -- index.html
+
+指定多个文件
+git reset HEAD -- index.html test.html
+```
+
 ### 以暂存区替换当前工作区
 - 会清除工作区中未添加到暂存区的改动
 ```
@@ -100,7 +113,7 @@ git commit -m "提交说明"
 git commit --amend
 
 历史变更
-
+git rebase -i (想要修改message的父版本号)
 ```
 ### 撤销最新的提交
 ```
@@ -123,6 +136,11 @@ git update-index --no-assume-unchanged index.html
 将 index.html 重命名为 index.js
 git mv index.html index.js
 ```
+### 删除文件
+```
+将需要删除的文件添加到暂存区
+git rm index.html
+```
 
 
 
@@ -142,15 +160,18 @@ git stash list
 ### 恢复
 
 ```
-从最近保存的进度进行恢复
+从最近保存的进度进行恢复(不保存记录)
 git stash pop
+
+从最近保存的进度进行恢复(保留记录)
+git stash apply
 ```
 
 
 ## 日志
 ### 查看日志
 - `--oneline` 简洁形式查看
-- `-n` 查看最近几次提交(-4或者, 查看最近4次)
+- `-n` 查看最近几次提交(-4或者-n4, 查看最近4次)
 - `--all` 查看所有分支的历史记录
 - `--graph` 关系型查看(图表形式)
 ```
@@ -177,6 +198,7 @@ git log index.html
 ```
 
 ## 对比差异
+- `-- index.html` 加参数对比具体文件
 ### 工作区对比暂存区
 ```
 git diff
@@ -195,11 +217,6 @@ git diff fde1b588c28 71e743dc0fb3
 ```
 
 ## 重置与回溯
-### 替换当前暂存区
-```
-拉取最近一次提交到版本库的文件到暂存区，不影响工作区
-git reset HEAD
-```
 ### 以当前工作分支替换暂存区和工作区
 - 会清除暂存区和工作区未提交的改动
 ```
@@ -210,8 +227,9 @@ git checkout HEAD file
 git checkout HEAD .
 ```
 ### 回溯到某个历史版本
+- 会丢弃历史记录
 ```
-彻底撤销最近的提交，引用回退到前一次，工作区和暂存区回退到上一次提交的状态，自上一次以来的提交全部丢失
+彻底撤销最近的提交，引用回退到前一次，工作区和暂存区回退到上一次提交的状态，自上一次以来的提交全部丢失(慎用)
 git reset --hard HEAD^ 或者 git reset --hard 版本号
 ```
 
