@@ -196,6 +196,12 @@ git show 123dd5331b0efdf4cdac6c542e8f192028b117b8(提交ID可通过提交日志�
 查看指定目录、文件的日志
 git log index.html
 ```
+### 文件追溯
+- `-L`行数
+```
+逐行显示文件，在每一行的行首显示此行最早谁在哪个版本引入，由谁引入
+git blame fileName
+```
 
 ## 对比差异
 - `-- index.html` 加参数对比具体文件
