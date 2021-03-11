@@ -69,6 +69,7 @@ demo.alert()
 ```
 
 ### 抽象工厂模式
+- 当在大型应用当中，总有子类去继承父类，这些父类会定义一下方法，但是没有具体的实现，那么一旦用子类创建了一个对象，该对象总是应该具备一些必要的方法，如果这些必要的方法没有去重写实现，那么就会调用父类的方法，可以得到父类友好的提示
 ```js
 function Message(subClass, supType) {
     if (typeof Message[supType] === 'function') {
@@ -96,6 +97,29 @@ alert1.show()
 ```
 
 ### 建造者模式
+- 一般工厂方法追求的是创建的结果，而建造者模式不仅仅可以得到创建的结果，更参与了建造的过程
+```js
+function Human(name, sex) {
+	this.name = name
+	this.sex = sex || '保密'
+}
+Human.prototype = {
+	getName: function() {
+		return this.name
+	},
+	getSex: function() {
+		return this.sex
+	}
+}
+function Work() {}
+function Person(options) {
+	var _preson = new Human(options.name, options.sex)
+	_preson.work = new Work(options.work)
+	return _preson
+}
+let person = new Person({ name: 'xiao ming' })
+console.log(person)
+```
 
 ### 原型模式
 
@@ -158,7 +182,18 @@ console.log(Config().name)
 ## 结构性设计模式
 
 ### 外观模式
-
+- 为一组复杂的子系统接口提供一个统一的接口,是对接口方法的外层包装，以供上层代码调用
+```js
+function addEvent(element, type, fn) {
+    if (element.addEventListener) {
+        element.addEventListener(type, fn, false)
+    } else if (element.attachEvent) {
+        element.attachEvent('on'+ type, fn)
+    } else {
+        element[on + 'type'] = fn
+    }
+}
+```
 ### 适配器模式
 
 ### 代理模式
