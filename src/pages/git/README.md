@@ -257,6 +257,9 @@ git branch test
 以当前分支为基础创建新分支并切换到新分支
 git checkout -b test
 
+以远程remotes/origin/dev分支为基础创建新分支dev(会和远程分支建立映射关系)
+git checkout -b dev remotes/origin/dev
+
 以对应的版本号为基础创建分支并切换过去
 git checkout -b test 9a5f185
 ```
@@ -272,6 +275,11 @@ git branch -r
 
 查看所有分支
 git branch -a
+```
+
+### 关联远程分支
+```
+git branch --set-upstream-to=远程分支 本地分支
 ```
 
 ### 切换分支

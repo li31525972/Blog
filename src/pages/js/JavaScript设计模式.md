@@ -190,7 +190,7 @@ function addEvent(element, type, fn) {
     } else if (element.attachEvent) {
         element.attachEvent('on'+ type, fn)
     } else {
-        element[on + 'type'] = fn
+        element['on' + type] = fn
     }
 }
 ```
