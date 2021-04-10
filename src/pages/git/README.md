@@ -277,6 +277,11 @@ git branch -r
 git branch -a
 ```
 
+### 更新远程分支
+```
+git remote update origin --prune
+```
+
 ### 关联远程分支
 ```
 git branch --set-upstream-to=远程分支 本地分支

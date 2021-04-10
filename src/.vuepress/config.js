@@ -104,6 +104,7 @@ module.exports = {
                     'init',
                     'vueSource',
                     'vueTopic',
+                    'flowChart',
                 ]
             }],
             '/pages/node/': [{
