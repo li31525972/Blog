@@ -256,6 +256,8 @@ git branch test
 
 以当前分支为基础创建新分支并切换到新分支
 git checkout -b test
+将当前分支push到远程分支
+git push origin test
 
 以远程remotes/origin/dev分支为基础创建新分支dev(会和远程分支建立映射关系)
 git checkout -b dev remotes/origin/dev
@@ -310,7 +312,32 @@ git branch -d test
 ```
 
 
+## 标签
 
+### 创建tag
+```
+git tag -a version1.0.0 -m "提交信息"
+```
+### 切换到tag
+```
+git checkout version1.0.0
+```
+### 查看tag信息
+```
+git show version1.0.0
+```
+### 删除tag
+```
+git tag -d version1.0.0
+```
+### 提交tag
+```
+将tag提交到服务器
+git push origin version1.0.0
+
+将本地所有tag提交到服务器
+git push origin --tags
+```
 
 
 
