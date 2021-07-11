@@ -44,30 +44,28 @@ module.exports = {
                     'SCSS',
                 ]
             }],
-            '/pages/js/': [
-                {
-                    title: 'JS',
-                    path: '/pages/js/',
-                    collapsable: false,
-                    children: [
-                        '',
-                        'Object',
-                        'Array',
-                        'ObjectMethods',
-                        'Date',
-                        'Math',
-                        'Number',
-                        'String',
-                        'RegExp',
-                        'Global',
-                        'BOM',
-                        'DOM',
-                        'Form',
-                        'Error',
-                        'JavaScript设计模式',
-                    ]
-                }
-            ],
+            '/pages/js/': [{
+                title: 'JS',
+                path: '/pages/js/',
+                collapsable: false,
+                children: [
+                    '',
+                    'Object',
+                    'Array',
+                    'ObjectMethods',
+                    'Date',
+                    'Math',
+                    'Number',
+                    'String',
+                    'RegExp',
+                    'Global',
+                    'BOM',
+                    'DOM',
+                    'Form',
+                    'Error',
+                    'JavaScript设计模式',
+                ]
+            }],
             '/pages/es6/': [{
                 title: 'ES6',
                 path: '/pages/es6/',
@@ -132,17 +130,15 @@ module.exports = {
                     ''
                 ]
             }],
-            '/pages/tool/': [
-                {
-                    title: '常用工具',
-                    path: '/pages/tool/',
-                    collapsable: false,
-                    children: [
-                        '',
-                        'Chrome',
-                    ]
-                },
-            ],
+            '/pages/tool/': [{
+                title: '常用工具',
+                path: '/pages/tool/',
+                collapsable: false,
+                children: [
+                    '',
+                    'Chrome',
+                ]
+            }, ],
             '/pages/optimize/': [{
                 title: '优化',
                 path: '/pages/optimize/',
