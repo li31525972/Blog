@@ -308,7 +308,14 @@ git merge test
 ### 删除分支
 
 ```
-git branch -d test
+-d 删除前检查合并状态，当上游分支没有合并该分支将不会删除
+-D 强制删除
+
+删除本地分支
+git branch -d 分支名
+
+删除远程分支
+git push origin -d 分支名
 ```
 
 
