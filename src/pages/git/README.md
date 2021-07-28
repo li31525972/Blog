@@ -177,6 +177,10 @@ git stash apply
 ```
 显示当前分支提交日志(可查看提交ID、作者、时间、备注)
 git log
+查看最近两次提交日志
+git log -2
+查看最近两次提交的变更详情
+git log -p -2
 
 仅查看提交版本号和提交备注(git log --oneline)只显示版本号前几位
 git log --pretty=oneline
@@ -186,6 +190,17 @@ git log --graph
 
 显示每次提交的文件变更统计(显示每次变更都提交了哪些文件)
 git log --stat
+显示最近两次提交的文件变更统计
+git log --stat -2
+查看最近两次提交的文件变更详情
+git log --stat -p -2
+
+查看用户为 l 提交的文件变更
+git log --stat --author=l
+查看用户为 l 最近两次提交的文件变更
+git log --stat -2 --author=l
+查看用户为 l 最近两次提交的文件变更详情
+git log --stat -p -2 --author=l
 
 查看最近一次提交详情(文件内部变更内容)
 git show
@@ -201,6 +216,7 @@ git log index.html
 ```
 逐行显示文件，在每一行的行首显示此行最早谁在哪个版本引入，由谁引入
 git blame fileName
+
 ```
 
 ## 对比差异
