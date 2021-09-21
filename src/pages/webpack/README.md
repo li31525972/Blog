@@ -1,4 +1,4 @@
-# webpack
+# 文档
 ## webpack的简介概念
 
 ### webpack的特点
@@ -25,6 +25,8 @@ npm i webpack -D  安装最新稳定版
 npm i webpack@<version> -D  安装指定版本
 npm i webpack@bate -D  安装最新的体验版
 
+// webpack 4+
+npm install webpack webpack-cli --save-dev
 ```
 ### 安装到全局
 ```markdown
@@ -45,7 +47,7 @@ module.exports = {
     
 }
 ```
-
+## webpack 打包
 ### 文件执行
 ```
 在项目根目录下对应的命令行里通过 `node_modules/.bin/webpack` 运行 webpack 的可执行文件
@@ -275,7 +277,9 @@ module: {
 }
 ```
 
-### 配置Loader
+### Loader
+
+#### 配置loader
 - 配置如何处理文件，看上面例子
 ```js
 // 多个参数的loader，可以通过一个Object来描述
@@ -308,6 +312,17 @@ use: [
         }
 ]
 ```
+
+#### 常用loader
+|   名称              |      描述      |
+|   ---             |       ---         |
+|   babel-loader    |       转换ES6、ES7等js新特性语法       |
+|   css-loader      |       支持.css文件的加载和解析          |
+|   less-loader     |       将less文件转换为css               |
+|   ts-loader       |       将ts转换为js                    |
+|   file-loader     |       进行图片、字体等的打包             |
+|   raw-loader      |       将文件以字符串的形式导入            |
+|   thread-loader   |       多进程打包js和css                 |
 
 
 ### noParse
@@ -440,6 +455,28 @@ module.exports = {
 }
 // 使用plugins的难点在于掌握Plugin本身提供的配置项，而不是如何在webpack中接入plugin
 ```
+
+### 常用的plugins
+|       名称          |           描述              |
+|       ---           |         ---                 |
+|   CommonsChunkPlugin  |       将chunks相同的模块代码提取成公共js       |
+|   CleanWebpackPlugin  |       清理构建目录          |
+|   ExtractTextWebpackPlugin    |       将css从js文件里提取成一个独立的css文件     |
+|   CopyWebpackPlugin           |       将文件或者文件夹拷贝到构建的输出目录          |
+|   HtmlWebpackPlugin           |       动态创建html文件              |
+|   UglifyjsWebpackPlugin       |       压缩js                        |
+|   ZipWebpackPlugin            |       将打包的资源压缩为一个zip包         |
+
+
+## 文件指纹
+### hash
+- 和整个项目的构建有关，只要项目文件有修改，整个项目构建的hash值就会更改
+
+### Chunkhash
+- 和webpack打包的chunk有关，不同的entry会生成不同的 chunkhash 值
+
+### Contenthash
+- 根据文件内容定义hash，文件内容不变，则 contenthash 不变
 
 ## DevServer
 ```

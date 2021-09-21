@@ -165,9 +165,10 @@ module.exports = {
             }],
             '/pages/webpack/': [{
                 title: 'webpack',
-                path: '/pages/webpack/',
+                path: '/pages/webpack/Case',
                 collapsable: false,
                 children: [
+                    'Case',
                     ''
                 ]
             }],

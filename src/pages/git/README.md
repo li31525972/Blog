@@ -37,6 +37,12 @@ git config --list --local
 git config --list --system
 ```
 
+## 远程仓库
+### 查看远程仓库地址
+```
+git remote -v
+```
+
 ## 暂存区
 
 ### 提交变更到暂存区
