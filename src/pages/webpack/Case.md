@@ -1,4 +1,6 @@
 # 使用案例
+- 案例使用`webpack`版本：`^5.53.0`
+- 案例使用`webpack-cli`版本：`^4.8.0`
 
 ## 入口
 ### 单入口
@@ -216,9 +218,11 @@ module.exports = {
 ## 文件监听
 ### 添加启动参数
 ```json
-"scripts": {
+{
+  "scripts": {
     "watch": "webpack --watch"
-  },
+  }
+}
 ```
 ### 配置文件开启
 ```javascript
@@ -237,9 +241,11 @@ module.exports = {
 
 ## 热更新
 ```json
-"scripts": {
+{
+  "scripts": {
     "dev": "webpack serve --open"
-  },
+  }
+}
 ```
 - `webpack.config.js`安装`html-webpack-plugin`
 ```javascript
@@ -278,10 +284,12 @@ module.exports = {
 
 - 添加指纹只在生产环境去看
 ```json
-"scripts": {
+{
+  "scripts": {
     "dev": "webpack serve --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   }
+}
 ```
 - `webpack.prod.js`
 ```javascript
@@ -575,5 +583,20 @@ module.exports = {
         new OptimizeCssAssetsWebpackPlugin(),
         new CleanWebpackPlugin()
     ]
+}
+```
+
+## 开启sourcemap
+```javascript
+"use strict";
+const path = require('path')
+module.exports = {
+    mode: 'production',
+    entry: 'src/index.js',
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: '[name]_[chunkhash:8].js'
+    },
+    devtool: 'source-map'
 }
 ```
