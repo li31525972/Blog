@@ -651,3 +651,52 @@ yarn add @babel/plugin-syntax-dynamic-import -D
   ]
 }
 ```
+
+## 使用eslint
+1. [eslint-config-airbnb npm地址](https://www.npmjs.com/package/eslint-config-airbnb)
+- 以下为`react`项目为示例
+- 安装插件
+```
+yarn add eslint eslint-loader babel-eslint eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y -D
+```
+- `webpack.config.js`内添加loader
+```javascript
+"use strict";
+const path = require('path')
+
+module.exports = {
+    mode: 'production',
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: '[name]_[chunkhash:8].js'
+    },
+    module: {
+        rules: [
+            // js文件添加eslint-loader
+            {test: /.js$/, use: ['babel-loader', 'eslint-loader']},
+        ]
+    },
+}
+```
+- 创建`.eslintrc.js`文件 [eslint 官网](http://eslint.cn/)
+```javascript
+'use strict'
+module.exports = {
+    // parser 解析器
+    'parser': 'babel-eslint',
+    /**
+     * extends 继承，如果是多个用 []
+     * airbnb 需要安装 eslint-config-airbnb
+     */
+    'extends': 'airbnb',
+    // env 生效的环境
+    'env': {
+        'browser': true,
+        'node': true
+    },
+    // 规则配置
+    'rules': {
+        'indent': ['error', 4]
+    }
+};
+```
