@@ -600,3 +600,54 @@ module.exports = {
     devtool: 'source-map'
 }
 ```
+
+## 提取页面公共资源
+- `webpack.prod.js`
+```javascript
+"use strict";
+module.exports = {
+    mode: 'production',
+    optimization: {
+        splitChunks: {
+            // 0代表引用模块的大小(只要引用就提取)
+            minSize: 0,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                    // minChunks 最少引用几次
+                    minChunks: 1,
+                    // priority 一个模块儿可以属于多个缓存组，优先考虑更高 priority 的组，默认值为0
+                    priority: -10
+                },
+                commons: {
+                    name: 'commons',
+                    chunks: 'all',
+                    minChunks: 2,
+                    priority: -11
+                }
+            }
+        }
+    }
+}
+```
+
+## 懒加载
+### js
+- 安装`@babel/plugin-syntax-dynamic-import`
+```
+yarn add @babel/plugin-syntax-dynamic-import -D
+```
+- `.babelrc`添加
+```
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import"
+  ]
+}
+```
