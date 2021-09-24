@@ -23,7 +23,7 @@ module.exports = {
             { text: '工具', link: '/pages/tool/' },
             { text: '优化', link: '/pages/optimize/' },
             { text: '安全', link: '/pages/security/' },
-            { text: 'webpack', link: '/pages/webpack/' },
+            { text: 'webpack', link: '/pages/webpack/Case' },
             { text: '数据结构', link: '/pages/dataStructure/' },
             { text: '算法', link: '/pages/algorithm/' },
             { text: '服务', link: '/pages/server/Nginx' },
@@ -169,6 +169,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     'Case',
+                    'components',
                     ''
                 ]
             }],

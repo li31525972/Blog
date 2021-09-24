@@ -600,3 +600,103 @@ module.exports = {
     devtool: 'source-map'
 }
 ```
+
+## 提取页面公共资源
+- `webpack.prod.js`
+```javascript
+"use strict";
+module.exports = {
+    mode: 'production',
+    optimization: {
+        splitChunks: {
+            // 0代表引用模块的大小(只要引用就提取)
+            minSize: 0,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                    // minChunks 最少引用几次
+                    minChunks: 1,
+                    // priority 一个模块儿可以属于多个缓存组，优先考虑更高 priority 的组，默认值为0
+                    priority: -10
+                },
+                commons: {
+                    name: 'commons',
+                    chunks: 'all',
+                    minChunks: 2,
+                    priority: -11
+                }
+            }
+        }
+    }
+}
+```
+
+## 懒加载
+### js
+- 安装`@babel/plugin-syntax-dynamic-import`
+```
+yarn add @babel/plugin-syntax-dynamic-import -D
+```
+- `.babelrc`添加
+```
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import"
+  ]
+}
+```
+
+## 使用eslint
+1. [eslint-config-airbnb npm地址](https://www.npmjs.com/package/eslint-config-airbnb)
+- 以下为`react`项目为示例
+- 安装插件
+```
+yarn add eslint eslint-loader babel-eslint eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y -D
+```
+- `webpack.config.js`内添加loader
+```javascript
+"use strict";
+const path = require('path')
+
+module.exports = {
+    mode: 'production',
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: '[name]_[chunkhash:8].js'
+    },
+    module: {
+        rules: [
+            // js文件添加eslint-loader
+            {test: /.js$/, use: ['babel-loader', 'eslint-loader']},
+        ]
+    },
+}
+```
+- 创建`.eslintrc.js`文件 [eslint 官网](http://eslint.cn/)
+```javascript
+'use strict'
+module.exports = {
+    // parser 解析器
+    'parser': 'babel-eslint',
+    /**
+     * extends 继承，如果是多个用 []
+     * airbnb 需要安装 eslint-config-airbnb
+     */
+    'extends': 'airbnb',
+    // env 生效的环境
+    'env': {
+        'browser': true,
+        'node': true
+    },
+    // 规则配置
+    'rules': {
+        'indent': ['error', 4]
+    }
+};
+```
