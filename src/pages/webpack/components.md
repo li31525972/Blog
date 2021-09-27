@@ -72,3 +72,14 @@ if (process.env.NODE_ENV == 'production') {
 }
 ```
 6. 现在就可以`npm publish`发布到`npm`上面了(前提：你要有npm账号)
+
+
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>

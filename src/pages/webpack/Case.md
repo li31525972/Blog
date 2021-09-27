@@ -680,23 +680,68 @@ module.exports = {
 ```
 - 创建`.eslintrc.js`文件 [eslint 官网](http://eslint.cn/)
 ```javascript
-'use strict'
+
 module.exports = {
     // parser 解析器
-    'parser': 'babel-eslint',
+    parser: 'babel-eslint',
     /**
      * extends 继承，如果是多个用 []
      * airbnb 需要安装 eslint-config-airbnb
      */
-    'extends': 'airbnb',
+    extends: 'airbnb',
     // env 生效的环境
-    'env': {
-        'browser': true,
-        'node': true
+    env: {
+        browser: true,
+        node: true
     },
     // 规则配置
-    'rules': {
-        'indent': ['error', 4]
+    rules: {
+        indent: [2, 4],
+        semi: [2, 'never'],
+        'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx'] }],
+        'react/prefer-stateless-function': 0,
+        'react/jsx-indent': 0
     }
 };
 ```
+## 优化构建信息
+### 构建日志
+- 安装[friendly-errors-webpack-plugin npm地址](https://www.npmjs.com/package/friendly-errors-webpack-plugin)
+```
+yarn add friendly-errors-webpack-plugin -D
+```
+- `webpack.config.js`
+```javascript
+
+const path = require('path')
+const webpack = require('webpack')
+
+module.exports = {
+    mode: 'development',
+    plugins: [
+        new friendlyErrorsWebpackPlugin({
+            compilationSuccessInfo: {
+                messages: [],
+                notes: []
+            }
+        })
+    ],
+    stats: 'errors-only'
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+<style>
+#app .theme-default-content {
+    max-width: 1200px;
+}
+</style>
