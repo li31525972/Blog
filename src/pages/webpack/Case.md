@@ -171,7 +171,20 @@ module.exports = {
     module: {
         rules: [
             // 解析图片
-            { test: /.(png|jpg|jpeg|gif)$/, use: 'file-loader' },
+            {
+                test: /.(png|jpeg|jpg|svg)$/,
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {
+                            // 输出路径
+                            outputPath: 'images',
+                            // 图片默认打包后在HTML中是：[Object Module]
+                            esModule: false
+                        }
+                    }
+                ]
+            },
             // 解析字体
             { test: /.(woff|woff2|eot|ttf|otf)$/, use: 'file-loader' }
         ]
