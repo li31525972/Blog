@@ -265,6 +265,9 @@ git checkout HEAD .
 ```
 彻底撤销最近的提交，引用回退到前一次，工作区和暂存区回退到上一次提交的状态，自上一次以来的提交全部丢失
 git reset --hard HEAD^ 或者 git reset --hard 版本号
+
+这时当前的HEAD指向比远程库的要旧，git push会报错，需要强制推上去
+git push -f
 ```
 
 
