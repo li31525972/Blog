@@ -380,7 +380,7 @@ module.exports = {
 }
 ```
 ### css
-- 安装`optimize-css-assets-webpack-plugin`(当前已被弃用)
+- 安装`optimize-css-assets-webpack-plugin`(webpack-5.0以下使用)
 ```
 yarn add optimize-css-assets-webpack-plugin
 ```
@@ -401,7 +401,31 @@ module.exports = {
         new OptimizeCssAssetsWebpackPlugin()
     ]
 }
+
 ```
+- 安装`css-minimizer-webpack-plugin`(webpack-5.0以上使用)
+```
+yarn add css-minimizer-webpack-plugin -D
+```
+- `webpack.prod.js`
+```javascript
+
+const webpack = require('webpack')
+// 压缩css
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
+const { merge } = require('webpack-merge')
+const baseConfig = require('./webpack.base')
+const config = {
+    mode: 'production',
+    plugins: [
+        new CssMinimizerPlugin()
+    ]
+}
+
+module.exports = merge(baseConfig, config)
+
+```
+
 ### js
 - `webpack.prod.js`中`mdoe`定义为`production`会自动开启`js`压缩
 
@@ -521,6 +545,45 @@ module.exports = {
     ]
 }
 ```
+### `postcss-px2rem-exclude`
+- 安装`postcss-px2rem-exclude lib-flexible`
+```
+yarn add postcss-px2rem-exclude -D
+yarn add lib-flexible -S
+```
+#### 使用方式
+方式1. 创建`.postcssrc.js`文件
+```javascript
+module.exports = {
+  plugins: {
+    'postcss-px2rem-exclude': {
+      remUnit: 37.5,
+      exclude: /node_modules/i
+    }
+  }
+}
+```
+
+方式2. `package.json`中添加
+```json
+{
+  "name": "xxx",
+  "version": "0.1.0",
+  "private": true,
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {},
+      "postcss-px2rem-exclude": {
+        "remUnit": 37.5,
+        "exclude": "/node_modules/i"
+      }
+    }
+  }
+}
+
+```
+
+
 - 入口文件`index.js`引入`lib-flexible`
 ```javascript
 import React from 'react'
