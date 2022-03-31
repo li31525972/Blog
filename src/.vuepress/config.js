@@ -20,6 +20,7 @@ module.exports = {
             { text: 'Node', link: '/pages/node/' },
             { text: '浏览器', link: '/pages/browser/' },
             { text: '网络', link: '/pages/network/' },
+            { text: 'Request', link: '/pages/request/' },
             { text: '工具', link: '/pages/tool/' },
             { text: '优化', link: '/pages/optimize/' },
             { text: '安全', link: '/pages/security/' },
@@ -128,6 +129,15 @@ module.exports = {
                 collapsable: false,
                 children: [
                     ''
+                ]
+            }],
+            '/pages/request/': [{
+                title: '网络',
+                path: '/pages/request/',
+                collapsable: false,
+                children: [
+                    '',
+                    'axios'
                 ]
             }],
             '/pages/tool/': [{

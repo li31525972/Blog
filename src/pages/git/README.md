@@ -127,6 +127,19 @@ git rebase -i (想要修改message的父版本号)
 git reset --soft HEAD^
 ```
 
+## tag标签
+### 创建标签
+```
+# git tag tagname
+git tag xxx-1.1.0
+```
+### 提交标签
+```
+# git push origin tagname
+git push origin xxx-1.1.0
+```
+
+
 ## 文件
 ### 取消追踪
 ```
